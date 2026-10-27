@@ -57,7 +57,6 @@ Answer: B
     }
 
     try {
-      // First try JSON parse
       if (raw.trim().startsWith('[') || raw.trim().startsWith('{')) {
         const clean = raw.replace(/```json|```/g, '').trim();
         const obj = JSON.parse(clean);
@@ -75,7 +74,6 @@ Answer: B
       }
     } catch {}
 
-    // Regex text parser for: 1. Question ... A) ... B) ... C) ... D) ... Answer: X
     const blocks = raw.split(/(?=(?:^|\n)\s*(?:\d+[\.\)]|Question\s+\d+[:\.]))/i).filter(b => b.trim());
     const results = [];
 
@@ -138,28 +136,28 @@ Answer: B
   };
 
   return (
-    <div style={{ position: 'fixed', inset: 0, zIndex: 100, background: 'rgba(0, 0, 0, 0.78)', backdropFilter: 'blur(24px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-      <div style={{ maxWidth: '680px', width: '100%', maxHeight: '90vh', overflowY: 'auto', ...glassDeep, borderRadius: '24px', padding: '32px' }}>
+    <div style={{ position: 'fixed', inset: 0, zIndex: 100, background: 'rgba(15, 23, 42, 0.4)', backdropFilter: 'blur(24px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
+      <div style={{ maxWidth: '680px', width: '100%', maxHeight: '90vh', overflowY: 'auto', ...glassDeep, borderRadius: '26px', padding: '34px' }}>
         
         {/* Modal Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '22px' }}>
           <div>
-            <h3 style={{ fontSize: '20px', fontWeight: 700, color: '#ffffff', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <h3 style={{ fontSize: '21px', fontWeight: 800, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span>✦</span> AI Prompt & Question Importer
             </h3>
-            <p style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.45)', marginTop: '2px' }}>
-              {step === 'prompt' ? 'Configure topic & questions, copy prompt to AI.' : 'Paste AI output to parse and import.'}
+            <p style={{ fontSize: '12px', color: 'rgba(30, 41, 59, 0.65)', marginTop: '3px' }}>
+              {step === 'prompt' ? 'Configure topic & question count, then auto-copy prompt.' : 'Paste AI output below to parse and import.'}
             </p>
           </div>
-          <button onClick={onClose} style={{ ...glassBtn, padding: '6px 12px', borderRadius: '8px', fontSize: '12px' }}>✕ Close</button>
+          <button onClick={onClose} style={{ ...glassBtn, padding: '7px 14px', borderRadius: '10px', fontSize: '12px', fontWeight: 700 }}>✕ Close</button>
         </div>
 
         {/* Step Indicator */}
-        <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
-          <button onClick={() => setStep('prompt')} style={{ flex: 1, padding: '8px', borderRadius: '10px', fontSize: '12px', fontWeight: 700, background: step === 'prompt' ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.05)', color: '#fff', border: '1px solid rgba(255,255,255,0.15)' }}>
+        <div style={{ display: 'flex', gap: '10px', marginBottom: '22px' }}>
+          <button onClick={() => setStep('prompt')} style={{ flex: 1, padding: '10px', borderRadius: '12px', fontSize: '12px', fontWeight: 800, background: step === 'prompt' ? '#0f172a' : 'rgba(255,255,255,0.6)', color: step === 'prompt' ? '#fff' : '#0f172a', border: '1px solid rgba(255,255,255,0.9)', boxShadow: step === 'prompt' ? '0 4px 12px rgba(0,0,0,0.1)' : 'none' }}>
             1. Build & Copy Prompt
           </button>
-          <button onClick={() => setStep('paste')} style={{ flex: 1, padding: '8px', borderRadius: '10px', fontSize: '12px', fontWeight: 700, background: step === 'paste' ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.05)', color: '#fff', border: '1px solid rgba(255,255,255,0.15)' }}>
+          <button onClick={() => setStep('paste')} style={{ flex: 1, padding: '10px', borderRadius: '12px', fontSize: '12px', fontWeight: 800, background: step === 'paste' ? '#0f172a' : 'rgba(255,255,255,0.6)', color: step === 'paste' ? '#fff' : '#0f172a', border: '1px solid rgba(255,255,255,0.9)', boxShadow: step === 'paste' ? '0 4px 12px rgba(0,0,0,0.1)' : 'none' }}>
             2. Paste AI Questions & Import
           </button>
         </div>
@@ -168,7 +166,7 @@ Answer: B
         {step === 'prompt' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div>
-              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'rgba(255,255,255,0.7)', marginBottom: '6px' }}>
+              <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#0f172a', marginBottom: '6px' }}>
                 Assessment Topic
               </label>
               <input
@@ -181,7 +179,7 @@ Answer: B
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'rgba(255,255,255,0.7)', marginBottom: '6px' }}>
+              <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#0f172a', marginBottom: '6px' }}>
                 How Many Questions?
               </label>
               <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
@@ -194,10 +192,11 @@ Answer: B
                       padding: '8px 16px',
                       borderRadius: '10px',
                       fontSize: '12px',
-                      fontWeight: 700,
-                      background: questionCount === cnt ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.06)',
-                      border: `1px solid ${questionCount === cnt ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.12)'}`,
-                      color: '#ffffff',
+                      fontWeight: 800,
+                      background: questionCount === cnt ? '#0f172a' : 'rgba(255,255,255,0.7)',
+                      border: `1px solid ${questionCount === cnt ? '#0f172a' : 'rgba(255,255,255,0.9)'}`,
+                      color: questionCount === cnt ? '#ffffff' : '#0f172a',
+                      boxShadow: questionCount === cnt ? '0 4px 12px rgba(0,0,0,0.1)' : '0 2px 6px rgba(0,0,0,0.02)'
                     }}
                   >
                     {cnt} Questions
@@ -207,17 +206,17 @@ Answer: B
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'rgba(255,255,255,0.7)', marginBottom: '6px' }}>
+              <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#0f172a', marginBottom: '6px' }}>
                 Generated Prompt (Ready for ChatGPT / Gemini)
               </label>
-              <pre style={{ ...glassInner, borderRadius: '12px', padding: '14px', fontSize: '12px', color: 'rgba(255,255,255,0.85)', whiteSpace: 'pre-wrap', maxHeight: '180px', overflowY: 'auto', lineHeight: '1.5' }}>
+              <pre style={{ ...glassInner, borderRadius: '14px', padding: '16px', fontSize: '12px', color: '#0f172a', whiteSpace: 'pre-wrap', maxHeight: '180px', overflowY: 'auto', lineHeight: '1.5', fontWeight: 500 }}>
                 {generatedPrompt}
               </pre>
             </div>
 
             <button
               onClick={handleCopyAndProceed}
-              style={{ ...glassBtn, padding: '12px 24px', borderRadius: '12px', fontWeight: 700, fontSize: '13px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
+              style={{ ...glassBtn, padding: '12px 24px', borderRadius: '14px', fontWeight: 800, fontSize: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: '#0f172a', color: '#ffffff' }}
             >
               <span>{copied ? '✓ Copied to Clipboard!' : 'Copy Prompt & Open Paste Box'}</span>
             </button>
@@ -228,7 +227,7 @@ Answer: B
         {step === 'paste' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div>
-              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'rgba(255,255,255,0.7)', marginBottom: '6px' }}>
+              <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#0f172a', marginBottom: '6px' }}>
                 Paste Box (Paste from AI starting with 1, 2, 3...)
               </label>
               <textarea
@@ -244,25 +243,25 @@ Answer: B
             </div>
 
             {parseError && (
-              <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.7)', background: 'rgba(255,255,255,0.06)', padding: '10px 14px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.12)' }}>
+              <div style={{ fontSize: '12px', color: '#b45309', background: 'rgba(245, 158, 11, 0.1)', padding: '12px 16px', borderRadius: '12px', border: '1px solid rgba(245, 158, 11, 0.25)', fontWeight: 600 }}>
                 {parseError}
               </div>
             )}
 
             {parsedQuestions.length > 0 && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '16px' }}>
-                <div style={{ fontSize: '13px', fontWeight: 700, color: '#ffffff' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', borderTop: '1px solid rgba(255,255,255,0.7)', paddingTop: '16px' }}>
+                <div style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a' }}>
                   Parsed Questions ({parsedQuestions.length} detected):
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '220px', overflowY: 'auto' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: '220px', overflowY: 'auto' }}>
                   {parsedQuestions.map((q, idx) => (
-                    <div key={idx} style={{ ...glassInner, borderRadius: '12px', padding: '12px 14px' }}>
-                      <div style={{ fontSize: '13px', fontWeight: 600, color: '#fff', marginBottom: '6px' }}>
+                    <div key={idx} style={{ ...glassInner, borderRadius: '14px', padding: '14px 16px' }}>
+                      <div style={{ fontSize: '14px', fontWeight: 700, color: '#0f172a', marginBottom: '8px' }}>
                         {idx + 1}. {q.text}
                       </div>
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px' }}>
                         {q.options.map((opt, i) => (
-                          <div key={i} style={{ fontSize: '11px', padding: '4px 8px', borderRadius: '6px', background: i === q.correct ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.04)', color: '#fff', border: `1px solid ${i === q.correct ? 'rgba(255,255,255,0.35)' : 'rgba(255,255,255,0.08)'}` }}>
+                          <div key={i} style={{ fontSize: '12px', padding: '6px 10px', borderRadius: '8px', background: i === q.correct ? '#0f172a' : 'rgba(255,255,255,0.7)', color: i === q.correct ? '#ffffff' : '#0f172a', fontWeight: i === q.correct ? 700 : 500, border: '1px solid rgba(255,255,255,0.9)' }}>
                             {String.fromCharCode(65 + i)}. {opt} {i === q.correct && '✓'}
                           </div>
                         ))}
@@ -273,7 +272,7 @@ Answer: B
 
                 <button
                   onClick={handleImport}
-                  style={{ ...glassBtn, padding: '12px 24px', borderRadius: '12px', fontWeight: 700, fontSize: '13px', alignSelf: 'flex-start', marginTop: '6px' }}
+                  style={{ ...glassBtn, padding: '12px 24px', borderRadius: '12px', fontWeight: 800, fontSize: '14px', alignSelf: 'flex-start', marginTop: '6px', background: '#0f172a', color: '#ffffff' }}
                 >
                   Import All ({parsedQuestions.length}) Questions to Bank
                 </button>

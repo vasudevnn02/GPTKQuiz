@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { ref, set, update } from 'firebase/database';
 import { rtdb } from '../../services/firebase.js';
 import { PlusIcon, TrashIcon, EditIcon, SparkleIcon, CalendarIcon, ClockIcon, ChevronDownIcon, PackageIcon } from '../icons/SvgIcons.jsx';
-import { glass, glassDeep, glassInner, glassBtn } from '../../glass.js';
+import { glassDeep, glassInner, glassBtn } from '../../glass.js';
 
-const TAG = { fontSize:'11px', padding:'3px 10px', borderRadius:'8px', fontWeight:600 };
+const TAG = { fontSize:'11px', padding:'4px 10px', borderRadius:'8px', fontWeight:700 };
 
 export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImport, onUpdated }) {
   const [open, setOpen] = useState(true);
@@ -32,88 +32,99 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
   };
 
   return (
-    <div style={{ ...glassDeep, borderRadius:'22px' }}>
+    <div style={{ ...glassDeep, borderRadius:'24px' }}>
       {/* Header */}
-      <div onClick={() => setOpen(o => !o)} style={{ padding:'20px 22px', cursor:'pointer', display:'flex', alignItems:'center', gap:'14px', justifyContent:'space-between' }}>
-        <div style={{ display:'flex', alignItems:'center', gap:'13px', flex:1, minWidth:0 }}>
-          <div style={{ ...glassInner, width:'40px', height:'40px', borderRadius:'13px', flexShrink:0, display:'flex', alignItems:'center', justifyContent:'center' }}>
-            <PackageIcon size={19} color="rgba(255,255,255,0.88)" />
+      <div onClick={() => setOpen(o => !o)} style={{ padding:'22px 26px', cursor:'pointer', display:'flex', alignItems:'center', gap:'16px', justifyContent:'space-between' }}>
+        <div style={{ display:'flex', alignItems:'center', gap:'14px', flex:1, minWidth:0 }}>
+          <div style={{ ...glassInner, width:'42px', height:'42px', borderRadius:'14px', background:'linear-gradient(135deg, rgba(30,41,59,0.45) 0%, rgba(15,23,42,0.65) 100%)', border:'1px solid rgba(255,255,255,0.85)', flexShrink:0, display:'flex', alignItems:'center', justifyContent:'center', boxShadow:'0 4px 12px rgba(0,0,0,0.06)' }}>
+            <PackageIcon size={20} color="rgba(255,255,255,0.98)" />
           </div>
           <div style={{ minWidth:0 }}>
-            <div style={{ fontSize:'16px', fontWeight:700, color:'#fff', whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis' }}>{quiz.title}</div>
-            <div style={{ fontSize:'12px', color:'rgba(255,255,255,0.4)', marginTop:'2px' }}>{quiz.course} · {questions.length} question{questions.length!==1?'s':''}</div>
+            <div style={{ fontSize:'17px', fontWeight:800, color:'#0f172a', whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis' }}>{quiz.title}</div>
+            <div style={{ fontSize:'12px', color:'rgba(30,41,59,0.6)', marginTop:'2px' }}>{quiz.course} · {questions.length} question{questions.length!==1?'s':''}</div>
           </div>
         </div>
-        <div style={{ display:'flex', alignItems:'center', gap:'9px', flexShrink:0 }}>
-          <span style={{ ...TAG, background:'rgba(255,255,255,0.06)', border:'1px solid rgba(255,255,255,0.12)', color:'rgba(255,255,255,0.7)', display:'flex', alignItems:'center', gap:'5px' }}>
-            <ClockIcon size={11} color="rgba(255,255,255,0.6)" />
+        <div style={{ display:'flex', alignItems:'center', gap:'10px', flexShrink:0 }}>
+          <span style={{ ...TAG, ...glassInner, color:'#0f172a', display:'flex', alignItems:'center', gap:'6px' }}>
+            <div style={{ width: '16px', height: '16px', borderRadius: '4px', background: 'rgba(0,0,0,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <ClockIcon size={10} color="rgba(255,255,255,0.95)" />
+            </div>
             {quiz.windowStart||'10:00 AM'} – {quiz.windowEnd||'05:00 PM'}
           </span>
-          <span style={{ ...TAG, background:'rgba(255,255,255,0.05)', border:'1px solid rgba(255,255,255,0.1)', color:'rgba(255,255,255,0.55)' }}>
+          <span style={{ ...TAG, ...glassInner, color:'#0f172a' }}>
             {quiz.durationMinutes||15} min
           </span>
-          <ChevronDownIcon size={17} color="rgba(255,255,255,0.35)"
-            style={{ transition:'transform 0.25s', transform: open ? 'rotate(180deg)' : 'none' }} />
+          <div style={{ width: '22px', height: '22px', borderRadius: '6px', background: 'rgba(0,0,0,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition:'transform 0.25s', transform: open ? 'rotate(180deg)' : 'none' }}>
+            <ChevronDownIcon size={13} color="rgba(255,255,255,0.95)" />
+          </div>
         </div>
       </div>
 
       {/* Body */}
       {open && (
-        <div style={{ borderTop:'1px solid rgba(255,255,255,0.07)', padding:'0 22px 20px' }}>
+        <div style={{ borderTop:'1px solid rgba(255,255,255,0.7)', padding:'0 26px 24px' }}>
           {/* Action Row */}
-          <div style={{ display:'flex', gap:'9px', paddingTop:'14px', paddingBottom:'12px', flexWrap:'wrap' }}>
+          <div style={{ display:'flex', gap:'10px', paddingTop:'16px', paddingBottom:'14px', flexWrap:'wrap' }}>
             {[
-              { label:'Add Question', icon:<PlusIcon size={13}/>, fn: onAddQuestion },
-              { label:'AI Import',    icon:<SparkleIcon size={13}/>, fn: onAiImport },
-              { label: editSched ? 'Close Schedule' : 'Schedule', icon:<CalendarIcon size={13}/>, fn:()=>setEditSched(s=>!s) },
+              { label:'Add Question', icon:<PlusIcon size={12}/>, fn: onAddQuestion },
+              { label:'AI Import',    icon:<SparkleIcon size={12}/>, fn: onAiImport },
+              { label: editSched ? 'Close Schedule' : 'Schedule', icon:<CalendarIcon size={12}/>, fn:()=>setEditSched(s=>!s) },
             ].map(b => (
-              <button key={b.label} onClick={b.fn} style={{ ...glassBtn, padding:'7px 14px', borderRadius:'11px', fontSize:'12px', fontWeight:600, display:'flex', alignItems:'center', gap:'6px' }}>
-                {b.icon}{b.label}
+              <button key={b.label} onClick={b.fn} style={{ ...glassBtn, padding:'8px 16px', borderRadius:'12px', fontSize:'12px', fontWeight:700, display:'flex', alignItems:'center', gap:'7px' }}>
+                <div style={{ width: '18px', height: '18px', borderRadius: '5px', background: 'rgba(0,0,0,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {b.icon}
+                </div>
+                {b.label}
               </button>
             ))}
-            {saved && <span style={{ fontSize:'12px', color:'rgba(200,230,255,0.75)', alignSelf:'center' }}>✓ Saved</span>}
+            {saved && <span style={{ fontSize:'12px', color:'#0f172a', alignSelf:'center', fontWeight:600 }}>✓ Saved</span>}
           </div>
 
           {/* Schedule Editor */}
           {editSched && (
-            <form onSubmit={saveSched} style={{ ...glassInner, borderRadius:'14px', padding:'16px 18px', marginBottom:'12px', display:'flex', gap:'14px', flexWrap:'wrap', alignItems:'flex-end' }}>
-              {[['Window Start',start,setStart,'115px'],['Window End',end,setEnd,'115px']].map(([lbl,val,fn,w])=>(
+            <form onSubmit={saveSched} style={{ ...glassInner, borderRadius:'16px', padding:'18px 20px', marginBottom:'14px', display:'flex', gap:'14px', flexWrap:'wrap', alignItems:'flex-end' }}>
+              {[['Window Start',start,setStart,'120px'],['Window End',end,setEnd,'120px']].map(([lbl,val,fn,w])=>(
                 <div key={lbl}>
-                  <label style={{ display:'block', fontSize:'10px', color:'rgba(255,255,255,0.4)', marginBottom:'4px', textTransform:'uppercase', letterSpacing:'0.5px' }}>{lbl}</label>
+                  <label style={{ display:'block', fontSize:'11px', color:'rgba(30,41,59,0.65)', marginBottom:'4px', textTransform:'uppercase', letterSpacing:'0.5px', fontWeight:700 }}>{lbl}</label>
                   <input type="text" value={val} onChange={e=>fn(e.target.value)} style={{ width:w }} />
                 </div>
               ))}
               <div>
-                <label style={{ display:'block', fontSize:'10px', color:'rgba(255,255,255,0.4)', marginBottom:'4px', textTransform:'uppercase', letterSpacing:'0.5px' }}>Duration (min)</label>
+                <label style={{ display:'block', fontSize:'11px', color:'rgba(30,41,59,0.65)', marginBottom:'4px', textTransform:'uppercase', letterSpacing:'0.5px', fontWeight:700 }}>Duration (min)</label>
                 <input type="number" min="1" max="180" value={dur} onChange={e=>setDur(e.target.value)} style={{ width:'85px' }} />
               </div>
-              <button type="submit" style={{ ...glassBtn, padding:'10px 16px', borderRadius:'11px', fontWeight:700, fontSize:'12px' }}>Save</button>
+              <button type="submit" style={{ ...glassBtn, padding:'11px 18px', borderRadius:'12px', fontWeight:800, fontSize:'12px' }}>Save</button>
             </form>
           )}
 
           {/* Questions */}
           {questions.length === 0 ? (
-            <div style={{ textAlign:'center', padding:'24px', color:'rgba(255,255,255,0.28)', fontSize:'13px', background:'rgba(255,255,255,0.025)', borderRadius:'12px', border:'1px dashed rgba(255,255,255,0.08)' }}>
+            <div style={{ textAlign:'center', padding:'28px', color:'rgba(30,41,59,0.5)', fontSize:'13px', background:'rgba(255,255,255,0.3)', borderRadius:'14px', border:'1px dashed rgba(255,255,255,0.9)' }}>
               No questions yet — add manually or use AI Import.
             </div>
           ) : (
-            <div style={{ display:'flex', flexDirection:'column', gap:'7px' }}>
+            <div style={{ display:'flex', flexDirection:'column', gap:'8px' }}>
               {questions.map((q, idx) => {
                 const text = q.text || q.question || q.statement || `Question ${idx+1}`;
                 return (
-                  <div key={q.id||idx} style={{ ...glassInner, borderRadius:'13px', padding:'12px 16px', display:'flex', alignItems:'center', justifyContent:'space-between', gap:'12px' }}>
-                    <div style={{ display:'flex', alignItems:'center', gap:'11px', flex:1, minWidth:0 }}>
-                      <div style={{ width:'26px', height:'26px', borderRadius:'8px', background:'rgba(255,255,255,0.07)', border:'1px solid rgba(255,255,255,0.14)', color:'rgba(255,255,255,0.8)', display:'flex', alignItems:'center', justifyContent:'center', fontWeight:700, fontSize:'11px', flexShrink:0 }}>
+                  <div key={q.id||idx} style={{ ...glassInner, borderRadius:'15px', padding:'13px 18px', display:'flex', alignItems:'center', justifyContent:'space-between', gap:'14px' }}>
+                    <div style={{ display:'flex', alignItems:'center', gap:'12px', flex:1, minWidth:0 }}>
+                      <div style={{ width:'28px', height:'28px', borderRadius:'8px', background:'linear-gradient(135deg, rgba(30,41,59,0.45) 0%, rgba(15,23,42,0.65) 100%)', border:'1px solid rgba(255,255,255,0.85)', color:'#ffffff', display:'flex', alignItems:'center', justifyContent:'center', fontWeight:800, fontSize:'12px', flexShrink:0 }}>
                         {idx+1}
                       </div>
-                      <span style={{ fontSize:'13px', fontWeight:500, color:'rgba(240,245,255,0.88)', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{text}</span>
+                      <span style={{ fontSize:'14px', fontWeight:600, color:'#0f172a', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{text}</span>
                     </div>
-                    <div style={{ display:'flex', gap:'7px', flexShrink:0 }}>
-                      <button onClick={() => onEditQuestion(q)} style={{ ...glassBtn, padding:'6px 10px', borderRadius:'8px', display:'flex', alignItems:'center', gap:'4px', fontSize:'11px', fontWeight:600 }}>
-                        <EditIcon size={12} /> Edit
+                    <div style={{ display:'flex', gap:'8px', flexShrink:0 }}>
+                      <button onClick={() => onEditQuestion(q)} style={{ ...glassBtn, padding:'6px 12px', borderRadius:'10px', display:'flex', alignItems:'center', gap:'6px', fontSize:'12px', fontWeight:700 }}>
+                        <div style={{ width: '16px', height: '16px', borderRadius: '4px', background: 'rgba(0,0,0,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <EditIcon size={11} color="rgba(255,255,255,0.95)" />
+                        </div>
+                        Edit
                       </button>
-                      <button onClick={e => deleteQuestion(e, q.id)} style={{ background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.1)', color:'rgba(255,255,255,0.4)', padding:'6px 8px', borderRadius:'8px', display:'flex', alignItems:'center' }}>
-                        <TrashIcon size={12} />
+                      <button onClick={e => deleteQuestion(e, q.id)} style={{ ...glassBtn, padding:'6px 10px', borderRadius:'10px', display:'flex', alignItems:'center' }}>
+                        <div style={{ width: '16px', height: '16px', borderRadius: '4px', background: 'rgba(0,0,0,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <TrashIcon size={11} color="rgba(255,255,255,0.95)" />
+                        </div>
                       </button>
                     </div>
                   </div>

@@ -16,12 +16,12 @@ export default function StudentLoginForm({ onLogin, loading, error }) {
   return (
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <div>
-        <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.7)', marginBottom: '6px' }}>
+        <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#0f172a', marginBottom: '6px' }}>
           Register Number
         </label>
         <div style={{ position: 'relative' }}>
-          <span style={{ position: 'absolute', left: '12px', top: '12px', color: 'rgba(255, 255, 255, 0.4)' }}>
-            <UserIcon size={16} />
+          <span style={{ position: 'absolute', left: '12px', top: '11px', width: '22px', height: '22px', borderRadius: '6px', background: 'rgba(0,0,0,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <UserIcon size={12} color="rgba(255,255,255,0.95)" />
           </span>
           <input
             type="text"
@@ -29,13 +29,13 @@ export default function StudentLoginForm({ onLogin, loading, error }) {
             value={rollNo}
             onChange={(e) => setRollNo(e.target.value.toUpperCase())}
             placeholder="Register Number"
-            style={{ width: '100%', paddingLeft: '38px' }}
+            style={{ width: '100%', paddingLeft: '42px' }}
           />
         </div>
       </div>
 
       <div>
-        <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.7)', marginBottom: '6px' }}>
+        <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#0f172a', marginBottom: '6px' }}>
           Student Name
         </label>
         <input
@@ -49,12 +49,12 @@ export default function StudentLoginForm({ onLogin, loading, error }) {
       </div>
 
       <div>
-        <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.7)', marginBottom: '6px' }}>
+        <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#0f172a', marginBottom: '6px' }}>
           Password
         </label>
         <div style={{ position: 'relative' }}>
-          <span style={{ position: 'absolute', left: '12px', top: '12px', color: 'rgba(255, 255, 255, 0.4)' }}>
-            <LockIcon size={16} />
+          <span style={{ position: 'absolute', left: '12px', top: '11px', width: '22px', height: '22px', borderRadius: '6px', background: 'rgba(0,0,0,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <LockIcon size={12} color="rgba(255,255,255,0.95)" />
           </span>
           <input
             type="password"
@@ -62,13 +62,13 @@ export default function StudentLoginForm({ onLogin, loading, error }) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
-            style={{ width: '100%', paddingLeft: '38px' }}
+            style={{ width: '100%', paddingLeft: '42px' }}
           />
         </div>
       </div>
 
       {error && (
-        <div style={{ background: 'rgba(255, 255, 255, 0.08)', border: '1px solid rgba(255, 255, 255, 0.2)', borderRadius: '10px', padding: '10px', color: 'rgba(255, 255, 255, 0.9)', fontSize: '13px' }}>
+        <div style={{ background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '10px', padding: '10px', color: '#dc2626', fontSize: '13px', fontWeight: 600 }}>
           {error}
         </div>
       )}
@@ -78,10 +78,10 @@ export default function StudentLoginForm({ onLogin, loading, error }) {
         disabled={loading}
         style={{
           ...glassBtn,
-          fontWeight: 700,
+          fontWeight: 800,
           padding: '12px',
           borderRadius: '12px',
-          fontSize: '13px',
+          fontSize: '14px',
           marginTop: '6px',
           opacity: loading ? 0.7 : 1,
         }}

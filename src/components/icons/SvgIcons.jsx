@@ -1,11 +1,17 @@
 import React from 'react';
 
-const Svg = ({ size = 20, color = 'rgba(255,255,255,0.88)', fill = 'none', children, strokeWidth = '1.8' }) => (
+// Light-white / soft silver stroked icons with subtle dark backdrop contrast when needed
+const Svg = ({ size = 20, color = 'rgba(255, 255, 255, 0.95)', fill = 'none', children, strokeWidth = '1.9' }) => (
   <svg
     width={size} height={size} viewBox="0 0 24 24"
     fill={fill} stroke={color}
     strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round"
-    style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    style={{
+      display: 'inline-block',
+      verticalAlign: 'middle',
+      flexShrink: 0,
+      filter: 'drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25))'
+    }}
   >{children}</svg>
 );
 
@@ -13,12 +19,12 @@ export const ClockIcon = (p) => (
   <Svg {...p}><circle cx="12" cy="12" r="9" /><polyline points="12 7 12 12 15 14" /></Svg>
 );
 export const PlayIcon = (p) => (
-  <Svg {...p} fill="rgba(255,255,255,0.88)">
+  <Svg {...p} fill="rgba(255, 255, 255, 0.95)">
     <path d="M7 4.5v15c0 .9 1 1.4 1.7.9l11.5-7.5c.7-.5.7-1.4 0-1.9L8.7 3.6C8 3.1 7 3.6 7 4.5z" stroke="none" />
   </Svg>
 );
 export const LockIcon = (p) => (
-  <Svg {...p}><rect x="4" y="11" width="16" height="10" rx="3" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></Svg>
+  <Svg {...p}><rect x="4" y="11" width="16" height="10" rx="3" ry="3" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></Svg>
 );
 export const CheckIcon = (p) => (
   <Svg {...p} strokeWidth="2.2"><polyline points="20 6 9 17 4 12" /></Svg>
@@ -30,7 +36,7 @@ export const AlertTriangleIcon = (p) => (
   <Svg {...p}>
     <path d="M10.3 4.2L2.6 17.8c-.8 1.4.2 3.2 1.8 3.2h15.2c1.6 0 2.6-1.8 1.8-3.2L13.7 4.2c-.8-1.4-2.6-1.4-3.4 0z" />
     <line x1="12" y1="10" x2="12" y2="14" />
-    <circle cx="12" cy="17.5" r=".75" fill="rgba(255,255,255,0.88)" stroke="none" />
+    <circle cx="12" cy="17.5" r=".75" fill="rgba(255, 255, 255, 0.95)" stroke="none" />
   </Svg>
 );
 export const UserIcon = (p) => (

@@ -10,8 +10,8 @@
 }
 
 body {
-  background-color: #07080b;
-  color: #ffffff;
+  background-color: #f6f8fb;
+  color: #1a1e29;
   font-family: var(--font-ny) !important;
   min-height: 100vh;
   overflow-x: hidden;
@@ -21,12 +21,13 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-ny) !important;
   letter-spacing: -0.025em;
   font-weight: 700;
+  color: #111827;
 }
 
-::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.16); border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.28); }
+::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.12); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0, 0, 0, 0.22); }
 
 button {
   font-family: var(--font-ny) !important;
@@ -35,62 +36,59 @@ button {
   outline: none;
   transition: all 0.22s cubic-bezier(0.16,1,0.3,1);
 }
-button:hover  { opacity: 0.88; transform: translateY(-1px); }
-button:active { opacity: 1;    transform: translateY(0);    }
+button:hover  { opacity: 0.9; transform: translateY(-1px); }
+button:active { opacity: 1;   transform: translateY(0);    }
 
 input, select, textarea {
   font-family: var(--font-ny) !important;
   outline: none;
-  border: 1px solid rgba(255,255,255,0.14);
-  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  color: #fff;
+  color: #111827;
   border-radius: 12px;
   padding: 11px 15px;
   font-size: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.9);
   transition: all 0.2s ease;
 }
 input::placeholder, textarea::placeholder {
-  color: rgba(255,255,255,0.3);
+  color: rgba(30, 41, 59, 0.42);
   font-family: var(--font-ny) !important;
 }
 input:focus, select:focus, textarea:focus {
-  border-color: rgba(255,255,255,0.4);
-  background: rgba(255,255,255,0.1);
-  box-shadow: 0 0 0 3px rgba(255,255,255,0.15);
+  border-color: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 1);
 }
 
-/* ── Floating Luminous Orbs Animations ── */
+/* ── Light Floating Aurora Animations ── */
 @keyframes blob1 {
   0%   { transform: translate(0px, 0px) scale(1); }
-  33%  { transform: translate(70px, -50px) scale(1.1); }
-  66%  { transform: translate(-40px, 70px) scale(0.94); }
+  33%  { transform: translate(60px, -40px) scale(1.08); }
+  66%  { transform: translate(-30px, 50px) scale(0.95); }
   100% { transform: translate(0px, 0px) scale(1); }
 }
 @keyframes blob2 {
   0%   { transform: translate(0px, 0px) scale(1); }
-  33%  { transform: translate(-80px, 45px) scale(1.08); }
-  66%  { transform: translate(60px, -70px) scale(0.96); }
+  33%  { transform: translate(-60px, 40px) scale(1.06); }
+  66%  { transform: translate(50px, -50px) scale(0.96); }
   100% { transform: translate(0px, 0px) scale(1); }
 }
 @keyframes blob3 {
   0%   { transform: translate(0px, 0px) scale(1); }
-  33%  { transform: translate(50px, 75px) scale(1.06); }
-  66%  { transform: translate(-70px, -45px) scale(0.95); }
+  33%  { transform: translate(40px, 60px) scale(1.05); }
+  66%  { transform: translate(-50px, -30px) scale(0.96); }
   100% { transform: translate(0px, 0px) scale(1); }
 }
 @keyframes blob4 {
   0%   { transform: translate(0px, 0px) scale(1); }
-  50%  { transform: translate(-60px, -80px) scale(1.12); }
+  50%  { transform: translate(-45px, -60px) scale(1.1); }
   100% { transform: translate(0px, 0px) scale(1); }
 }
 @keyframes blob5 {
   0%   { transform: translate(0px, 0px) scale(1); }
-  50%  { transform: translate(80px, 50px) scale(1.08); }
+  50%  { transform: translate(60px, 40px) scale(1.06); }
   100% { transform: translate(0px, 0px) scale(1); }
-}
-@keyframes starPulse {
-  0%   { opacity: 0.2; transform: scale(0.85); }
-  100% { opacity: 0.85; transform: scale(1.15); }
 }

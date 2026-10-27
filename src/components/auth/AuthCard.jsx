@@ -17,30 +17,30 @@ export default function AuthCard({ onStudentLogin, onTeacherLogin, loading, erro
         maxWidth: '430px',
         width: '100%',
         ...glassDeep,
-        borderRadius: '24px',
-        padding: '36px 30px',
+        borderRadius: '26px',
+        padding: '38px 32px',
       }}>
-        <div style={{ textAlign: 'center', marginBottom: '26px' }}>
-          <h1 style={{ fontSize: '27px', fontWeight: 700, letterSpacing: '-0.5px', color: '#ffffff', margin: 0, fontFamily: 'var(--font-ny)' }}>
+        <div style={{ textAlign: 'center', marginBottom: '28px' }}>
+          <h1 style={{ fontSize: '28px', fontWeight: 800, letterSpacing: '-0.5px', color: '#0f172a', margin: 0, fontFamily: 'var(--font-ny)' }}>
             GPTK Quiz
           </h1>
-          <p style={{ fontSize: '13px', color: 'rgba(255, 255, 255, 0.45)', marginTop: '6px', fontFamily: 'var(--font-ny)', fontStyle: 'italic' }}>
+          <p style={{ fontSize: '13px', color: 'rgba(30, 41, 59, 0.65)', marginTop: '6px', fontFamily: 'var(--font-ny)', fontStyle: 'italic' }}>
             Proctored Examination Portal
           </p>
         </div>
 
-        <div style={{ display: 'flex', background: 'rgba(0, 0, 0, 0.3)', borderRadius: '12px', padding: '4px', marginBottom: '24px', border: '1px solid rgba(255, 255, 255, 0.08)' }}>
+        <div style={{ display: 'flex', background: 'rgba(0, 0, 0, 0.04)', borderRadius: '14px', padding: '4px', marginBottom: '24px', border: '1px solid rgba(255, 255, 255, 0.8)' }}>
           <button
             onClick={() => handleRoleChange('student')}
             style={{
               flex: 1,
               padding: '9px 12px',
-              borderRadius: '9px',
+              borderRadius: '10px',
               fontSize: '13px',
-              fontWeight: 600,
-              background: role === 'student' ? 'rgba(255, 255, 255, 0.16)' : 'transparent',
-              color: role === 'student' ? '#ffffff' : 'rgba(255, 255, 255, 0.5)',
-              boxShadow: role === 'student' ? 'inset 0 1px 0 rgba(255, 255, 255, 0.25)' : 'none',
+              fontWeight: 700,
+              background: role === 'student' ? 'rgba(255, 255, 255, 0.95)' : 'transparent',
+              color: role === 'student' ? '#0f172a' : 'rgba(30, 41, 59, 0.6)',
+              boxShadow: role === 'student' ? '0 4px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,1)' : 'none',
             }}
           >
             Student Portal
@@ -50,12 +50,12 @@ export default function AuthCard({ onStudentLogin, onTeacherLogin, loading, erro
             style={{
               flex: 1,
               padding: '9px 12px',
-              borderRadius: '9px',
+              borderRadius: '10px',
               fontSize: '13px',
-              fontWeight: 600,
-              background: role === 'teacher' ? 'rgba(255, 255, 255, 0.16)' : 'transparent',
-              color: role === 'teacher' ? '#ffffff' : 'rgba(255, 255, 255, 0.5)',
-              boxShadow: role === 'teacher' ? 'inset 0 1px 0 rgba(255, 255, 255, 0.25)' : 'none',
+              fontWeight: 700,
+              background: role === 'teacher' ? 'rgba(255, 255, 255, 0.95)' : 'transparent',
+              color: role === 'teacher' ? '#0f172a' : 'rgba(30, 41, 59, 0.6)',
+              boxShadow: role === 'teacher' ? '0 4px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,1)' : 'none',
             }}
           >
             Teacher Studio

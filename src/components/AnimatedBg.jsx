@@ -1,63 +1,52 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
-// Ethereal monochrome / white starlight & glowing pearl orbs background
-// Drifts gently behind the frosted glass cards with zero blue tint.
+// Soft, luminous light-white / alabaster ambient aurora background
 export default function AnimatedBg() {
-  // Generate random static/subtle twinkling stardust particles
-  const stars = useMemo(() => {
-    const arr = [];
-    for (let i = 0; i < 48; i++) {
-      arr.push({
-        top: `${(i * 17 + 23) % 100}%`,
-        left: `${(i * 29 + 11) % 100}%`,
-        size: (i % 3 === 0 ? 2.5 : i % 2 === 0 ? 2 : 1.2),
-        opacity: 0.25 + ((i % 5) * 0.15),
-        duration: 3 + (i % 4) * 2,
-      });
-    }
-    return arr;
-  }, []);
-
-  const orbs = [
-    // Soft pearl white luminous sphere — top left
+  const blobs = [
+    // Luminous pearlescent silk glow — top left
     {
-      width: '640px', height: '640px',
-      top: '-140px', left: '-120px',
-      background: 'radial-gradient(circle at 45% 45%, rgba(255, 255, 255, 0.22) 0%, rgba(240, 245, 255, 0.08) 45%, transparent 70%)',
-      animation: 'blob1 20s ease-in-out infinite',
-      filter: 'blur(75px)',
+      width: '680px', height: '680px',
+      top: '-150px', left: '-120px',
+      background: 'radial-gradient(circle at 45% 45%, #ffffff 0%, #e2e8f0 35%, transparent 70%)',
+      animation: 'blob1 22s ease-in-out infinite',
+      filter: 'blur(70px)',
+      opacity: 0.85,
     },
-    // Silvery moonlit orb — top right
+    // Soft silver-white glow — top right
+    {
+      width: '620px', height: '620px',
+      top: '-100px', right: '-80px',
+      background: 'radial-gradient(circle at 50% 50%, #ffffff 0%, #edf2f7 40%, transparent 68%)',
+      animation: 'blob2 26s ease-in-out infinite',
+      filter: 'blur(75px)',
+      opacity: 0.9,
+    },
+    // Center alabaster luminous circle
+    {
+      width: '750px', height: '750px',
+      top: '30%', left: '25%',
+      background: 'radial-gradient(circle at 50% 50%, #ffffff 0%, #e8edf3 45%, transparent 70%)',
+      animation: 'blob3 30s ease-in-out infinite',
+      filter: 'blur(80px)',
+      opacity: 0.75,
+    },
+    // Bottom left soft luminous light
     {
       width: '580px', height: '580px',
-      top: '-80px', right: '-100px',
-      background: 'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.18) 0%, rgba(235, 240, 250, 0.07) 40%, transparent 68%)',
-      animation: 'blob2 24s ease-in-out infinite',
-      filter: 'blur(80px)',
+      bottom: '-80px', left: '6%',
+      background: 'radial-gradient(circle at 45% 55%, #ffffff 0%, #e5e9f0 40%, transparent 65%)',
+      animation: 'blob4 24s ease-in-out infinite',
+      filter: 'blur(70px)',
+      opacity: 0.85,
     },
-    // Soft luminous white center aura
+    // Bottom right pearl white light
     {
-      width: '760px', height: '760px',
-      top: '32%', left: '22%',
-      background: 'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.14) 0%, rgba(230, 235, 245, 0.05) 45%, transparent 70%)',
-      animation: 'blob3 28s ease-in-out infinite',
-      filter: 'blur(90px)',
-    },
-    // Lower left soft white caustic
-    {
-      width: '520px', height: '520px',
-      bottom: '-60px', left: '8%',
-      background: 'radial-gradient(circle at 45% 55%, rgba(255, 255, 255, 0.17) 0%, rgba(240, 240, 250, 0.06) 42%, transparent 65%)',
-      animation: 'blob4 22s ease-in-out infinite',
+      width: '600px', height: '600px',
+      bottom: '-120px', right: '4%',
+      background: 'radial-gradient(circle at 55% 50%, #ffffff 0%, #edf2f7 38%, transparent 68%)',
+      animation: 'blob5 28s ease-in-out infinite',
       filter: 'blur(75px)',
-    },
-    // Lower right silver orb
-    {
-      width: '560px', height: '560px',
-      bottom: '-100px', right: '4%',
-      background: 'radial-gradient(circle at 55% 50%, rgba(255, 255, 255, 0.16) 0%, rgba(235, 235, 245, 0.05) 40%, transparent 68%)',
-      animation: 'blob5 26s ease-in-out infinite',
-      filter: 'blur(85px)',
+      opacity: 0.85,
     },
   ];
 
@@ -65,36 +54,16 @@ export default function AnimatedBg() {
     <div style={{
       position: 'fixed', inset: 0, zIndex: 0,
       overflow: 'hidden', pointerEvents: 'none',
-      background: '#07080b',
+      background: 'linear-gradient(135deg, #f8fafc 0%, #eef2f6 50%, #f1f5f9 100%)',
     }}>
-      {/* Drifting soft white glowing pearl orbs */}
-      {orbs.map((o, i) => (
+      {blobs.map((b, i) => (
         <div
-          key={`orb-${i}`}
+          key={`blob-${i}`}
           style={{
             position: 'absolute',
             borderRadius: '50%',
             willChange: 'transform',
-            ...o,
-          }}
-        />
-      ))}
-
-      {/* Subtle white stardust / starry specks */}
-      {stars.map((s, idx) => (
-        <div
-          key={`star-${idx}`}
-          style={{
-            position: 'absolute',
-            top: s.top,
-            left: s.left,
-            width: `${s.size}px`,
-            height: `${s.size}px`,
-            borderRadius: '50%',
-            backgroundColor: '#ffffff',
-            opacity: s.opacity,
-            boxShadow: `0 0 ${s.size * 2}px rgba(255, 255, 255, 0.8)`,
-            animation: `starPulse ${s.duration}s ease-in-out infinite alternate`,
+            ...b,
           }}
         />
       ))}
