@@ -1,20 +1,18 @@
 :root {
-  --bg-canvas: #03050f;
-  --navy-deep: #060d1f;
-  --navy-mid: #0a1628;
-  --blue-accent: #2563eb;
-  --blue-bright: #3b82f6;
-  --blue-light: #60a5fa;
-  --blue-dim: rgba(37, 99, 235, 0.18);
-  --glass-surface: rgba(10, 30, 80, 0.35);
-  --glass-surface-hover: rgba(15, 40, 100, 0.5);
-  --glass-border: rgba(96, 165, 250, 0.18);
-  --glass-border-bright: rgba(96, 165, 250, 0.38);
-  --glass-blur: blur(40px) saturate(180%);
-  --glass-shadow: 0 24px 60px rgba(0, 0, 20, 0.7), inset 0 1px 0 rgba(96, 165, 250, 0.2);
+  --bg-canvas: #04060f;
+  --glass: rgba(255, 255, 255, 0.04);
+  --glass-hover: rgba(255, 255, 255, 0.07);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-border-hi: rgba(255, 255, 255, 0.22);
+  --glass-blur: blur(48px) saturate(200%);
+  --glass-inner: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  --glass-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
+  --blue: #3b82f6;
+  --blue-dim: rgba(59, 130, 246, 0.18);
+  --blue-border: rgba(96, 165, 250, 0.28);
   --text-primary: #ffffff;
-  --text-secondary: rgba(200, 220, 255, 0.8);
-  --text-muted: rgba(150, 190, 255, 0.5);
+  --text-secondary: rgba(220, 235, 255, 0.78);
+  --text-muted: rgba(180, 210, 255, 0.45);
   --font-ny: "New York", -apple-system-ui-serif, ui-serif, "Newsreader", "Charter", Georgia, Cambria, serif;
 }
 
@@ -28,11 +26,11 @@
 body {
   background-color: var(--bg-canvas);
   background-image:
-    radial-gradient(ellipse at 15% 10%, rgba(29, 78, 216, 0.45) 0%, transparent 50%),
-    radial-gradient(ellipse at 85% 20%, rgba(37, 99, 235, 0.3) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 55%, rgba(30, 58, 138, 0.35) 0%, transparent 55%),
-    radial-gradient(ellipse at 10% 85%, rgba(37, 99, 235, 0.2) 0%, transparent 45%),
-    radial-gradient(ellipse at 88% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 45%);
+    radial-gradient(ellipse at 12% 8%,  rgba(29,  78, 216, 0.55) 0%, transparent 48%),
+    radial-gradient(ellipse at 88% 14%, rgba(37,  99, 235, 0.38) 0%, transparent 48%),
+    radial-gradient(ellipse at 48% 58%, rgba(30,  58, 138, 0.40) 0%, transparent 52%),
+    radial-gradient(ellipse at 8%  88%, rgba(37,  99, 235, 0.28) 0%, transparent 44%),
+    radial-gradient(ellipse at 90% 82%, rgba(59, 130, 246, 0.22) 0%, transparent 44%);
   background-attachment: fixed;
   background-size: cover;
   color: var(--text-primary);
@@ -46,20 +44,17 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
 }
 
-::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb {
-  background: rgba(96, 165, 250, 0.25);
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover { background: rgba(96, 165, 250, 0.45); }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.28); }
 
 button {
   font-family: var(--font-ny) !important;
   cursor: pointer;
   border: none;
   outline: none;
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.22s cubic-bezier(0.16,1,0.3,1);
 }
 button:hover { opacity: 0.88; transform: translateY(-1px); }
 button:active { opacity: 1; transform: translateY(0); }
@@ -67,23 +62,23 @@ button:active { opacity: 1; transform: translateY(0); }
 input, select, textarea {
   font-family: var(--font-ny) !important;
   outline: none;
-  border: 1px solid var(--glass-border);
-  background: rgba(10, 30, 80, 0.3);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  color: var(--text-primary);
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  color: #fff;
   border-radius: 12px;
   padding: 11px 15px;
   font-size: 14px;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 30, 0.5);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.35);
   transition: all 0.2s ease;
 }
 input::placeholder, textarea::placeholder {
-  color: rgba(150, 190, 255, 0.4);
+  color: rgba(255,255,255,0.28);
   font-family: var(--font-ny) !important;
 }
 input:focus, select:focus, textarea:focus {
-  border-color: var(--blue-bright);
-  background: rgba(15, 40, 100, 0.4);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25), inset 0 1px 2px rgba(0, 0, 30, 0.5);
+  border-color: rgba(96,165,250,0.55);
+  background: rgba(255,255,255,0.08);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.2), inset 0 1px 2px rgba(0,0,0,0.3);
 }

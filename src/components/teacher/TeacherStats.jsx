@@ -20,32 +20,32 @@ export default function TeacherStats({ questionsCount = 0, results = {}, current
   ];
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: '14px', marginBottom: '28px' }}>
+    <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(210px, 1fr))', gap:'14px', marginBottom:'28px' }}>
       {stats.map((s, idx) => {
         const Icon = s.icon;
         return (
           <div key={idx} style={{
-            background: 'rgba(8,20,60,0.55)',
-            backdropFilter: 'blur(40px) saturate(180%)',
-            WebkitBackdropFilter: 'blur(40px) saturate(180%)',
-            border: '1px solid rgba(96,165,250,0.18)',
+            background: 'rgba(255,255,255,0.045)',
+            backdropFilter: 'blur(48px) saturate(200%)',
+            WebkitBackdropFilter: 'blur(48px) saturate(200%)',
+            border: '1px solid rgba(255,255,255,0.11)',
             borderRadius: '20px', padding: '20px',
             display: 'flex', alignItems: 'center', gap: '14px',
-            boxShadow: '0 12px 30px rgba(0,0,20,0.4), inset 0 1px 0 rgba(96,165,250,0.18)'
+            boxShadow: '0 12px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.18)'
           }}>
             <div style={{
-              width: '44px', height: '44px', borderRadius: '13px', flexShrink: 0,
-              background: 'linear-gradient(135deg, rgba(37,99,235,0.5), rgba(29,78,216,0.7))',
-              border: '1px solid rgba(96,165,250,0.35)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              boxShadow: '0 6px 16px rgba(37,99,235,0.35), inset 0 1px 1px rgba(255,255,255,0.2)'
+              width:'44px', height:'44px', borderRadius:'13px', flexShrink:0,
+              background: 'rgba(255,255,255,0.07)',
+              border: '1px solid rgba(255,255,255,0.14)',
+              display:'flex', alignItems:'center', justifyContent:'center',
+              boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2)',
             }}>
-              <Icon size={21} color="rgba(255,255,255,0.92)" />
+              <Icon size={21} color="rgba(255,255,255,0.88)" />
             </div>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontSize: '11px', color: 'rgba(150,190,255,0.55)', textTransform: 'uppercase', letterSpacing: '0.5px', fontWeight: 600 }}>{s.label}</div>
-              <div style={{ fontSize: '19px', fontWeight: 700, color: '#fff', margin: '2px 0', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{s.value}</div>
-              <div style={{ fontSize: '11px', color: 'rgba(150,190,255,0.4)' }}>{s.sub}</div>
+            <div style={{ flex:1, minWidth:0 }}>
+              <div style={{ fontSize:'11px', color:'rgba(200,220,255,0.45)', textTransform:'uppercase', letterSpacing:'0.5px', fontWeight:600 }}>{s.label}</div>
+              <div style={{ fontSize:'19px', fontWeight:700, color:'#fff', margin:'2px 0', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{s.value}</div>
+              <div style={{ fontSize:'11px', color:'rgba(200,220,255,0.35)' }}>{s.sub}</div>
             </div>
           </div>
         );
