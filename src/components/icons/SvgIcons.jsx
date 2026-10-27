@@ -98,3 +98,9 @@ export const SparkleIcon = (p) => (
     <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
   </Svg>
 );
+export const XIcon = (p) => (
+  <Svg {...p}>
+    <line x1="18" y1="6" x2="6" y2="18" />
+    <line x1="6" y1="6" x2="18" y2="18" />
+  </Svg>
+);

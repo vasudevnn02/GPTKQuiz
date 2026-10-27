@@ -119,25 +119,67 @@ export default function QuestionPackManager({ quizzes = {}, onUpdated, onOpenNew
         </form>
       )}
 
-      {/* ── Sets List or Empty State ── */}
-      {packList.length === 0 ? (
-        <div style={{ textAlign: 'center', padding: '60px 20px', color: 'rgba(255, 255, 255, 0.55)', fontSize: '14px' }}>
-          No quizzes found for this filter. Click <strong style={{ color: '#ffffff', cursor: 'pointer' }} onClick={() => setShowNewPack(true)}>+ Create New Quiz</strong> to build one.
+      {/* ── Sets Grid with Square Cards ── */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+        gap: '22px'
+      }}>
+        {/* Existing Quiz Square Cards */}
+        {packList.map(quiz => (
+          <PackCard
+            key={quiz.id}
+            quiz={quiz}
+            onEditQuestion={(q) => { setEditQ(q); setEditQuizId(quiz.id); }}
+            onAddQuestion={() => { setAddTargetQuiz(quiz); setShowAddModal(true); }}
+            onAiImport={() => { setAiTargetQuiz(quiz); setShowAi(true); }}
+            onUpdated={onUpdated}
+          />
+        ))}
+
+        {/* "+ Create New Quiz" Square Card */}
+        <div
+          onClick={() => setShowNewPack(true)}
+          style={{
+            ...glass,
+            borderRadius: '26px',
+            padding: '24px',
+            minHeight: '340px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            border: '2px dashed rgba(255, 255, 255, 0.22)',
+            background: 'rgba(255, 255, 255, 0.02)',
+            transition: 'all 0.25s ease',
+            textAlign: 'center',
+            gap: '14px'
+          }}
+        >
+          <div style={{
+            width: '52px',
+            height: '52px',
+            borderRadius: '18px',
+            background: 'rgba(56, 189, 248, 0.15)',
+            border: '1px solid rgba(56, 189, 248, 0.35)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 8px 24px rgba(2, 132, 199, 0.25)'
+          }}>
+            <PlusIcon size={22} color="#38bdf8" />
+          </div>
+          <div>
+            <div style={{ fontSize: '17px', fontWeight: 800, color: '#ffffff', marginBottom: '4px' }}>
+              Create New Quiz Set
+            </div>
+            <div style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.55)', maxWidth: '200px' }}>
+              Add a new examination pack with custom questions or AI generator
+            </div>
+          </div>
         </div>
-      ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-          {packList.map(quiz => (
-            <PackCard
-              key={quiz.id}
-              quiz={quiz}
-              onEditQuestion={(q) => { setEditQ(q); setEditQuizId(quiz.id); }}
-              onAddQuestion={() => { setAddTargetQuiz(quiz); setShowAddModal(true); }}
-              onAiImport={() => { setAiTargetQuiz(quiz); setShowAi(true); }}
-              onUpdated={onUpdated}
-            />
-          ))}
-        </div>
-      )}
+      </div>
 
       {/* Modals */}
       {showAddModal && addTargetQuiz && (

@@ -18,10 +18,8 @@ import QuestionRail from './components/runner/QuestionRail.jsx';
 import AntiCheatGuard from './components/runner/AntiCheatGuard.jsx';
 
 import TeacherTopNav from './components/teacher/TeacherTopNav.jsx';
-import TeacherStats from './components/teacher/TeacherStats.jsx';
 import StudentScoreboard from './components/teacher/StudentScoreboard.jsx';
 import QuestionPackManager from './components/teacher/QuestionPackManager.jsx';
-import TestOverviewCard from './components/teacher/TestOverviewCard.jsx';
 import QuestionEditModal from './components/teacher/QuestionEditModal.jsx';
 
 const PAGE = { position: 'relative', zIndex: 1, minHeight: '100vh', display: 'flex', flexDirection: 'column' };
@@ -137,14 +135,6 @@ export default function App() {
                 <span style={{ fontSize: '15px' }}>+</span>
                 <span>Create New Quiz</span>
               </button>
-            </div>
-
-            {/* Teacher Stats Bar */}
-            <TeacherStats questionsCount={currentQuiz?.questions?.length || 0} results={results} currentQuiz={currentQuiz} />
-
-            {/* Active Assessment Overview Card */}
-            <div style={{ marginBottom: '26px' }}>
-              <TestOverviewCard currentQuiz={currentQuiz} resultsCount={Object.keys(results).length} />
             </div>
 
             {/* Main Content Area based on Tab */}
