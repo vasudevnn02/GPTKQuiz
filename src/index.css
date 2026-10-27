@@ -10,7 +10,9 @@
   --accent-blue: #3b82f6;
   --accent-green: #10b981;
   --accent-amber: #f59e0b;
-  --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", "Inter", sans-serif;
+  --font-ny: "New York", -apple-system-ui-serif, ui-serif, "Newsreader", "Charter", Georgia, Cambria, serif;
+  --font-sf-pro: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", "Inter", sans-serif;
+  --font-family: var(--font-ny);
 }
 
 * {
@@ -22,8 +24,14 @@
 body {
   background-color: var(--bg-canvas);
   color: var(--text-primary);
-  font-family: var(--font-family);
+  font-family: var(--font-ny);
   min-height: 100vh;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-ny);
+  letter-spacing: -0.02em;
+  font-weight: 700;
 }
 
 /* Custom Glass Scrollbar */
@@ -43,7 +51,7 @@ body {
 }
 
 button {
-  font-family: inherit;
+  font-family: var(--font-sf-pro);
   cursor: pointer;
   border: none;
   outline: none;
@@ -51,7 +59,7 @@ button {
 }
 
 input, select, textarea {
-  font-family: inherit;
+  font-family: var(--font-sf-pro);
   outline: none;
   border: 1px solid var(--border-subtle);
   background: rgba(0, 0, 0, 0.25);
@@ -71,10 +79,10 @@ input:focus, select:focus, textarea:focus {
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
-.glass-panel {
-  background: var(--bg-card);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border-subtle);
-  border-radius: 16px;
+.font-ny {
+  font-family: var(--font-ny);
+}
+
+.font-sf {
+  font-family: var(--font-sf-pro);
 }

@@ -11,13 +11,13 @@ export default function AuthCard({ onStudentLogin, onTeacherLogin, loading, erro
   };
 
   return (
-    <div style={{ minHeight: '100vh', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px', background: 'radial-gradient(ellipse at 50% 20%, #1e2638 0%, #0c0e14 70%)' }}>
-      <div style={{ maxWidth: '440px', width: '100%', background: 'rgba(24, 27, 36, 0.72)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', borderRadius: '20px', border: '1px solid rgba(255, 255, 255, 0.1)', padding: '36px 32px', boxShadow: '0 24px 60px rgba(0, 0, 0, 0.55)' }}>
+    <div style={{ minHeight: '100vh', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px', background: 'radial-gradient(ellipse at 50% 20%, #1a2236 0%, #0a0c12 70%)' }}>
+      <div style={{ maxWidth: '440px', width: '100%', background: 'rgba(22, 26, 36, 0.72)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', borderRadius: '20px', border: '1px solid rgba(255, 255, 255, 0.1)', padding: '38px 32px', boxShadow: '0 24px 60px rgba(0, 0, 0, 0.55)' }}>
         <div style={{ textAlign: 'center', marginBottom: '28px' }}>
-          <h1 style={{ fontSize: '24px', fontWeight: 800, letterSpacing: '-0.5px', color: '#ffffff', margin: 0 }}>
+          <h1 style={{ fontSize: '28px', fontWeight: 700, letterSpacing: '-0.5px', color: '#ffffff', margin: 0, fontFamily: 'var(--font-ny)' }}>
             GPTK Quiz
           </h1>
-          <p style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.5)', marginTop: '6px' }}>
+          <p style={{ fontSize: '13px', color: 'rgba(255, 255, 255, 0.55)', marginTop: '6px', fontFamily: 'var(--font-ny)', fontStyle: 'italic' }}>
             Proctored Examination Portal
           </p>
         </div>

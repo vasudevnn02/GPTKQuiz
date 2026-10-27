@@ -6,17 +6,17 @@ export default function QuestionView({ question, selectedOption, onSelectOption,
 
   return (
     <div style={{ maxWidth: '840px', width: '100%', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      <div style={{ background: '#212121', border: '1px solid #272727', borderRadius: '12px', padding: '24px' }}>
+      <div style={{ background: 'rgba(24, 27, 36, 0.75)', backdropFilter: 'blur(16px)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '16px', padding: '28px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '14px' }}>
-          <span style={{ fontSize: '11px', fontWeight: 700, color: '#3ea6ff', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-            Single Choice Question
+          <span style={{ fontSize: '11px', fontWeight: 700, color: '#60a5fa', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+            Question {currentIndex + 1} of {totalQuestions}
           </span>
-          <span style={{ fontSize: '12px', color: '#aaaaaa' }}>
+          <span style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.5)' }}>
             1 Mark
           </span>
         </div>
-        <h2 style={{ fontSize: '17px', fontWeight: 600, color: '#f1f1f1', lineHeight: '1.5' }}>
-          {currentIndex + 1}. {question.text}
+        <h2 style={{ fontSize: '19px', fontWeight: 600, color: '#ffffff', lineHeight: '1.5', fontFamily: 'var(--font-ny)', margin: 0 }}>
+          {question.text}
         </h2>
       </div>
 
@@ -33,11 +33,12 @@ export default function QuestionView({ question, selectedOption, onSelectOption,
                 alignItems: 'center',
                 gap: '14px',
                 padding: '16px 20px',
-                background: isSelected ? '#2a2a2a' : '#212121',
-                border: `1.5px solid ${isSelected ? '#3ea6ff' : '#272727'}`,
-                borderRadius: '10px',
+                background: isSelected ? 'rgba(59, 130, 246, 0.15)' : 'rgba(24, 27, 36, 0.6)',
+                border: `1.5px solid ${isSelected ? '#3b82f6' : 'rgba(255, 255, 255, 0.08)'}`,
+                backdropFilter: 'blur(12px)',
+                borderRadius: '12px',
                 textAlign: 'left',
-                color: isSelected ? '#ffffff' : '#e0e0e0',
+                color: isSelected ? '#ffffff' : 'rgba(255, 255, 255, 0.85)',
                 transition: 'all 0.15s ease'
               }}
             >
@@ -45,8 +46,8 @@ export default function QuestionView({ question, selectedOption, onSelectOption,
                 width: '32px',
                 height: '32px',
                 borderRadius: '50%',
-                background: isSelected ? '#3ea6ff' : '#181818',
-                color: isSelected ? '#000000' : '#aaaaaa',
+                background: isSelected ? '#3b82f6' : 'rgba(255, 255, 255, 0.08)',
+                color: isSelected ? '#ffffff' : 'rgba(255, 255, 255, 0.7)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -66,7 +67,7 @@ export default function QuestionView({ question, selectedOption, onSelectOption,
         <button
           onClick={onPrev}
           disabled={currentIndex === 0}
-          style={{ background: '#272727', color: '#aaaaaa', padding: '10px 18px', borderRadius: '8px', fontSize: '13px', fontWeight: 600, opacity: currentIndex === 0 ? 0.4 : 1 }}
+          style={{ background: 'rgba(255, 255, 255, 0.08)', border: '1px solid rgba(255, 255, 255, 0.1)', color: 'rgba(255, 255, 255, 0.7)', padding: '10px 18px', borderRadius: '8px', fontSize: '13px', fontWeight: 600, opacity: currentIndex === 0 ? 0.4 : 1 }}
         >
           Previous
         </button>
@@ -74,7 +75,7 @@ export default function QuestionView({ question, selectedOption, onSelectOption,
         <button
           onClick={onNext}
           disabled={currentIndex === totalQuestions - 1}
-          style={{ background: '#272727', color: '#f1f1f1', padding: '10px 20px', borderRadius: '8px', fontSize: '13px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px', opacity: currentIndex === totalQuestions - 1 ? 0.4 : 1 }}
+          style={{ background: 'rgba(255, 255, 255, 0.08)', border: '1px solid rgba(255, 255, 255, 0.1)', color: '#ffffff', padding: '10px 20px', borderRadius: '8px', fontSize: '13px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px', opacity: currentIndex === totalQuestions - 1 ? 0.4 : 1 }}
         >
           <span>Next Question</span>
           <ChevronRightIcon size={14} />
