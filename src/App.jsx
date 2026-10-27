@@ -147,7 +147,7 @@ export default function App() {
             )}
 
             {teacherTab === 'results' && (
-              <StudentScoreboard results={results} />
+              <StudentScoreboard results={results} quizzes={quizzes} />
             )}
           </main>
 
