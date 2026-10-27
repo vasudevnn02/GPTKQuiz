@@ -19,7 +19,7 @@ import TeacherTopNav from './components/teacher/TeacherTopNav.jsx';
 import TeacherStats from './components/teacher/TeacherStats.jsx';
 import StudentScoreboard from './components/teacher/StudentScoreboard.jsx';
 import QuestionManager from './components/teacher/QuestionManager.jsx';
-import QuizWindowConfig from './components/teacher/QuizWindowConfig.jsx';
+import TestOverviewCard from './components/teacher/TestOverviewCard.jsx';
 
 export default function App() {
   const { currentUser, loading, error, setError, loginStudent, loginTeacher, logout } = useStudentAuth();
@@ -57,7 +57,7 @@ export default function App() {
         <TeacherTopNav admin={currentUser} activeTab={teacherTab} onSelectTab={setTeacherTab} onLogout={logout} />
         <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '32px 24px' }}>
           <TeacherStats questionsCount={currentQuiz?.questions?.length || 0} results={results} currentQuiz={currentQuiz} />
-          {teacherTab === 'dashboard' && <QuizWindowConfig currentQuiz={currentQuiz} />}
+          {teacherTab === 'dashboard' && <TestOverviewCard currentQuiz={currentQuiz} resultsCount={Object.keys(results).length} />}
           {teacherTab === 'questions' && <QuestionManager currentQuiz={currentQuiz} />}
           {teacherTab === 'results' && <StudentScoreboard results={results} />}
         </main>
