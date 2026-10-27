@@ -3,7 +3,7 @@ import { ref, set } from 'firebase/database';
 import { rtdb } from '../../services/firebase.js';
 import { glassDeep, glassBtn, glassInner } from '../../glass.js';
 
-export default function AiQuestionImporter({ currentQuiz, answerKeys = {}, onClose, onImported }) {
+export default function AiQuestionImporter({ currentQuiz, answerKeys = {}, onClose, onImported, embedded = false }) {
   const [step, setStep] = useState('prompt'); // 'prompt' | 'paste'
   const [topic, setTopic] = useState('Operating Systems & Memory Management');
   const [questionCount, setQuestionCount] = useState(5);
@@ -136,151 +136,76 @@ Answer: B
   };
 
   return (
-    <div style={{ position: 'fixed', inset: 0, zIndex: 100, background: 'rgba(0, 0, 0, 0.75)', backdropFilter: 'blur(24px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-      <div style={{ maxWidth: '680px', width: '100%', maxHeight: '90vh', overflowY: 'auto', ...glassDeep, borderRadius: '28px', padding: '34px' }}>
-        
-        {/* Modal Header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '22px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+      {/* Step Indicator */}
+      <div style={{ display: 'flex', gap: '8px' }}>
+        <button onClick={() => setStep('prompt')} style={{ flex: 1, padding: '9px', borderRadius: '12px', fontSize: '12px', fontWeight: 800, background: step === 'prompt' ? 'rgba(56,189,248,0.25)' : 'rgba(255,255,255,0.06)', color: '#ffffff', border: `1px solid ${step === 'prompt' ? 'rgba(56,189,248,0.4)' : 'rgba(255,255,255,0.15)'}` }}>
+          1. Build &amp; Copy Prompt
+        </button>
+        <button onClick={() => setStep('paste')} style={{ flex: 1, padding: '9px', borderRadius: '12px', fontSize: '12px', fontWeight: 800, background: step === 'paste' ? 'rgba(56,189,248,0.25)' : 'rgba(255,255,255,0.06)', color: '#ffffff', border: `1px solid ${step === 'paste' ? 'rgba(56,189,248,0.4)' : 'rgba(255,255,255,0.15)'}` }}>
+          2. Paste &amp; Import
+        </button>
+      </div>
+
+      {/* ── STEP 1 ── */}
+      {step === 'prompt' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
           <div>
-            <h3 style={{ fontSize: '21px', fontWeight: 800, color: '#ffffff', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span>✦</span> AI Prompt & Question Importer
-            </h3>
-            <p style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.6)', marginTop: '3px' }}>
-              {step === 'prompt' ? 'Configure topic & question count, then auto-copy prompt.' : 'Paste AI output below to parse and import.'}
-            </p>
+            <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>Assessment Topic</label>
+            <input type="text" value={topic} onChange={e => setTopic(e.target.value)} placeholder="e.g. Python Functions, Cloud Architecture, DBMS" style={{ width: '100%' }} />
           </div>
-          <button onClick={onClose} style={{ ...glassBtn, padding: '7px 14px', borderRadius: '10px', fontSize: '12px', fontWeight: 700 }}>✕ Close</button>
-        </div>
-
-        {/* Step Indicator */}
-        <div style={{ display: 'flex', gap: '10px', marginBottom: '22px' }}>
-          <button onClick={() => setStep('prompt')} style={{ flex: 1, padding: '10px', borderRadius: '12px', fontSize: '12px', fontWeight: 800, background: step === 'prompt' ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.06)', color: '#ffffff', border: '1px solid rgba(255,255,255,0.25)', boxShadow: step === 'prompt' ? 'inset 0 1px 0 rgba(255,255,255,0.35)' : 'none' }}>
-            1. Build & Copy Prompt
-          </button>
-          <button onClick={() => setStep('paste')} style={{ flex: 1, padding: '10px', borderRadius: '12px', fontSize: '12px', fontWeight: 800, background: step === 'paste' ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.06)', color: '#ffffff', border: '1px solid rgba(255,255,255,0.25)', boxShadow: step === 'paste' ? 'inset 0 1px 0 rgba(255,255,255,0.35)' : 'none' }}>
-            2. Paste AI Questions & Import
-          </button>
-        </div>
-
-        {/* ── STEP 1: PROMPT BUILDER ── */}
-        {step === 'prompt' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <div>
-              <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>
-                Assessment Topic
-              </label>
-              <input
-                type="text"
-                value={topic}
-                onChange={e => setTopic(e.target.value)}
-                placeholder="e.g. Python Functions, Cloud Architecture, DBMS"
-                style={{ width: '100%' }}
-              />
+          <div>
+            <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>How Many Questions?</label>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              {[3, 5, 10, 15, 20].map(cnt => (
+                <button key={cnt} type="button" onClick={() => setQuestionCount(cnt)} style={{ padding: '7px 14px', borderRadius: '10px', fontSize: '12px', fontWeight: 800, background: questionCount === cnt ? 'rgba(56,189,248,0.25)' : 'rgba(255,255,255,0.06)', border: `1px solid ${questionCount === cnt ? 'rgba(56,189,248,0.45)' : 'rgba(255,255,255,0.15)'}`, color: '#ffffff' }}>
+                  {cnt}Q
+                </button>
+              ))}
             </div>
+          </div>
+          <div>
+            <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>Generated Prompt</label>
+            <pre style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.14)', borderRadius: '14px', padding: '14px', fontSize: '11px', color: '#ffffff', whiteSpace: 'pre-wrap', maxHeight: '160px', overflowY: 'auto', lineHeight: '1.5' }}>{generatedPrompt}</pre>
+          </div>
+          <button onClick={handleCopyAndProceed} style={{ ...glassBtn, padding: '11px 22px', borderRadius: '12px', fontWeight: 800, fontSize: '13px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+            {copied ? '✓ Copied!' : 'Copy Prompt & Go to Paste Box'}
+          </button>
+        </div>
+      )}
 
-            <div>
-              <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>
-                How Many Questions?
-              </label>
-              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                {[3, 5, 10, 15, 20].map(cnt => (
-                  <button
-                    key={cnt}
-                    type="button"
-                    onClick={() => setQuestionCount(cnt)}
-                    style={{
-                      padding: '8px 16px',
-                      borderRadius: '10px',
-                      fontSize: '12px',
-                      fontWeight: 800,
-                      background: questionCount === cnt ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.06)',
-                      border: `1px solid ${questionCount === cnt ? 'rgba(255,255,255,0.45)' : 'rgba(255,255,255,0.15)'}`,
-                      color: '#ffffff',
-                    }}
-                  >
-                    {cnt} Questions
-                  </button>
+      {/* ── STEP 2 ── */}
+      {step === 'paste' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+          <div>
+            <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>Paste AI Output (numbered 1. 2. 3...)</label>
+            <textarea rows={7} value={pastedText} onChange={e => { setPastedText(e.target.value); parsePastedContent(e.target.value); }} placeholder={'1. What is the main purpose of an OS?\nA) Manage hardware\nB) Design UI\nC) Create docs\nD) Send emails\nAnswer: A\n\n2. Next question...'} style={{ width: '100%', resize: 'vertical', fontSize: '13px', lineHeight: '1.5' }} />
+          </div>
+          {parseError && <div style={{ fontSize: '12px', color: '#fca5a5', background: 'rgba(239,68,68,0.15)', padding: '10px 14px', borderRadius: '10px', border: '1px solid rgba(239,68,68,0.3)', fontWeight: 600 }}>{parseError}</div>}
+          {parsedQuestions.length > 0 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '14px' }}>
+              <div style={{ fontSize: '13px', fontWeight: 800, color: '#4ade80' }}>✓ {parsedQuestions.length} questions detected</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '200px', overflowY: 'auto' }}>
+                {parsedQuestions.map((q, idx) => (
+                  <div key={idx} style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '12px', padding: '12px 14px', border: '1px solid rgba(255,255,255,0.12)' }}>
+                    <div style={{ fontSize: '13px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>{idx + 1}. {q.text}</div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5px' }}>
+                      {q.options.map((opt, i) => (
+                        <div key={i} style={{ fontSize: '11px', padding: '5px 8px', borderRadius: '7px', background: i === q.correct ? 'rgba(74,222,128,0.15)' : 'rgba(255,255,255,0.04)', color: i === q.correct ? '#4ade80' : '#ffffff', fontWeight: i === q.correct ? 700 : 500, border: `1px solid ${i === q.correct ? 'rgba(74,222,128,0.35)' : 'rgba(255,255,255,0.1)'}` }}>
+                          {String.fromCharCode(65+i)}. {opt} {i === q.correct && '✓'}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </div>
+              <button onClick={handleImport} style={{ background: 'linear-gradient(135deg,#0284c7,#0369a1)', border: '1px solid rgba(56,189,248,0.5)', color: '#fff', padding: '11px 22px', borderRadius: '12px', fontSize: '13px', fontWeight: 800, boxShadow: '0 4px 16px rgba(2,132,199,0.4)', cursor: 'pointer', alignSelf: 'flex-start' }}>
+                Import All {parsedQuestions.length} Questions →
+              </button>
             </div>
-
-            <div>
-              <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>
-                Generated Prompt (Ready for ChatGPT / Gemini)
-              </label>
-              <pre style={{ ...glassInner, borderRadius: '16px', padding: '16px', fontSize: '12px', color: '#ffffff', whiteSpace: 'pre-wrap', maxHeight: '180px', overflowY: 'auto', lineHeight: '1.5', fontWeight: 500 }}>
-                {generatedPrompt}
-              </pre>
-            </div>
-
-            <button
-              onClick={handleCopyAndProceed}
-              style={{ ...glassBtn, padding: '12px 24px', borderRadius: '14px', fontWeight: 800, fontSize: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
-            >
-              <span>{copied ? '✓ Copied to Clipboard!' : 'Copy Prompt & Open Paste Box'}</span>
-            </button>
-          </div>
-        )}
-
-        {/* ── STEP 2: PASTE BOX & AUTO PARSER ── */}
-        {step === 'paste' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <div>
-              <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>
-                Paste Box (Paste from AI starting with 1, 2, 3...)
-              </label>
-              <textarea
-                rows={7}
-                value={pastedText}
-                onChange={e => {
-                  setPastedText(e.target.value);
-                  parsePastedContent(e.target.value);
-                }}
-                placeholder={`1. What is the main purpose of an OS?\nA) Manage hardware and software\nB) Design graphic UI\nC) Create documents\nD) Send emails\nAnswer: A\n\n2. Next question...`}
-                style={{ width: '100%', resize: 'vertical', fontSize: '13px', lineHeight: '1.5' }}
-              />
-            </div>
-
-            {parseError && (
-              <div style={{ fontSize: '12px', color: '#fca5a5', background: 'rgba(239, 68, 68, 0.15)', padding: '12px 16px', borderRadius: '12px', border: '1px solid rgba(239, 68, 68, 0.3)', fontWeight: 600 }}>
-                {parseError}
-              </div>
-            )}
-
-            {parsedQuestions.length > 0 && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', borderTop: '1px solid rgba(255,255,255,0.12)', paddingTop: '16px' }}>
-                <div style={{ fontSize: '14px', fontWeight: 800, color: '#ffffff' }}>
-                  Parsed Questions ({parsedQuestions.length} detected):
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: '220px', overflowY: 'auto' }}>
-                  {parsedQuestions.map((q, idx) => (
-                    <div key={idx} style={{ ...glassInner, borderRadius: '14px', padding: '14px 16px' }}>
-                      <div style={{ fontSize: '14px', fontWeight: 700, color: '#ffffff', marginBottom: '8px' }}>
-                        {idx + 1}. {q.text}
-                      </div>
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px' }}>
-                        {q.options.map((opt, i) => (
-                          <div key={i} style={{ fontSize: '12px', padding: '6px 10px', borderRadius: '8px', background: i === q.correct ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.05)', color: '#ffffff', fontWeight: i === q.correct ? 700 : 500, border: '1px solid rgba(255,255,255,0.2)' }}>
-                            {String.fromCharCode(65 + i)}. {opt} {i === q.correct && '✓'}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <button
-                  onClick={handleImport}
-                  style={{ ...glassBtn, padding: '12px 24px', borderRadius: '12px', fontWeight: 800, fontSize: '14px', alignSelf: 'flex-start', marginTop: '6px' }}
-                >
-                  Import All ({parsedQuestions.length}) Questions to Bank
-                </button>
-              </div>
-            )}
-          </div>
-        )}
-
-      </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

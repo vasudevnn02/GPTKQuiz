@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { ref, set, update, remove } from 'firebase/database';
-import { rtdb } from '../../services/firebase.js';
+import { ref, set, update } from 'firebase/database';
+import { rtdb, deleteQuizPack, saveQuizQuestions } from '../../services/firebase.js';
 import {
   PlusIcon,
   TrashIcon,
@@ -46,17 +46,15 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
   const deleteQuestion = async (e, qid) => {
     e.stopPropagation();
     const updated = questions.filter(q => q.id !== qid);
-    try { await set(ref(rtdb, `quizzes/${quiz.id}/questions`), updated); } catch {}
+    await saveQuizQuestions(quiz.id, updated, {});
     if (onUpdated) onUpdated();
   };
 
   const deletePack = async (e) => {
     e.stopPropagation();
     if (!window.confirm(`Delete quiz set "${quiz.title}" and all its questions?`)) return;
-    try {
-      await remove(ref(rtdb, `quizzes/${quiz.id}`));
-      if (onUpdated) onUpdated();
-    } catch {}
+    await deleteQuizPack(quiz.id);
+    if (onUpdated) onUpdated();
   };
 
   return (
