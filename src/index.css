@@ -1,19 +1,20 @@
 :root {
-  --bg-canvas: #05070d;
-  --glass-surface: rgba(255, 255, 255, 0.055);
-  --glass-surface-hover: rgba(255, 255, 255, 0.095);
-  --glass-border: rgba(255, 255, 255, 0.15);
-  --glass-border-highlight: rgba(255, 255, 255, 0.3);
-  --glass-blur: blur(36px) saturate(210%);
-  --glass-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+  --bg-canvas: #03050f;
+  --navy-deep: #060d1f;
+  --navy-mid: #0a1628;
+  --blue-accent: #2563eb;
+  --blue-bright: #3b82f6;
+  --blue-light: #60a5fa;
+  --blue-dim: rgba(37, 99, 235, 0.18);
+  --glass-surface: rgba(10, 30, 80, 0.35);
+  --glass-surface-hover: rgba(15, 40, 100, 0.5);
+  --glass-border: rgba(96, 165, 250, 0.18);
+  --glass-border-bright: rgba(96, 165, 250, 0.38);
+  --glass-blur: blur(40px) saturate(180%);
+  --glass-shadow: 0 24px 60px rgba(0, 0, 20, 0.7), inset 0 1px 0 rgba(96, 165, 250, 0.2);
   --text-primary: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.72);
-  --text-muted: rgba(255, 255, 255, 0.45);
-  --ios-blue: #0a84ff;
-  --ios-purple: #bf5af2;
-  --ios-green: #30d158;
-  --ios-orange: #ff9f0a;
-  --ios-red: #ff453a;
+  --text-secondary: rgba(200, 220, 255, 0.8);
+  --text-muted: rgba(150, 190, 255, 0.5);
   --font-ny: "New York", -apple-system-ui-serif, ui-serif, "Newsreader", "Charter", Georgia, Cambria, serif;
 }
 
@@ -26,12 +27,12 @@
 
 body {
   background-color: var(--bg-canvas);
-  background-image: 
-    radial-gradient(ellipse at 10% 10%, rgba(120, 50, 255, 0.28) 0%, transparent 45%),
-    radial-gradient(ellipse at 90% 15%, rgba(0, 160, 255, 0.25) 0%, transparent 45%),
-    radial-gradient(ellipse at 50% 60%, rgba(190, 40, 220, 0.18) 0%, transparent 55%),
-    radial-gradient(ellipse at 20% 90%, rgba(0, 220, 130, 0.16) 0%, transparent 50%),
-    radial-gradient(ellipse at 85% 85%, rgba(255, 140, 0, 0.16) 0%, transparent 50%);
+  background-image:
+    radial-gradient(ellipse at 15% 10%, rgba(29, 78, 216, 0.45) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 20%, rgba(37, 99, 235, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 55%, rgba(30, 58, 138, 0.35) 0%, transparent 55%),
+    radial-gradient(ellipse at 10% 85%, rgba(37, 99, 235, 0.2) 0%, transparent 45%),
+    radial-gradient(ellipse at 88% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 45%);
   background-attachment: fixed;
   background-size: cover;
   color: var(--text-primary);
@@ -45,54 +46,44 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
 }
 
-/* Real Color Glass Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(96, 165, 250, 0.25);
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
 }
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.38);
-}
+::-webkit-scrollbar-thumb:hover { background: rgba(96, 165, 250, 0.45); }
 
 button {
   font-family: var(--font-ny) !important;
   cursor: pointer;
   border: none;
   outline: none;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
+button:hover { opacity: 0.88; transform: translateY(-1px); }
+button:active { opacity: 1; transform: translateY(0); }
 
 input, select, textarea {
   font-family: var(--font-ny) !important;
   outline: none;
   border: 1px solid var(--glass-border);
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(10, 30, 80, 0.3);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   color: var(--text-primary);
   border-radius: 12px;
-  padding: 12px 16px;
+  padding: 11px 15px;
   font-size: 14px;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 30, 0.5);
   transition: all 0.2s ease;
 }
-
 input::placeholder, textarea::placeholder {
-  color: rgba(255, 255, 255, 0.38);
+  color: rgba(150, 190, 255, 0.4);
   font-family: var(--font-ny) !important;
-  text-transform: none !important;
 }
-
 input:focus, select:focus, textarea:focus {
-  border-color: rgba(10, 132, 255, 0.7);
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.3), inset 0 1px 2px rgba(0, 0, 0, 0.4);
+  border-color: var(--blue-bright);
+  background: rgba(15, 40, 100, 0.4);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25), inset 0 1px 2px rgba(0, 0, 30, 0.5);
 }

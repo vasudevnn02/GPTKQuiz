@@ -18,7 +18,7 @@ import AntiCheatGuard from './components/runner/AntiCheatGuard.jsx';
 import TeacherTopNav from './components/teacher/TeacherTopNav.jsx';
 import TeacherStats from './components/teacher/TeacherStats.jsx';
 import StudentScoreboard from './components/teacher/StudentScoreboard.jsx';
-import QuestionManager from './components/teacher/QuestionManager.jsx';
+import QuestionPackManager from './components/teacher/QuestionPackManager.jsx';
 import TestOverviewCard from './components/teacher/TestOverviewCard.jsx';
 
 export default function App() {
@@ -29,15 +29,13 @@ export default function App() {
   const [teacherTab, setTeacherTab] = useState('dashboard');
   const [activeQuiz, setActiveQuiz] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     initializeDatabaseSeed();
     const unsubQuizzes = subscribeToQuizzes(setQuizzes);
     const unsubResults = subscribeToResults(setResults);
-    return () => {
-      unsubQuizzes && unsubQuizzes();
-      unsubResults && unsubResults();
-    };
+    return () => { unsubQuizzes?.(); unsubResults?.(); };
   }, []);
 
   const currentQuiz = Object.values(quizzes)[0] || null;
@@ -57,8 +55,15 @@ export default function App() {
         <TeacherTopNav admin={currentUser} activeTab={teacherTab} onSelectTab={setTeacherTab} onLogout={logout} />
         <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '32px 24px' }}>
           <TeacherStats questionsCount={currentQuiz?.questions?.length || 0} results={results} currentQuiz={currentQuiz} />
-          {teacherTab === 'dashboard' && <TestOverviewCard currentQuiz={currentQuiz} resultsCount={Object.keys(results).length} />}
-          {teacherTab === 'questions' && <QuestionManager currentQuiz={currentQuiz} />}
+          {teacherTab === 'dashboard' && (
+            <TestOverviewCard currentQuiz={currentQuiz} resultsCount={Object.keys(results).length} />
+          )}
+          {teacherTab === 'questions' && (
+            <QuestionPackManager
+              quizzes={quizzes}
+              onUpdated={() => setRefreshKey(k => k + 1)}
+            />
+          )}
           {teacherTab === 'results' && <StudentScoreboard results={results} />}
         </main>
       </div>
@@ -91,9 +96,9 @@ export default function App() {
           {studentTab === 'upcoming' && <UpcomingExamGrid />}
           {studentTab === 'results' && <ResultsTable results={results} student={currentUser} />}
           {studentTab === 'rules' && (
-            <div style={{ background: 'rgba(255, 255, 255, 0.04)', backdropFilter: 'blur(30px)', border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: '20px', padding: '32px', maxWidth: '720px', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>
-              <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#ffffff', marginBottom: '14px' }}>Examination Regulations & Honor Code</h2>
-              <ul style={{ color: 'rgba(255, 255, 255, 0.65)', fontSize: '13px', lineHeight: '1.9', paddingLeft: '22px' }}>
+            <div style={{ background: 'rgba(8,20,60,0.55)', backdropFilter: 'blur(40px)', border: '1px solid rgba(96,165,250,0.18)', borderRadius: '20px', padding: '32px', maxWidth: '720px', boxShadow: '0 20px 40px rgba(0,0,20,0.5)' }}>
+              <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#fff', marginBottom: '14px' }}>Examination Regulations & Honor Code</h2>
+              <ul style={{ color: 'rgba(150,190,255,0.75)', fontSize: '13px', lineHeight: '1.9', paddingLeft: '22px' }}>
                 <li>Assessments must be attended within the scheduled window (10:00 AM – 05:00 PM).</li>
                 <li>Your countdown timer begins upon clicking "Start Quiz Now". Time is capped if joined near 5:00 PM.</li>
                 <li>Full-screen lockdown is enforced. Tab-switches or window blurs generate proctor alerts.</li>
