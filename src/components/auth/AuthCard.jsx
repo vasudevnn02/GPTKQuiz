@@ -44,23 +44,24 @@ export default function AuthCard({ onStudentLogin, onStudentRegister, onTeacherL
         {/* Primary Role Switcher: Student vs Teacher */}
         <div style={{
           display: 'flex',
-          background: 'rgba(0, 0, 0, 0.4)',
+          background: 'rgba(0, 0, 0, 0.55)',
           borderRadius: '14px',
           padding: '4px',
           marginBottom: '20px',
-          border: '1px solid rgba(255, 255, 255, 0.12)'
+          border: '1px solid rgba(255, 255, 255, 0.18)',
+          boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08)'
         }}>
           <button
             onClick={() => handleRoleChange('student')}
             style={{
               flex: 1,
-              padding: '9px 12px',
+              padding: '10px 14px',
               borderRadius: '10px',
               fontSize: '13px',
-              fontWeight: 700,
-              background: role === 'student' ? 'rgba(255, 255, 255, 0.16)' : 'transparent',
-              color: role === 'student' ? '#ffffff' : 'rgba(255, 255, 255, 0.6)',
-              boxShadow: role === 'student' ? '0 4px 12px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.35)' : 'none',
+              fontWeight: 800,
+              background: role === 'student' ? '#ffffff' : 'transparent',
+              color: role === 'student' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
+              boxShadow: role === 'student' ? '0 4px 14px rgba(0,0,0,0.45)' : 'none',
               transition: 'all 0.15s ease',
               cursor: 'pointer'
             }}
@@ -71,13 +72,13 @@ export default function AuthCard({ onStudentLogin, onStudentRegister, onTeacherL
             onClick={() => handleRoleChange('teacher')}
             style={{
               flex: 1,
-              padding: '9px 12px',
+              padding: '10px 14px',
               borderRadius: '10px',
               fontSize: '13px',
-              fontWeight: 700,
-              background: role === 'teacher' ? 'rgba(255, 255, 255, 0.16)' : 'transparent',
-              color: role === 'teacher' ? '#ffffff' : 'rgba(255, 255, 255, 0.6)',
-              boxShadow: role === 'teacher' ? '0 4px 12px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.35)' : 'none',
+              fontWeight: 800,
+              background: role === 'teacher' ? '#ffffff' : 'transparent',
+              color: role === 'teacher' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
+              boxShadow: role === 'teacher' ? '0 4px 14px rgba(0,0,0,0.45)' : 'none',
               transition: 'all 0.15s ease',
               cursor: 'pointer'
             }}
@@ -86,27 +87,28 @@ export default function AuthCard({ onStudentLogin, onStudentRegister, onTeacherL
           </button>
         </div>
 
-        {/* Student Sub-segmented Switcher: Sign In vs Register */}
+        {/* Student Sub-segmented Switcher: Sign In vs Register (Ultra Bright & High Contrast) */}
         {role === 'student' && (
           <div style={{
             display: 'flex',
-            background: 'rgba(255, 255, 255, 0.04)',
-            borderRadius: '11px',
-            padding: '3px',
-            marginBottom: '20px',
-            border: '1px solid rgba(255, 255, 255, 0.1)'
+            background: 'rgba(0, 0, 0, 0.5)',
+            borderRadius: '13px',
+            padding: '4px',
+            marginBottom: '22px',
+            border: '1px solid rgba(255, 255, 255, 0.18)',
+            boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08)'
           }}>
             <button
               onClick={() => handleStudentModeChange('login')}
               style={{
                 flex: 1,
-                padding: '6px 10px',
-                borderRadius: '8px',
+                padding: '8px 12px',
+                borderRadius: '9px',
                 fontSize: '12px',
-                fontWeight: 700,
-                background: studentMode === 'login' ? 'rgba(56, 189, 248, 0.2)' : 'transparent',
-                color: studentMode === 'login' ? '#38bdf8' : 'rgba(255, 255, 255, 0.65)',
-                border: studentMode === 'login' ? '1px solid rgba(56, 189, 248, 0.4)' : '1px solid transparent',
+                fontWeight: 800,
+                background: studentMode === 'login' ? '#38bdf8' : 'transparent',
+                color: studentMode === 'login' ? '#021024' : '#ffffff',
+                boxShadow: studentMode === 'login' ? '0 2px 10px rgba(56, 189, 248, 0.45)' : 'none',
                 transition: 'all 0.15s ease',
                 cursor: 'pointer'
               }}
@@ -117,13 +119,13 @@ export default function AuthCard({ onStudentLogin, onStudentRegister, onTeacherL
               onClick={() => handleStudentModeChange('register')}
               style={{
                 flex: 1,
-                padding: '6px 10px',
-                borderRadius: '8px',
+                padding: '8px 12px',
+                borderRadius: '9px',
                 fontSize: '12px',
-                fontWeight: 700,
-                background: studentMode === 'register' ? 'rgba(56, 189, 248, 0.2)' : 'transparent',
-                color: studentMode === 'register' ? '#38bdf8' : 'rgba(255, 255, 255, 0.65)',
-                border: studentMode === 'register' ? '1px solid rgba(56, 189, 248, 0.4)' : '1px solid transparent',
+                fontWeight: 800,
+                background: studentMode === 'register' ? '#38bdf8' : 'transparent',
+                color: studentMode === 'register' ? '#021024' : '#ffffff',
+                boxShadow: studentMode === 'register' ? '0 2px 10px rgba(56, 189, 248, 0.45)' : 'none',
                 transition: 'all 0.15s ease',
                 cursor: 'pointer'
               }}

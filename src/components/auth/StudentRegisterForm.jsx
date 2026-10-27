@@ -33,12 +33,12 @@ export default function StudentRegisterForm({ onRegister, loading, error, onSwit
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
       {/* Student Name */}
       <div>
-        <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>
+        <label style={{ display: 'block', fontSize: '13px', fontWeight: 800, color: '#ffffff', marginBottom: '7px' }}>
           Candidate Full Name
         </label>
         <div style={{ position: 'relative' }}>
-          <span style={{ position: 'absolute', left: '12px', top: '11px', width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <UserIcon size={14} color="rgba(255,255,255,0.7)" />
+          <span style={{ position: 'absolute', left: '14px', top: '13px', width: '20px', height: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <UserIcon size={16} color="#38bdf8" />
           </span>
           <input
             type="text"
@@ -46,19 +46,19 @@ export default function StudentRegisterForm({ onRegister, loading, error, onSwit
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Full Name"
-            style={{ width: '100%', paddingLeft: '40px' }}
+            style={{ width: '100%', paddingLeft: '44px' }}
           />
         </div>
       </div>
 
       {/* Register Number */}
       <div>
-        <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>
+        <label style={{ display: 'block', fontSize: '13px', fontWeight: 800, color: '#ffffff', marginBottom: '7px' }}>
           Register Number / Roll No
         </label>
         <div style={{ position: 'relative' }}>
-          <span style={{ position: 'absolute', left: '12px', top: '11px', width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <UserIcon size={14} color="rgba(255,255,255,0.7)" />
+          <span style={{ position: 'absolute', left: '14px', top: '13px', width: '20px', height: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <UserIcon size={16} color="#38bdf8" />
           </span>
           <input
             type="text"
@@ -66,19 +66,19 @@ export default function StudentRegisterForm({ onRegister, loading, error, onSwit
             value={rollNo}
             onChange={(e) => setRollNo(e.target.value.toUpperCase())}
             placeholder="Register Number (e.g. 197CS...)"
-            style={{ width: '100%', paddingLeft: '40px' }}
+            style={{ width: '100%', paddingLeft: '44px' }}
           />
         </div>
       </div>
 
       {/* Password */}
       <div>
-        <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>
+        <label style={{ display: 'block', fontSize: '13px', fontWeight: 800, color: '#ffffff', marginBottom: '7px' }}>
           Create Password
         </label>
         <div style={{ position: 'relative' }}>
-          <span style={{ position: 'absolute', left: '12px', top: '11px', width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <LockIcon size={14} color="rgba(255,255,255,0.7)" />
+          <span style={{ position: 'absolute', left: '14px', top: '13px', width: '20px', height: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <LockIcon size={16} color="#38bdf8" />
           </span>
           <input
             type="password"
@@ -86,19 +86,19 @@ export default function StudentRegisterForm({ onRegister, loading, error, onSwit
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
-            style={{ width: '100%', paddingLeft: '40px' }}
+            style={{ width: '100%', paddingLeft: '44px' }}
           />
         </div>
       </div>
 
       {/* Re-enter Password */}
       <div>
-        <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>
+        <label style={{ display: 'block', fontSize: '13px', fontWeight: 800, color: '#ffffff', marginBottom: '7px' }}>
           Re-enter Password
         </label>
         <div style={{ position: 'relative' }}>
-          <span style={{ position: 'absolute', left: '12px', top: '11px', width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <LockIcon size={14} color="rgba(255,255,255,0.7)" />
+          <span style={{ position: 'absolute', left: '14px', top: '13px', width: '20px', height: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <LockIcon size={16} color="#38bdf8" />
           </span>
           <input
             type="password"
@@ -106,7 +106,7 @@ export default function StudentRegisterForm({ onRegister, loading, error, onSwit
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             placeholder="Confirm Password"
-            style={{ width: '100%', paddingLeft: '40px' }}
+            style={{ width: '100%', paddingLeft: '44px' }}
           />
         </div>
       </div>
