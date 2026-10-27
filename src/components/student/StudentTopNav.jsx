@@ -28,7 +28,7 @@ export default function StudentTopNav({ user, onLogout, searchQuery, setSearchQu
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <div style={{ textAlign: 'right' }}>
             <div style={{ fontSize: '13px', fontWeight: 600, color: '#ffffff' }}>{user?.name || 'Student'}</div>
-            <div style={{ fontSize: '11px', color: '#60a5fa', fontFamily: 'monospace' }}>{user?.rollNo}</div>
+            <div style={{ fontSize: '11px', color: '#60a5fa' }}>{user?.rollNo}</div>
           </div>
           <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: 'linear-gradient(135deg, #2563eb, #3b82f6)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '14px', border: '1px solid rgba(255, 255, 255, 0.2)' }}>
             {initial}

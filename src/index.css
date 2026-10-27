@@ -11,25 +11,25 @@
   --accent-green: #10b981;
   --accent-amber: #f59e0b;
   --font-ny: "New York", -apple-system-ui-serif, ui-serif, "Newsreader", "Charter", Georgia, Cambria, serif;
-  --font-sf-pro: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", "Inter", sans-serif;
   --font-family: var(--font-ny);
 }
 
-* {
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: var(--font-ny) !important;
 }
 
 body {
   background-color: var(--bg-canvas);
   color: var(--text-primary);
-  font-family: var(--font-ny);
+  font-family: var(--font-ny) !important;
   min-height: 100vh;
 }
 
-h1, h2, h3, h4 {
-  font-family: var(--font-ny);
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-ny) !important;
   letter-spacing: -0.02em;
   font-weight: 700;
 }
@@ -51,7 +51,7 @@ h1, h2, h3, h4 {
 }
 
 button {
-  font-family: var(--font-sf-pro);
+  font-family: var(--font-ny) !important;
   cursor: pointer;
   border: none;
   outline: none;
@@ -59,7 +59,7 @@ button {
 }
 
 input, select, textarea {
-  font-family: var(--font-sf-pro);
+  font-family: var(--font-ny) !important;
   outline: none;
   border: 1px solid var(--border-subtle);
   background: rgba(0, 0, 0, 0.25);
@@ -72,17 +72,10 @@ input, select, textarea {
 
 input::placeholder, textarea::placeholder {
   color: rgba(255, 255, 255, 0.35);
+  font-family: var(--font-ny) !important;
 }
 
 input:focus, select:focus, textarea:focus {
   border-color: var(--border-focus);
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-}
-
-.font-ny {
-  font-family: var(--font-ny);
-}
-
-.font-sf {
-  font-family: var(--font-sf-pro);
 }

@@ -36,7 +36,7 @@ export default function StudentScoreboard({ results = {} }) {
             <tbody>
               {resultList.map((r, i) => (
                 <tr key={i} style={{ borderBottom: '1px solid #272727', color: '#f1f1f1' }}>
-                  <td style={{ padding: '12px 16px', fontFamily: 'monospace', color: '#3ea6ff', fontWeight: 600 }}>
+                  <td style={{ padding: '12px 16px', color: '#3ea6ff', fontWeight: 600 }}>
                     {r.rollNo}
                   </td>
                   <td style={{ padding: '12px 16px', fontWeight: 600 }}>{r.studentName}</td>

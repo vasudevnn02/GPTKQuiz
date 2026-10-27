@@ -30,7 +30,7 @@ export default function RunnerHeader({ quizTitle, currentIndex, totalQuestions, 
 
         <div style={{ background: isTimeCritical ? '#7f1d1d' : '#272727', color: isTimeCritical ? '#fee2e2' : '#f1f1f1', padding: '6px 14px', borderRadius: '6px', fontSize: '14px', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid #3f3f3f' }}>
           <ClockIcon size={16} color={isTimeCritical ? '#ff6b6b' : '#3ea6ff'} />
-          <span style={{ fontFamily: 'monospace' }}>{formatTime(timeLeft)}</span>
+          <span>{formatTime(timeLeft)}</span>
         </div>
 
         <button
