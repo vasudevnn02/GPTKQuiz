@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ref, set } from 'firebase/database';
 import { rtdb } from '../../services/firebase.js';
+import { glassDeep, glassBtn } from '../../glass.js';
 
 export default function QuestionEditModal({ question, correctKey = 0, currentQuiz, answerKeys = {}, onClose, onSaved }) {
   const isEditing = Boolean(question);
@@ -41,12 +42,12 @@ export default function QuestionEditModal({ question, correctKey = 0, currentQui
 
   return (
     <div style={{ position: 'fixed', inset: 0, zIndex: 100, background: 'rgba(0, 0, 0, 0.75)', backdropFilter: 'blur(20px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-      <div style={{ maxWidth: '580px', width: '100%', maxHeight: '90vh', overflowY: 'auto', background: 'rgba(22, 26, 38, 0.85)', backdropFilter: 'blur(36px) saturate(200%)', border: '1px solid rgba(10, 132, 255, 0.35)', borderRadius: '24px', padding: '32px', boxShadow: '0 24px 60px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.25)' }}>
+      <div style={{ maxWidth: '580px', width: '100%', maxHeight: '90vh', overflowY: 'auto', ...glassDeep, borderRadius: '24px', padding: '32px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
           <h3 style={{ fontSize: '20px', fontWeight: 700, color: '#ffffff' }}>
             {isEditing ? 'Edit Question & Key' : 'Create New Question'}
           </h3>
-          <button onClick={onClose} style={{ background: 'rgba(255, 255, 255, 0.08)', color: 'rgba(255,255,255,0.7)', padding: '6px 12px', borderRadius: '8px', fontSize: '12px' }}>✕ Close</button>
+          <button onClick={onClose} style={{ ...glassBtn, padding: '6px 12px', borderRadius: '8px', fontSize: '12px' }}>✕ Close</button>
         </div>
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -59,7 +60,7 @@ export default function QuestionEditModal({ question, correctKey = 0, currentQui
             <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.7)' }}>Select Correct Option (Radio) & Edit Text</label>
             {options.map((opt, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <input type="radio" name="edit_correct" checked={correctIdx === i} onChange={() => setCorrectIdx(i)} style={{ accentColor: '#30d158', width: '18px', height: '18px' }} />
+                <input type="radio" name="edit_correct" checked={correctIdx === i} onChange={() => setCorrectIdx(i)} style={{ accentColor: '#ffffff', width: '18px', height: '18px' }} />
                 <input
                   type="text"
                   required
@@ -76,7 +77,7 @@ export default function QuestionEditModal({ question, correctKey = 0, currentQui
             ))}
           </div>
 
-          <button type="submit" disabled={saving} style={{ background: 'linear-gradient(135deg, #0a84ff 0%, #0066cc 100%)', color: '#fff', padding: '12px 22px', borderRadius: '12px', fontWeight: 700, fontSize: '14px', alignSelf: 'flex-start', marginTop: '6px', boxShadow: '0 4px 18px rgba(10, 132, 255, 0.35)' }}>
+          <button type="submit" disabled={saving} style={{ ...glassBtn, padding: '12px 22px', borderRadius: '12px', fontWeight: 700, fontSize: '14px', alignSelf: 'flex-start', marginTop: '6px' }}>
             {saving ? 'Saving...' : isEditing ? 'Save Changes' : 'Create Question'}
           </button>
         </form>

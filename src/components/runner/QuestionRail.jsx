@@ -8,10 +8,10 @@ export default function QuestionRail({ questions = [], answers = {}, currentInde
   return (
     <aside style={{ width: '270px', background: 'rgba(255, 255, 255, 0.02)', backdropFilter: 'blur(30px)', WebkitBackdropFilter: 'blur(30px)', borderLeft: '1px solid rgba(255, 255, 255, 0.08)', padding: '24px 18px', display: 'flex', flexDirection: 'column', gap: '18px', flexShrink: 0 }}>
       <div>
-        <h3 style={{ fontSize: '13px', fontWeight: 700, color: '#ffffff', textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: '4px' }}>
+        <h3 style={{ fontSize: '12px', fontWeight: 700, color: '#ffffff', textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: '4px' }}>
           Question Palette
         </h3>
-        <div style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.55)' }}>
+        <div style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.45)' }}>
           {answeredCount} of {totalCount} Answered
         </div>
       </div>
@@ -22,18 +22,18 @@ export default function QuestionRail({ questions = [], answers = {}, currentInde
           const isAnswered = answers[q.id] !== undefined;
 
           let bg = 'rgba(255, 255, 255, 0.04)';
-          let border = 'rgba(255, 255, 255, 0.08)';
-          let color = 'rgba(255, 255, 255, 0.65)';
+          let border = 'rgba(255, 255, 255, 0.1)';
+          let color = 'rgba(255, 255, 255, 0.6)';
 
           if (isAnswered) {
-            bg = 'rgba(48, 209, 88, 0.18)';
-            border = '#30d158';
-            color = '#30d158';
+            bg = 'rgba(255, 255, 255, 0.14)';
+            border = 'rgba(255, 255, 255, 0.35)';
+            color = '#ffffff';
           }
           if (isCurrent) {
-            border = '#0a84ff';
+            border = '#ffffff';
             color = '#ffffff';
-            bg = isAnswered ? 'rgba(48, 209, 88, 0.22)' : 'rgba(10, 132, 255, 0.18)';
+            bg = 'rgba(255, 255, 255, 0.22)';
           }
 
           return (
@@ -52,13 +52,13 @@ export default function QuestionRail({ questions = [], answers = {}, currentInde
                 alignItems: 'center',
                 justifyContent: 'center',
                 position: 'relative',
-                boxShadow: isCurrent ? '0 0 14px rgba(10, 132, 255, 0.35)' : 'none'
+                boxShadow: isCurrent ? '0 0 16px rgba(255, 255, 255, 0.35)' : 'none'
               }}
             >
               <span>{idx + 1}</span>
               {isAnswered && (
                 <span style={{ position: 'absolute', top: '3px', right: '4px' }}>
-                  <CheckIcon size={10} color="#30d158" />
+                  <CheckIcon size={10} color="#ffffff" />
                 </span>
               )}
             </button>
@@ -66,17 +66,17 @@ export default function QuestionRail({ questions = [], answers = {}, currentInde
         })}
       </div>
 
-      <div style={{ marginTop: 'auto', borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: '16px', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '11px', color: 'rgba(255, 255, 255, 0.55)' }}>
+      <div style={{ marginTop: 'auto', borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: '16px', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '11px', color: 'rgba(255, 255, 255, 0.45)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <div style={{ width: '12px', height: '12px', background: 'rgba(48, 209, 88, 0.25)', border: '1px solid #30d158', borderRadius: '4px' }} />
+          <div style={{ width: '12px', height: '12px', background: 'rgba(255, 255, 255, 0.14)', border: '1px solid rgba(255, 255, 255, 0.35)', borderRadius: '4px' }} />
           <span>Answered ({answeredCount})</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <div style={{ width: '12px', height: '12px', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.15)', borderRadius: '4px' }} />
+          <div style={{ width: '12px', height: '12px', background: 'rgba(255, 255, 255, 0.04)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '4px' }} />
           <span>Unanswered ({totalCount - answeredCount})</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <div style={{ width: '12px', height: '12px', border: '1.5px solid #0a84ff', borderRadius: '4px' }} />
+          <div style={{ width: '12px', height: '12px', border: '1.5px solid #ffffff', borderRadius: '4px' }} />
           <span>Current Active</span>
         </div>
       </div>

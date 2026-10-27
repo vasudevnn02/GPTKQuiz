@@ -61,7 +61,7 @@ export default function StudentScoreboard({ results = {} }) {
             <tbody>
               {resultList.map((r, i) => (
                 <tr key={i} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.06)', color: '#ffffff' }}>
-                  <td style={{ padding: '14px 20px', color: '#0a84ff', fontWeight: 600 }}>{r.rollNo}</td>
+                  <td style={{ padding: '14px 20px', color: '#ffffff', fontWeight: 600 }}>{r.rollNo}</td>
                   <td style={{ padding: '14px 20px', fontWeight: 600 }}>{r.studentName}</td>
                   <td style={{ padding: '14px 20px' }}>{r.score} / {r.total}</td>
                   <td style={{ padding: '14px 20px' }}>

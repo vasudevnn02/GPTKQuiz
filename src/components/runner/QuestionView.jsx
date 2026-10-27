@@ -1,17 +1,18 @@
 import React from 'react';
 import { ChevronRightIcon } from '../icons/SvgIcons.jsx';
+import { glassDeep, glassBtn } from '../../glass.js';
 
 export default function QuestionView({ question, selectedOption, onSelectOption, currentIndex, totalQuestions, onNext, onPrev }) {
   if (!question) return null;
 
   return (
-    <div style={{ maxWidth: '840px', width: '100%', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      <div style={{ background: 'rgba(24, 27, 36, 0.75)', backdropFilter: 'blur(16px)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '16px', padding: '28px' }}>
+    <div style={{ maxWidth: '840px', width: '100%', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '22px' }}>
+      <div style={{ ...glassDeep, borderRadius: '20px', padding: '28px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '14px' }}>
-          <span style={{ fontSize: '11px', fontWeight: 700, color: '#60a5fa', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+          <span style={{ fontSize: '11px', fontWeight: 700, color: 'rgba(255, 255, 255, 0.65)', textTransform: 'uppercase', letterSpacing: '0.6px' }}>
             Question {currentIndex + 1} of {totalQuestions}
           </span>
-          <span style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.5)' }}>
+          <span style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.4)' }}>
             1 Mark
           </span>
         </div>
@@ -34,12 +35,14 @@ export default function QuestionView({ question, selectedOption, onSelectOption,
                 alignItems: 'center',
                 gap: '14px',
                 padding: '16px 20px',
-                background: isSelected ? 'rgba(59, 130, 246, 0.15)' : 'rgba(24, 27, 36, 0.6)',
-                border: `1.5px solid ${isSelected ? '#3b82f6' : 'rgba(255, 255, 255, 0.08)'}`,
-                backdropFilter: 'blur(12px)',
-                borderRadius: '12px',
+                background: isSelected ? 'rgba(255, 255, 255, 0.16)' : 'rgba(255, 255, 255, 0.04)',
+                border: `1.5px solid ${isSelected ? 'rgba(255, 255, 255, 0.38)' : 'rgba(255, 255, 255, 0.1)'}`,
+                backdropFilter: 'blur(24px)',
+                WebkitBackdropFilter: 'blur(24px)',
+                borderRadius: '14px',
                 textAlign: 'left',
-                color: isSelected ? '#ffffff' : 'rgba(255, 255, 255, 0.85)',
+                color: '#ffffff',
+                boxShadow: isSelected ? '0 4px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.35)' : 'none',
                 transition: 'all 0.15s ease'
               }}
             >
@@ -47,8 +50,8 @@ export default function QuestionView({ question, selectedOption, onSelectOption,
                 width: '32px',
                 height: '32px',
                 borderRadius: '50%',
-                background: isSelected ? '#3b82f6' : 'rgba(255, 255, 255, 0.08)',
-                color: isSelected ? '#ffffff' : 'rgba(255, 255, 255, 0.7)',
+                background: isSelected ? '#ffffff' : 'rgba(255, 255, 255, 0.08)',
+                color: isSelected ? '#000000' : 'rgba(255, 255, 255, 0.7)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -68,7 +71,7 @@ export default function QuestionView({ question, selectedOption, onSelectOption,
         <button
           onClick={onPrev}
           disabled={currentIndex === 0}
-          style={{ background: 'rgba(255, 255, 255, 0.08)', border: '1px solid rgba(255, 255, 255, 0.1)', color: 'rgba(255, 255, 255, 0.7)', padding: '10px 18px', borderRadius: '8px', fontSize: '13px', fontWeight: 600, opacity: currentIndex === 0 ? 0.4 : 1 }}
+          style={{ ...glassBtn, padding: '10px 18px', borderRadius: '10px', fontSize: '13px', fontWeight: 600, opacity: currentIndex === 0 ? 0.4 : 1 }}
         >
           Previous
         </button>
@@ -76,7 +79,7 @@ export default function QuestionView({ question, selectedOption, onSelectOption,
         <button
           onClick={onNext}
           disabled={currentIndex === totalQuestions - 1}
-          style={{ background: 'rgba(255, 255, 255, 0.08)', border: '1px solid rgba(255, 255, 255, 0.1)', color: '#ffffff', padding: '10px 20px', borderRadius: '8px', fontSize: '13px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px', opacity: currentIndex === totalQuestions - 1 ? 0.4 : 1 }}
+          style={{ ...glassBtn, padding: '10px 20px', borderRadius: '10px', fontSize: '13px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px', opacity: currentIndex === totalQuestions - 1 ? 0.4 : 1 }}
         >
           <span>Next Question</span>
           <ChevronRightIcon size={14} />

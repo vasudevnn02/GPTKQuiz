@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import StudentLoginForm from './StudentLoginForm.jsx';
 import TeacherLoginForm from './TeacherLoginForm.jsx';
+import { glassDeep } from '../../glass.js';
 
 export default function AuthCard({ onStudentLogin, onTeacherLogin, loading, error, setError }) {
   const [role, setRole] = useState('student');
@@ -11,28 +12,35 @@ export default function AuthCard({ onStudentLogin, onTeacherLogin, loading, erro
   };
 
   return (
-    <div style={{ minHeight: '100vh', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px', background: 'radial-gradient(ellipse at 50% 20%, #1a2236 0%, #0a0c12 70%)' }}>
-      <div style={{ maxWidth: '440px', width: '100%', background: 'rgba(22, 26, 36, 0.72)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', borderRadius: '20px', border: '1px solid rgba(255, 255, 255, 0.1)', padding: '38px 32px', boxShadow: '0 24px 60px rgba(0, 0, 0, 0.55)' }}>
-        <div style={{ textAlign: 'center', marginBottom: '28px' }}>
-          <h1 style={{ fontSize: '28px', fontWeight: 700, letterSpacing: '-0.5px', color: '#ffffff', margin: 0, fontFamily: 'var(--font-ny)' }}>
+    <div style={{ minHeight: '100vh', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
+      <div style={{
+        maxWidth: '430px',
+        width: '100%',
+        ...glassDeep,
+        borderRadius: '24px',
+        padding: '36px 30px',
+      }}>
+        <div style={{ textAlign: 'center', marginBottom: '26px' }}>
+          <h1 style={{ fontSize: '27px', fontWeight: 700, letterSpacing: '-0.5px', color: '#ffffff', margin: 0, fontFamily: 'var(--font-ny)' }}>
             GPTK Quiz
           </h1>
-          <p style={{ fontSize: '13px', color: 'rgba(255, 255, 255, 0.55)', marginTop: '6px', fontFamily: 'var(--font-ny)', fontStyle: 'italic' }}>
+          <p style={{ fontSize: '13px', color: 'rgba(255, 255, 255, 0.45)', marginTop: '6px', fontFamily: 'var(--font-ny)', fontStyle: 'italic' }}>
             Proctored Examination Portal
           </p>
         </div>
 
-        <div style={{ display: 'flex', background: 'rgba(0, 0, 0, 0.35)', borderRadius: '10px', padding: '4px', marginBottom: '24px', border: '1px solid rgba(255, 255, 255, 0.08)' }}>
+        <div style={{ display: 'flex', background: 'rgba(0, 0, 0, 0.3)', borderRadius: '12px', padding: '4px', marginBottom: '24px', border: '1px solid rgba(255, 255, 255, 0.08)' }}>
           <button
             onClick={() => handleRoleChange('student')}
             style={{
               flex: 1,
               padding: '9px 12px',
-              borderRadius: '8px',
+              borderRadius: '9px',
               fontSize: '13px',
               fontWeight: 600,
-              background: role === 'student' ? 'rgba(255, 255, 255, 0.14)' : 'transparent',
-              color: role === 'student' ? '#ffffff' : 'rgba(255, 255, 255, 0.6)'
+              background: role === 'student' ? 'rgba(255, 255, 255, 0.16)' : 'transparent',
+              color: role === 'student' ? '#ffffff' : 'rgba(255, 255, 255, 0.5)',
+              boxShadow: role === 'student' ? 'inset 0 1px 0 rgba(255, 255, 255, 0.25)' : 'none',
             }}
           >
             Student Portal
@@ -42,11 +50,12 @@ export default function AuthCard({ onStudentLogin, onTeacherLogin, loading, erro
             style={{
               flex: 1,
               padding: '9px 12px',
-              borderRadius: '8px',
+              borderRadius: '9px',
               fontSize: '13px',
               fontWeight: 600,
-              background: role === 'teacher' ? 'rgba(255, 255, 255, 0.14)' : 'transparent',
-              color: role === 'teacher' ? '#ffffff' : 'rgba(255, 255, 255, 0.6)'
+              background: role === 'teacher' ? 'rgba(255, 255, 255, 0.16)' : 'transparent',
+              color: role === 'teacher' ? '#ffffff' : 'rgba(255, 255, 255, 0.5)',
+              boxShadow: role === 'teacher' ? 'inset 0 1px 0 rgba(255, 255, 255, 0.25)' : 'none',
             }}
           >
             Teacher Studio

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { UserIcon, LockIcon } from '../icons/SvgIcons.jsx';
+import { glassBtn } from '../../glass.js';
 
 export default function StudentLoginForm({ onLogin, loading, error }) {
   const [rollNo, setRollNo] = useState('');
@@ -13,9 +14,9 @@ export default function StudentLoginForm({ onLogin, loading, error }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <div>
-        <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.75)', marginBottom: '6px' }}>
+        <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.7)', marginBottom: '6px' }}>
           Register Number
         </label>
         <div style={{ position: 'relative' }}>
@@ -28,13 +29,13 @@ export default function StudentLoginForm({ onLogin, loading, error }) {
             value={rollNo}
             onChange={(e) => setRollNo(e.target.value.toUpperCase())}
             placeholder="Register Number"
-            style={{ width: '100%', paddingLeft: '38px', background: 'rgba(0, 0, 0, 0.3)', border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: '10px', color: '#ffffff' }}
+            style={{ width: '100%', paddingLeft: '38px' }}
           />
         </div>
       </div>
 
       <div>
-        <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.75)', marginBottom: '6px' }}>
+        <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.7)', marginBottom: '6px' }}>
           Student Name
         </label>
         <input
@@ -43,12 +44,12 @@ export default function StudentLoginForm({ onLogin, loading, error }) {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Full Name"
-          style={{ width: '100%', background: 'rgba(0, 0, 0, 0.3)', border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: '10px', color: '#ffffff' }}
+          style={{ width: '100%' }}
         />
       </div>
 
       <div>
-        <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.75)', marginBottom: '6px' }}>
+        <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.7)', marginBottom: '6px' }}>
           Password
         </label>
         <div style={{ position: 'relative' }}>
@@ -61,13 +62,13 @@ export default function StudentLoginForm({ onLogin, loading, error }) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
-            style={{ width: '100%', paddingLeft: '38px', background: 'rgba(0, 0, 0, 0.3)', border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: '10px', color: '#ffffff' }}
+            style={{ width: '100%', paddingLeft: '38px' }}
           />
         </div>
       </div>
 
       {error && (
-        <div style={{ background: 'rgba(239, 68, 68, 0.15)', border: '1px solid rgba(239, 68, 68, 0.35)', borderRadius: '8px', padding: '10px', color: '#fca5a5', fontSize: '13px' }}>
+        <div style={{ background: 'rgba(255, 255, 255, 0.08)', border: '1px solid rgba(255, 255, 255, 0.2)', borderRadius: '10px', padding: '10px', color: 'rgba(255, 255, 255, 0.9)', fontSize: '13px' }}>
           {error}
         </div>
       )}
@@ -76,16 +77,13 @@ export default function StudentLoginForm({ onLogin, loading, error }) {
         type="submit"
         disabled={loading}
         style={{
-          background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
-          color: '#ffffff',
+          ...glassBtn,
           fontWeight: 700,
           padding: '12px',
-          borderRadius: '10px',
-          fontSize: '14px',
+          borderRadius: '12px',
+          fontSize: '13px',
           marginTop: '6px',
-          border: '1px solid rgba(255, 255, 255, 0.15)',
-          boxShadow: '0 4px 15px rgba(37, 99, 235, 0.35)',
-          opacity: loading ? 0.7 : 1
+          opacity: loading ? 0.7 : 1,
         }}
       >
         {loading ? 'Authenticating...' : 'Enter Student Portal'}
