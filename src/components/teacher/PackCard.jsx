@@ -61,33 +61,34 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
 
   return (
     <>
-      {/* ── SQUARE CARD (Teacher Quiz Set Card) ── */}
+      {/* ── COMPACT TRANSPARENT GLASS SQUARE CARD ── */}
       <div
         onClick={() => setShowModal(true)}
         style={{
-          ...glassDeep,
-          borderRadius: '26px',
-          padding: '24px',
+          background: 'rgba(255, 255, 255, 0.05)',
+          backdropFilter: 'blur(24px)',
+          WebkitBackdropFilter: 'blur(24px)',
+          border: '1px solid rgba(255, 255, 255, 0.22)',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.35)',
+          borderRadius: '22px',
+          padding: '18px 20px',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          minHeight: '340px',
+          minHeight: '220px',
           cursor: 'pointer',
           position: 'relative',
           transition: 'all 0.25s ease',
-          border: '1px solid rgba(255, 255, 255, 0.16)',
-          boxShadow: '0 12px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
           userSelect: 'none'
         }}
       >
-        {/* Top: Icon + Status badges + Delete button */}
+        {/* Top: Icon + Status badge + Delete button */}
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
             <div style={{
-              ...glassInner,
-              width: '48px',
-              height: '48px',
-              borderRadius: '16px',
+              width: '40px',
+              height: '40px',
+              borderRadius: '13px',
               background: 'rgba(255, 255, 255, 0.08)',
               border: '1px solid rgba(255, 255, 255, 0.22)',
               display: 'flex',
@@ -95,7 +96,7 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
               justifyContent: 'center',
               boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.3)'
             }}>
-              <PackageIcon size={22} color="#ffffff" />
+              <PackageIcon size={18} color="#ffffff" />
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -103,9 +104,9 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
                 background: 'rgba(34, 197, 94, 0.15)',
                 border: '1px solid rgba(34, 197, 94, 0.35)',
                 color: '#4ade80',
-                padding: '4px 10px',
-                borderRadius: '12px',
-                fontSize: '11px',
+                padding: '3px 9px',
+                borderRadius: '10px',
+                fontSize: '10px',
                 fontWeight: 800,
                 letterSpacing: '0.4px'
               }}>
@@ -117,94 +118,64 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
                 title="Delete Quiz Set"
                 style={{
                   ...glassBtn,
-                  width: '32px',
-                  height: '32px',
-                  borderRadius: '10px',
+                  width: '30px',
+                  height: '30px',
+                  borderRadius: '9px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   padding: 0
                 }}
               >
-                <TrashIcon size={13} color="rgba(255, 255, 255, 0.75)" />
+                <TrashIcon size={12} color="rgba(255, 255, 255, 0.75)" />
               </button>
             </div>
           </div>
 
           {/* Title & Department */}
-          <div style={{ fontSize: '20px', fontWeight: 800, color: '#ffffff', marginBottom: '4px', lineHeight: '1.3' }}>
+          <div style={{ fontSize: '17px', fontWeight: 800, color: '#ffffff', marginBottom: '2px', lineHeight: '1.3' }}>
             {quiz.title}
           </div>
-          <div style={{ fontSize: '13px', color: 'rgba(255, 255, 255, 0.65)', marginBottom: '18px' }}>
+          <div style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.65)', marginBottom: '14px' }}>
             {quiz.course || 'CSE Department'} • {quiz.date || 'Today'}
           </div>
         </div>
 
-        {/* 2x2 Meta Matrix Chips */}
+        {/* Compact Meta Chips (Pure Transparent Glass) */}
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '8px',
-          marginBottom: '20px'
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '6px',
+          marginBottom: '14px'
         }}>
-          {/* Chip 1: Time Window */}
           <div style={{
-            background: 'rgba(0, 0, 0, 0.32)',
-            border: '1px solid rgba(255, 255, 255, 0.12)',
-            borderRadius: '12px',
-            padding: '10px 12px'
+            background: 'rgba(255, 255, 255, 0.05)',
+            border: '1px solid rgba(255, 255, 255, 0.14)',
+            borderRadius: '10px',
+            padding: '6px 10px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            fontSize: '11px',
+            color: '#ffffff'
           }}>
-            <div style={{ fontSize: '10px', color: 'rgba(255, 255, 255, 0.55)', fontWeight: 700, textTransform: 'uppercase', marginBottom: '2px' }}>
-              Time Window
-            </div>
-            <div style={{ fontSize: '12px', color: '#ffffff', fontWeight: 700, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-              {quiz.windowStart || '10:00 AM'} – {quiz.windowEnd || '05:00 PM'}
-            </div>
+            <span style={{ color: 'rgba(255, 255, 255, 0.6)', fontWeight: 600 }}>Time Window</span>
+            <span style={{ fontWeight: 700 }}>{quiz.windowStart || '10:00 AM'} – {quiz.windowEnd || '05:00 PM'}</span>
           </div>
 
-          {/* Chip 2: Duration */}
           <div style={{
-            background: 'rgba(0, 0, 0, 0.32)',
-            border: '1px solid rgba(255, 255, 255, 0.12)',
-            borderRadius: '12px',
-            padding: '10px 12px'
+            background: 'rgba(255, 255, 255, 0.05)',
+            border: '1px solid rgba(255, 255, 255, 0.14)',
+            borderRadius: '10px',
+            padding: '6px 10px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            fontSize: '11px',
+            color: '#ffffff'
           }}>
-            <div style={{ fontSize: '10px', color: 'rgba(255, 255, 255, 0.55)', fontWeight: 700, textTransform: 'uppercase', marginBottom: '2px' }}>
-              Duration
-            </div>
-            <div style={{ fontSize: '12px', color: '#ffffff', fontWeight: 700 }}>
-              {quiz.durationMinutes || 15} Minutes
-            </div>
-          </div>
-
-          {/* Chip 3: Questions */}
-          <div style={{
-            background: 'rgba(0, 0, 0, 0.32)',
-            border: '1px solid rgba(255, 255, 255, 0.12)',
-            borderRadius: '12px',
-            padding: '10px 12px'
-          }}>
-            <div style={{ fontSize: '10px', color: 'rgba(255, 255, 255, 0.55)', fontWeight: 700, textTransform: 'uppercase', marginBottom: '2px' }}>
-              Questions
-            </div>
-            <div style={{ fontSize: '12px', color: '#ffffff', fontWeight: 700 }}>
-              {questions.length} Items
-            </div>
-          </div>
-
-          {/* Chip 4: Exam Date */}
-          <div style={{
-            background: 'rgba(0, 0, 0, 0.32)',
-            border: '1px solid rgba(255, 255, 255, 0.12)',
-            borderRadius: '12px',
-            padding: '10px 12px'
-          }}>
-            <div style={{ fontSize: '10px', color: 'rgba(255, 255, 255, 0.55)', fontWeight: 700, textTransform: 'uppercase', marginBottom: '2px' }}>
-              Date
-            </div>
-            <div style={{ fontSize: '12px', color: '#ffffff', fontWeight: 700 }}>
-              {quiz.date || 'Oct 28, 2026'}
-            </div>
+            <span style={{ color: 'rgba(255, 255, 255, 0.6)', fontWeight: 600 }}>Questions & Time</span>
+            <span style={{ fontWeight: 700 }}>{questions.length} Qs • {quiz.durationMinutes || 15} min</span>
           </div>
         </div>
 
@@ -213,10 +184,9 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
           <button
             onClick={() => setShowModal(true)}
             style={{
-              ...glassBtn,
               flex: 1,
-              padding: '10px 14px',
-              borderRadius: '12px',
+              padding: '8px 12px',
+              borderRadius: '10px',
               fontSize: '12px',
               fontWeight: 800,
               background: 'rgba(56, 189, 248, 0.15)',
@@ -225,27 +195,29 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '6px'
+              gap: '6px',
+              boxShadow: '0 2px 10px rgba(2, 132, 199, 0.25)',
+              cursor: 'pointer'
             }}
           >
-            <span>Manage Questions ({questions.length})</span>
+            <span>Questions ({questions.length})</span>
             <span>→</span>
           </button>
 
           <button
             onClick={(e) => { e.stopPropagation(); onAddQuestion(); }}
             title="Add Question"
-            style={{ ...glassBtn, width: '36px', height: '36px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0 }}
+            style={{ ...glassBtn, width: '32px', height: '32px', borderRadius: '9px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0 }}
           >
-            <PlusIcon size={14} color="#ffffff" />
+            <PlusIcon size={13} color="#ffffff" />
           </button>
 
           <button
             onClick={(e) => { e.stopPropagation(); onAiImport(); }}
             title="AI Import"
-            style={{ ...glassBtn, width: '36px', height: '36px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0 }}
+            style={{ ...glassBtn, width: '32px', height: '32px', borderRadius: '9px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0 }}
           >
-            <SparkleIcon size={14} color="#ffffff" />
+            <SparkleIcon size={13} color="#ffffff" />
           </button>
         </div>
       </div>
