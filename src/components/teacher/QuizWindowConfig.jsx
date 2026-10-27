@@ -12,11 +12,7 @@ export default function QuizWindowConfig({ currentQuiz, onUpdated }) {
   const handleSave = async (e) => {
     e.preventDefault();
     const quizId = currentQuiz?.id || 'quiz_fsd_01';
-    const payload = {
-      windowStart,
-      windowEnd,
-      durationMinutes: Number(durationMinutes)
-    };
+    const payload = { windowStart, windowEnd, durationMinutes: Number(durationMinutes) };
 
     try {
       await update(ref(rtdb, `quizzes/${quizId}`), payload);
@@ -29,26 +25,35 @@ export default function QuizWindowConfig({ currentQuiz, onUpdated }) {
       }
     }
 
-    setSavedMsg('Window timing successfully synchronized across all students!');
+    setSavedMsg('Window schedule synchronized across all student devices!');
     setTimeout(() => setSavedMsg(''), 4000);
     if (onUpdated) onUpdated();
   };
 
   return (
-    <div style={{ background: '#212121', border: '1px solid #272727', borderRadius: '12px', padding: '24px', maxWidth: '640px' }}>
-      <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#f1f1f1', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-        <ClockIcon size={18} color="#ff0000" />
-        <span>Configure Examination Time Window</span>
+    <div style={{
+      background: 'rgba(255, 255, 255, 0.04)',
+      backdropFilter: 'blur(30px) saturate(190%)',
+      WebkitBackdropFilter: 'blur(30px) saturate(190%)',
+      border: '1px solid rgba(255, 255, 255, 0.12)',
+      borderRadius: '20px',
+      padding: '28px',
+      maxWidth: '640px',
+      boxShadow: '0 20px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15)'
+    }}>
+      <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
+        <span style={{ color: '#ff9f0a' }}><ClockIcon size={20} /></span>
+        <span>Examination Window Schedule</span>
       </h3>
-      <p style={{ fontSize: '12px', color: '#aaaaaa', marginBottom: '20px' }}>
-        Define the open attendance window (default: 10:00 AM – 5:00 PM) and individual test duration.
+      <p style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.55)', marginBottom: '22px' }}>
+        Configure the universal student entry window and the individual countdown timer.
       </p>
 
-      <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+      <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
           <div>
-            <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#aaaaaa', marginBottom: '6px' }}>
-              Window Start Time
+            <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.7)', marginBottom: '6px' }}>
+              Window Start
             </label>
             <input
               type="text"
@@ -61,8 +66,8 @@ export default function QuizWindowConfig({ currentQuiz, onUpdated }) {
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#aaaaaa', marginBottom: '6px' }}>
-              Window End Time
+            <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.7)', marginBottom: '6px' }}>
+              Window End
             </label>
             <input
               type="text"
@@ -76,8 +81,8 @@ export default function QuizWindowConfig({ currentQuiz, onUpdated }) {
         </div>
 
         <div>
-          <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#aaaaaa', marginBottom: '6px' }}>
-            Individual Student Test Duration (Minutes)
+          <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.7)', marginBottom: '6px' }}>
+            Individual Candidate Duration (Minutes)
           </label>
           <input
             type="number"
@@ -88,13 +93,13 @@ export default function QuizWindowConfig({ currentQuiz, onUpdated }) {
             onChange={(e) => setDurationMinutes(e.target.value)}
             style={{ width: '100%' }}
           />
-          <div style={{ fontSize: '11px', color: '#717171', marginTop: '4px' }}>
-            Personal countdown starts when student clicks "Start Quiz Now". Capped automatically if joined near end of window.
+          <div style={{ fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', marginTop: '5px' }}>
+            Timer automatically starts on exam entry. Students joining near window close are capped at 5:00 PM.
           </div>
         </div>
 
         {savedMsg && (
-          <div style={{ background: '#143823', border: '1px solid #22c55e', color: '#86efac', padding: '10px', borderRadius: '6px', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <div style={{ background: 'rgba(48, 209, 88, 0.15)', border: '1px solid rgba(48, 209, 88, 0.35)', color: '#30d158', padding: '10px 14px', borderRadius: '10px', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <CheckCircleIcon size={14} />
             <span>{savedMsg}</span>
           </div>
@@ -102,7 +107,16 @@ export default function QuizWindowConfig({ currentQuiz, onUpdated }) {
 
         <button
           type="submit"
-          style={{ background: '#ff0000', color: '#ffffff', fontWeight: 700, padding: '10px 18px', borderRadius: '8px', fontSize: '13px', alignSelf: 'flex-start' }}
+          style={{
+            background: 'linear-gradient(135deg, #0a84ff, #0066cc)',
+            color: '#ffffff',
+            fontWeight: 700,
+            padding: '11px 20px',
+            borderRadius: '12px',
+            fontSize: '13px',
+            alignSelf: 'flex-start',
+            boxShadow: '0 4px 16px rgba(10, 132, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25)'
+          }}
         >
           Save & Broadcast Window
         </button>

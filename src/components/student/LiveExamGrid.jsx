@@ -7,24 +7,22 @@ export default function LiveExamGrid({ quizzes = {}, results = {}, student, onSt
 
   return (
     <div>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
-        <div>
-          <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#f1f1f1', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ color: '#ff0000' }}><PlayIcon size={18} /></span>
-            <span>Today's Examination Window (10:00 AM – 05:00 PM)</span>
-          </h2>
-          <p style={{ fontSize: '12px', color: '#aaaaaa', marginTop: '4px' }}>
-            Tests can be started any time inside the 10:00 AM – 5:00 PM window. Your individual 15-minute countdown starts when you begin.
-          </p>
-        </div>
+      <div style={{ marginBottom: '22px' }}>
+        <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#ffffff', display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <span style={{ color: '#0a84ff' }}><PlayIcon size={20} /></span>
+          <span>Today's Examination Window (10:00 AM – 05:00 PM)</span>
+        </h2>
+        <p style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.55)', marginTop: '4px' }}>
+          Tests can be attended any time inside the 10:00 AM – 5:00 PM window. Your personal 15-minute timer begins when you start.
+        </p>
       </div>
 
       {quizList.length === 0 ? (
-        <div style={{ background: '#212121', border: '1px solid #272727', borderRadius: '12px', padding: '40px', textAlign: 'center', color: '#aaaaaa' }}>
-          No assessments currently scheduled for this window.
+        <div style={{ background: 'rgba(255, 255, 255, 0.04)', backdropFilter: 'blur(30px)', border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: '20px', padding: '48px 24px', textAlign: 'center', color: 'rgba(255, 255, 255, 0.6)' }}>
+          No assessments currently open for this window.
         </div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '22px' }}>
           {quizList.map((quiz) => {
             const key = `${student?.rollNo}_${quiz.id}`;
             const attendedResult = results[key] || null;

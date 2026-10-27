@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PlusIcon, TrashIcon, CheckCircleIcon } from '../icons/SvgIcons.jsx';
+import { PlusIcon, TrashIcon } from '../icons/SvgIcons.jsx';
 import { ref, set } from 'firebase/database';
 import { rtdb } from '../../services/firebase.js';
 
@@ -16,7 +16,6 @@ export default function QuestionManager({ currentQuiz, answerKeys = {}, onUpdate
     const quizId = currentQuiz?.id || 'quiz_fsd_01';
     const newId = `q_${Date.now()}`;
     const newQuestion = { id: newId, text: qText, options };
-
     const updatedQuestions = [...(currentQuiz?.questions || []), newQuestion];
     const updatedKeys = { ...answerKeys, [newId]: correctIdx };
 
@@ -46,14 +45,14 @@ export default function QuestionManager({ currentQuiz, answerKeys = {}, onUpdate
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '22px' }}>
         <div>
-          <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#f1f1f1' }}>Question Bank & Answer Keys</h3>
-          <p style={{ fontSize: '12px', color: '#aaaaaa' }}>Answer keys are stored securely on the teacher channel.</p>
+          <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff' }}>Question Bank & Key Vault</h3>
+          <p style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.55)', marginTop: '4px' }}>Answer keys are isolated securely from student viewports.</p>
         </div>
         <button
           onClick={() => setShowAddForm(!showAddForm)}
-          style={{ background: '#3ea6ff', color: '#0f0f0f', padding: '8px 14px', borderRadius: '6px', fontSize: '12px', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}
+          style={{ background: 'linear-gradient(135deg, #0a84ff, #0066cc)', color: '#ffffff', padding: '9px 16px', borderRadius: '12px', fontSize: '13px', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px', boxShadow: '0 4px 16px rgba(10, 132, 255, 0.35)' }}
         >
           <PlusIcon size={14} />
           <span>{showAddForm ? 'Cancel' : 'Add Question'}</span>
@@ -61,7 +60,7 @@ export default function QuestionManager({ currentQuiz, answerKeys = {}, onUpdate
       </div>
 
       {showAddForm && (
-        <form onSubmit={handleAddQuestion} style={{ background: '#212121', border: '1px solid #3ea6ff', borderRadius: '10px', padding: '18px', marginBottom: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <form onSubmit={handleAddQuestion} style={{ background: 'rgba(255, 255, 255, 0.05)', backdropFilter: 'blur(30px)', border: '1px solid rgba(10, 132, 255, 0.35)', borderRadius: '20px', padding: '24px', marginBottom: '24px', display: 'flex', flexDirection: 'column', gap: '14px', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>
           <input
             type="text"
             required
@@ -71,12 +70,13 @@ export default function QuestionManager({ currentQuiz, answerKeys = {}, onUpdate
             style={{ width: '100%' }}
           />
           {options.map((opt, i) => (
-            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <input
                 type="radio"
                 name="correct"
                 checked={correctIdx === i}
                 onChange={() => setCorrectIdx(i)}
+                style={{ accentColor: '#0a84ff', width: '18px', height: '18px' }}
               />
               <input
                 type="text"
@@ -92,30 +92,30 @@ export default function QuestionManager({ currentQuiz, answerKeys = {}, onUpdate
               />
             </div>
           ))}
-          <button type="submit" style={{ background: '#3ea6ff', color: '#000', padding: '10px', borderRadius: '6px', fontWeight: 700, alignSelf: 'flex-start' }}>
+          <button type="submit" style={{ background: 'linear-gradient(135deg, #0a84ff, #0066cc)', color: '#fff', padding: '10px 18px', borderRadius: '10px', fontWeight: 700, alignSelf: 'flex-start' }}>
             Save Question
           </button>
         </form>
       )}
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
         {(currentQuiz?.questions || []).map((q, idx) => {
           const correctKey = answerKeys[q.id];
           return (
-            <div key={q.id} style={{ background: '#212121', border: '1px solid #272727', borderRadius: '10px', padding: '16px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
-                <span style={{ fontSize: '14px', fontWeight: 600, color: '#f1f1f1' }}>
+            <div key={q.id} style={{ background: 'rgba(255, 255, 255, 0.04)', backdropFilter: 'blur(30px)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '16px', padding: '20px', boxShadow: '0 8px 24px rgba(0,0,0,0.25)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+                <span style={{ fontSize: '15px', fontWeight: 600, color: '#ffffff' }}>
                   {idx + 1}. {q.text}
                 </span>
-                <button onClick={() => handleDelete(q.id)} title="Delete Question" style={{ background: 'transparent', color: '#ef4444', padding: '4px' }}>
-                  <TrashIcon size={16} />
+                <button onClick={() => handleDelete(q.id)} title="Delete Question" style={{ background: 'rgba(255, 69, 58, 0.12)', border: '1px solid rgba(255, 69, 58, 0.25)', color: '#ff453a', padding: '6px', borderRadius: '8px' }}>
+                  <TrashIcon size={14} />
                 </button>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
                 {q.options.map((opt, optIdx) => {
                   const isCorrect = correctKey === optIdx;
                   return (
-                    <div key={optIdx} style={{ fontSize: '12px', color: isCorrect ? '#86efac' : '#aaaaaa', background: isCorrect ? '#143823' : '#181818', padding: '6px 10px', borderRadius: '4px' }}>
+                    <div key={optIdx} style={{ fontSize: '12px', color: isCorrect ? '#30d158' : 'rgba(255, 255, 255, 0.7)', background: isCorrect ? 'rgba(48, 209, 88, 0.12)' : 'rgba(0, 0, 0, 0.25)', border: `1px solid ${isCorrect ? 'rgba(48, 209, 88, 0.3)' : 'rgba(255, 255, 255, 0.06)'}`, padding: '8px 12px', borderRadius: '10px' }}>
                       {String.fromCharCode(65 + optIdx)}. {opt} {isCorrect && '✓ (Key)'}
                     </div>
                   );

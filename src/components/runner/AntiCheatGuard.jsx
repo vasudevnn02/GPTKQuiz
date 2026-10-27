@@ -1,12 +1,9 @@
 import React, { useEffect } from 'react';
-import { AlertTriangleIcon, ShieldIcon } from '../icons/SvgIcons.jsx';
+import { ShieldIcon } from '../icons/SvgIcons.jsx';
 
-export default function AntiCheatGuard({ onViolation, violationCount }) {
+export default function AntiCheatGuard({ onViolation }) {
   useEffect(() => {
-    // Prevent Context Menu
     const handleContextMenu = (e) => e.preventDefault();
-
-    // Prevent DevTools & Copy-Paste Shortcuts
     const handleKeyDown = (e) => {
       if (
         e.key === 'F12' ||
@@ -17,24 +14,12 @@ export default function AntiCheatGuard({ onViolation, violationCount }) {
         onViolation('Disallowed key combination detected');
       }
     };
-
-    // Tab Switch / Visibility Change
     const handleVisibility = () => {
-      if (document.hidden) {
-        onViolation('Candidate navigated away from the exam tab');
-      }
+      if (document.hidden) onViolation('Candidate navigated away from the exam tab');
     };
-
-    // Window Blur
-    const handleBlur = () => {
-      onViolation('Browser window focus lost');
-    };
-
-    // Fullscreen Exit
+    const handleBlur = () => onViolation('Browser window focus lost');
     const handleFullscreen = () => {
-      if (!document.fullscreenElement) {
-        onViolation('Exited mandatory full-screen mode');
-      }
+      if (!document.fullscreenElement) onViolation('Exited mandatory full-screen mode');
     };
 
     document.addEventListener('contextmenu', handleContextMenu);
@@ -59,14 +44,14 @@ export default function AntiCheatGuard({ onViolation, violationCount }) {
   };
 
   return (
-    <div style={{ background: '#121212', borderBottom: '1px solid #272727', padding: '6px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '11px', color: '#aaaaaa' }}>
+    <div style={{ background: 'rgba(255, 255, 255, 0.03)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', padding: '8px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '11px', color: 'rgba(255, 255, 255, 0.6)' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <ShieldIcon size={14} color="#3ea6ff" />
-        <span>GPTK Proctor Integrity Monitor Active • Anti-Cheat Enforcement Enabled</span>
+        <ShieldIcon size={14} color="#0a84ff" />
+        <span>GPTK Proctor Integrity Monitor Active • Full-Screen Lockdown Monitored</span>
       </div>
       <button
         onClick={requestFullscreen}
-        style={{ background: '#272727', color: '#3ea6ff', padding: '3px 8px', borderRadius: '4px', fontSize: '11px', fontWeight: 600 }}
+        style={{ background: 'rgba(10, 132, 255, 0.15)', border: '1px solid rgba(10, 132, 255, 0.3)', color: '#0a84ff', padding: '4px 10px', borderRadius: '8px', fontSize: '11px', fontWeight: 700 }}
       >
         Lock Fullscreen
       </button>

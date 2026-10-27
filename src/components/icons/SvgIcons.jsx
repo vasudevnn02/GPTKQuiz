@@ -1,143 +1,122 @@
 import React from 'react';
 
-const BaseSvg = ({ size = 20, color = 'currentColor', children, className = '' }) => (
+const Svg = ({ size = 20, color = 'currentColor', fill = 'none', children, strokeWidth = '1.8' }) => (
   <svg
     width={size}
     height={size}
     viewBox="0 0 24 24"
-    fill="none"
+    fill={fill}
     stroke={color}
-    strokeWidth="2"
+    strokeWidth={strokeWidth}
     strokeLinecap="round"
     strokeLinejoin="round"
-    className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
   >
     {children}
   </svg>
 );
 
-export const ClockIcon = (props) => (
-  <BaseSvg {...props}>
-    <circle cx="12" cy="12" r="10" />
-    <polyline points="12 6 12 12 16 14" />
-  </BaseSvg>
+export const ClockIcon = (p) => (
+  <Svg {...p}>
+    <circle cx="12" cy="12" r="9" />
+    <polyline points="12 7 12 12 15 14" />
+  </Svg>
 );
 
-export const PlayIcon = (props) => (
-  <BaseSvg {...props}>
-    <polygon points="5 3 19 12 5 21 5 3" fill="currentColor" stroke="none" />
-  </BaseSvg>
+export const PlayIcon = (p) => (
+  <Svg {...p} fill="currentColor">
+    <path d="M7 4.5v15c0 .9 1 1.4 1.7.9l11.5-7.5c.7-.5.7-1.4 0-1.9L8.7 3.6C8 3.1 7 3.6 7 4.5z" stroke="none" />
+  </Svg>
 );
 
-export const LockIcon = (props) => (
-  <BaseSvg {...props}>
-    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-  </BaseSvg>
+export const LockIcon = (p) => (
+  <Svg {...p}>
+    <rect x="4" y="11" width="16" height="10" rx="3" ry="3" />
+    <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+  </Svg>
 );
 
-export const CheckIcon = (props) => (
-  <BaseSvg {...props}>
+export const CheckIcon = (p) => (
+  <Svg {...p} strokeWidth="2.2">
     <polyline points="20 6 9 17 4 12" />
-  </BaseSvg>
+  </Svg>
 );
 
-export const CheckCircleIcon = (props) => (
-  <BaseSvg {...props}>
-    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-    <polyline points="22 4 12 14.01 9 11.01" />
-  </BaseSvg>
+export const CheckCircleIcon = (p) => (
+  <Svg {...p}>
+    <circle cx="12" cy="12" r="9" />
+    <polyline points="8 12 11 15 16 9" strokeWidth="2" />
+  </Svg>
 );
 
-export const AlertTriangleIcon = (props) => (
-  <BaseSvg {...props}>
-    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
-    <line x1="12" y1="9" x2="12" y2="13" />
-    <line x1="12" y1="17" x2="12.01" y2="17" />
-  </BaseSvg>
+export const AlertTriangleIcon = (p) => (
+  <Svg {...p}>
+    <path d="M10.3 4.2L2.6 17.8c-.8 1.4.2 3.2 1.8 3.2h15.2c1.6 0 2.6-1.8 1.8-3.2L13.7 4.2c-.8-1.4-2.6-1.4-3.4 0z" />
+    <line x1="12" y1="10" x2="12" y2="14" />
+    <circle cx="12" cy="17.5" r=".75" fill="currentColor" stroke="none" />
+  </Svg>
 );
 
-export const UserIcon = (props) => (
-  <BaseSvg {...props}>
-    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-    <circle cx="12" cy="7" r="4" />
-  </BaseSvg>
+export const UserIcon = (p) => (
+  <Svg {...p}>
+    <circle cx="12" cy="8" r="4" />
+    <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
+  </Svg>
 );
 
-export const LogOutIcon = (props) => (
-  <BaseSvg {...props}>
-    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+export const LogOutIcon = (p) => (
+  <Svg {...p}>
+    <path d="M9 21H6a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3h3" />
     <polyline points="16 17 21 12 16 7" />
     <line x1="21" y1="12" x2="9" y2="12" />
-  </BaseSvg>
+  </Svg>
 );
 
-export const ShieldIcon = (props) => (
-  <BaseSvg {...props}>
-    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-  </BaseSvg>
+export const ShieldIcon = (p) => (
+  <Svg {...p}>
+    <path d="M12 2L4 5.5v6.2c0 5 3.4 9.7 8 10.8 4.6-1.1 8-5.8 8-10.8V5.5L12 2z" />
+  </Svg>
 );
 
-export const SearchIcon = (props) => (
-  <BaseSvg {...props}>
-    <circle cx="11" cy="11" r="8" />
-    <line x1="21" y1="21" x2="16.65" y2="16.65" />
-  </BaseSvg>
+export const SearchIcon = (p) => (
+  <Svg {...p}>
+    <circle cx="11" cy="11" r="7.5" />
+    <line x1="21" y1="21" x2="16.5" y2="16.5" />
+  </Svg>
 );
 
-export const AwardIcon = (props) => (
-  <BaseSvg {...props}>
-    <circle cx="12" cy="8" r="7" />
-    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
-  </BaseSvg>
+export const AwardIcon = (p) => (
+  <Svg {...p}>
+    <circle cx="12" cy="8" r="6" />
+    <path d="M8.5 13.5L7 21l5-3 5 3-1.5-7.5" />
+  </Svg>
 );
 
-export const BookOpenIcon = (props) => (
-  <BaseSvg {...props}>
-    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
-    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
-  </BaseSvg>
+export const BookOpenIcon = (p) => (
+  <Svg {...p}>
+    <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v18H6.5a2.5 2.5 0 0 0-2.5 2.5z" />
+    <path d="M6 6h10" />
+    <path d="M6 10h10" />
+  </Svg>
 );
 
-export const MenuIcon = (props) => (
-  <BaseSvg {...props}>
-    <line x1="3" y1="12" x2="21" y2="12" />
-    <line x1="3" y1="6" x2="21" y2="6" />
-    <line x1="3" y1="18" x2="21" y2="18" />
-  </BaseSvg>
-);
-
-export const ChevronRightIcon = (props) => (
-  <BaseSvg {...props}>
+export const ChevronRightIcon = (p) => (
+  <Svg {...p}>
     <polyline points="9 18 15 12 9 6" />
-  </BaseSvg>
+  </Svg>
 );
 
-export const MaximizeIcon = (props) => (
-  <BaseSvg {...props}>
-    <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
-  </BaseSvg>
-);
-
-export const PlusIcon = (props) => (
-  <BaseSvg {...props}>
+export const PlusIcon = (p) => (
+  <Svg {...p}>
     <line x1="12" y1="5" x2="12" y2="19" />
     <line x1="5" y1="12" x2="19" y2="12" />
-  </BaseSvg>
+  </Svg>
 );
 
-export const TrashIcon = (props) => (
-  <BaseSvg {...props}>
+export const TrashIcon = (p) => (
+  <Svg {...p}>
     <polyline points="3 6 5 6 21 6" />
-    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-  </BaseSvg>
-);
-
-export const RefreshCwIcon = (props) => (
-  <BaseSvg {...props}>
-    <polyline points="23 4 23 10 17 10" />
-    <polyline points="1 20 1 14 7 14" />
-    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
-  </BaseSvg>
+    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+    <path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" />
+  </Svg>
 );
