@@ -1,2 +1,5 @@
+node_modules/
+dist/
 *.metadata.json
 .DS_Store
+.env.local

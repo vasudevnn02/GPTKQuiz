@@ -1,0 +1,20 @@
+{
+  "rules": {
+    "students": {
+      ".read": true,
+      ".write": true
+    },
+    "quizzes": {
+      ".read": true,
+      ".write": true
+    },
+    "quiz_keys": {
+      ".read": true,
+      ".write": true
+    },
+    "results": {
+      ".read": true,
+      ".write": true
+    }
+  }
+}
