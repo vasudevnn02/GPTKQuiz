@@ -131,18 +131,20 @@ export default function StudentRegisterForm({ onRegister, loading, error, onSwit
         type="submit"
         disabled={loading}
         style={{
-          ...glassBtn,
-          fontWeight: 800,
-          padding: '12px',
-          borderRadius: '14px',
-          fontSize: '14px',
-          marginTop: '6px',
-          background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
-          border: '1px solid rgba(56, 189, 248, 0.5)',
+          background: 'rgba(255, 255, 255, 0.12)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          border: '1px solid rgba(255, 255, 255, 0.35)',
           color: '#ffffff',
-          boxShadow: '0 4px 18px rgba(2, 132, 199, 0.4)',
+          fontWeight: 800,
+          padding: '13px',
+          borderRadius: '14px',
+          fontSize: '15px',
+          marginTop: '8px',
+          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.45)',
           opacity: loading ? 0.7 : 1,
-          cursor: 'pointer'
+          cursor: 'pointer',
+          transition: 'all 0.2s ease'
         }}
       >
         {loading ? 'Registering...' : 'Register & Enter Portal'}

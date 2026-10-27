@@ -41,15 +41,17 @@ export default function AuthCard({ onStudentLogin, onStudentRegister, onTeacherL
           </p>
         </div>
 
-        {/* Primary Role Switcher: Student vs Teacher */}
+        {/* Primary Role Switcher: Student vs Teacher (Pure Transparent Glass) */}
         <div style={{
           display: 'flex',
-          background: 'rgba(0, 0, 0, 0.55)',
+          background: 'rgba(255, 255, 255, 0.08)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
           borderRadius: '14px',
           padding: '4px',
           marginBottom: '20px',
-          border: '1px solid rgba(255, 255, 255, 0.18)',
-          boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08)'
+          border: '1px solid rgba(255, 255, 255, 0.22)',
+          boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.25)'
         }}>
           <button
             onClick={() => handleRoleChange('student')}
@@ -59,9 +61,10 @@ export default function AuthCard({ onStudentLogin, onStudentRegister, onTeacherL
               borderRadius: '10px',
               fontSize: '13px',
               fontWeight: 800,
-              background: role === 'student' ? '#ffffff' : 'transparent',
-              color: role === 'student' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
-              boxShadow: role === 'student' ? '0 4px 14px rgba(0,0,0,0.45)' : 'none',
+              background: role === 'student' ? 'rgba(255, 255, 255, 0.22)' : 'transparent',
+              color: '#ffffff',
+              border: role === 'student' ? '1px solid rgba(255, 255, 255, 0.4)' : '1px solid transparent',
+              boxShadow: role === 'student' ? '0 4px 14px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.45)' : 'none',
               transition: 'all 0.15s ease',
               cursor: 'pointer'
             }}
@@ -76,9 +79,10 @@ export default function AuthCard({ onStudentLogin, onStudentRegister, onTeacherL
               borderRadius: '10px',
               fontSize: '13px',
               fontWeight: 800,
-              background: role === 'teacher' ? '#ffffff' : 'transparent',
-              color: role === 'teacher' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
-              boxShadow: role === 'teacher' ? '0 4px 14px rgba(0,0,0,0.45)' : 'none',
+              background: role === 'teacher' ? 'rgba(255, 255, 255, 0.22)' : 'transparent',
+              color: '#ffffff',
+              border: role === 'teacher' ? '1px solid rgba(255, 255, 255, 0.4)' : '1px solid transparent',
+              boxShadow: role === 'teacher' ? '0 4px 14px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.45)' : 'none',
               transition: 'all 0.15s ease',
               cursor: 'pointer'
             }}
@@ -87,16 +91,18 @@ export default function AuthCard({ onStudentLogin, onStudentRegister, onTeacherL
           </button>
         </div>
 
-        {/* Student Sub-segmented Switcher: Sign In vs Register (Ultra Bright & High Contrast) */}
+        {/* Student Sub-segmented Switcher: Sign In vs Register (Pure Transparent Glass) */}
         {role === 'student' && (
           <div style={{
             display: 'flex',
-            background: 'rgba(0, 0, 0, 0.5)',
+            background: 'rgba(255, 255, 255, 0.08)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
             borderRadius: '13px',
             padding: '4px',
             marginBottom: '22px',
-            border: '1px solid rgba(255, 255, 255, 0.18)',
-            boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08)'
+            border: '1px solid rgba(255, 255, 255, 0.22)',
+            boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.25)'
           }}>
             <button
               onClick={() => handleStudentModeChange('login')}
@@ -106,9 +112,10 @@ export default function AuthCard({ onStudentLogin, onStudentRegister, onTeacherL
                 borderRadius: '9px',
                 fontSize: '12px',
                 fontWeight: 800,
-                background: studentMode === 'login' ? '#38bdf8' : 'transparent',
-                color: studentMode === 'login' ? '#021024' : '#ffffff',
-                boxShadow: studentMode === 'login' ? '0 2px 10px rgba(56, 189, 248, 0.45)' : 'none',
+                background: studentMode === 'login' ? 'rgba(56, 189, 248, 0.22)' : 'transparent',
+                color: studentMode === 'login' ? '#38bdf8' : '#ffffff',
+                border: studentMode === 'login' ? '1px solid rgba(56, 189, 248, 0.5)' : '1px solid transparent',
+                boxShadow: studentMode === 'login' ? '0 2px 10px rgba(56, 189, 248, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4)' : 'none',
                 transition: 'all 0.15s ease',
                 cursor: 'pointer'
               }}
@@ -123,9 +130,10 @@ export default function AuthCard({ onStudentLogin, onStudentRegister, onTeacherL
                 borderRadius: '9px',
                 fontSize: '12px',
                 fontWeight: 800,
-                background: studentMode === 'register' ? '#38bdf8' : 'transparent',
-                color: studentMode === 'register' ? '#021024' : '#ffffff',
-                boxShadow: studentMode === 'register' ? '0 2px 10px rgba(56, 189, 248, 0.45)' : 'none',
+                background: studentMode === 'register' ? 'rgba(56, 189, 248, 0.22)' : 'transparent',
+                color: studentMode === 'register' ? '#38bdf8' : '#ffffff',
+                border: studentMode === 'register' ? '1px solid rgba(56, 189, 248, 0.5)' : '1px solid transparent',
+                boxShadow: studentMode === 'register' ? '0 2px 10px rgba(56, 189, 248, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4)' : 'none',
                 transition: 'all 0.15s ease',
                 cursor: 'pointer'
               }}
