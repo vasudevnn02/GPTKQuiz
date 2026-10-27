@@ -10,8 +10,8 @@
 }
 
 body {
-  background-color: #f6f8fb;
-  color: #1a1e29;
+  background-color: #000000;
+  color: #ffffff;
   font-family: var(--font-ny) !important;
   min-height: 100vh;
   overflow-x: hidden;
@@ -21,13 +21,13 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-ny) !important;
   letter-spacing: -0.025em;
   font-weight: 700;
-  color: #111827;
+  color: #ffffff;
 }
 
-::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.12); border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(0, 0, 0, 0.22); }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.16); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.28); }
 
 button {
   font-family: var(--font-ny) !important;
@@ -36,59 +36,40 @@ button {
   outline: none;
   transition: all 0.22s cubic-bezier(0.16,1,0.3,1);
 }
-button:hover  { opacity: 0.9; transform: translateY(-1px); }
-button:active { opacity: 1;   transform: translateY(0);    }
+button:hover  { opacity: 0.88; transform: translateY(-1px); }
+button:active { opacity: 1;    transform: translateY(0);    }
 
 input, select, textarea {
   font-family: var(--font-ny) !important;
   outline: none;
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  color: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  color: #ffffff;
   border-radius: 12px;
   padding: 11px 15px;
   font-size: 14px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.9);
   transition: all 0.2s ease;
 }
 input::placeholder, textarea::placeholder {
-  color: rgba(30, 41, 59, 0.42);
+  color: rgba(255, 255, 255, 0.35);
   font-family: var(--font-ny) !important;
 }
 input:focus, select:focus, textarea:focus {
-  border-color: rgba(255, 255, 255, 0.95);
-  background: rgba(255, 255, 255, 0.85);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 1);
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.09);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
 }
 
-/* ── Light Floating Aurora Animations ── */
-@keyframes blob1 {
-  0%   { transform: translate(0px, 0px) scale(1); }
-  33%  { transform: translate(60px, -40px) scale(1.08); }
-  66%  { transform: translate(-30px, 50px) scale(0.95); }
-  100% { transform: translate(0px, 0px) scale(1); }
+/* Sphere gentle float animations */
+@keyframes floatOrb1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(30px, -25px) scale(1.05); }
+  100% { transform: translate(0, 0) scale(1); }
 }
-@keyframes blob2 {
-  0%   { transform: translate(0px, 0px) scale(1); }
-  33%  { transform: translate(-60px, 40px) scale(1.06); }
-  66%  { transform: translate(50px, -50px) scale(0.96); }
-  100% { transform: translate(0px, 0px) scale(1); }
-}
-@keyframes blob3 {
-  0%   { transform: translate(0px, 0px) scale(1); }
-  33%  { transform: translate(40px, 60px) scale(1.05); }
-  66%  { transform: translate(-50px, -30px) scale(0.96); }
-  100% { transform: translate(0px, 0px) scale(1); }
-}
-@keyframes blob4 {
-  0%   { transform: translate(0px, 0px) scale(1); }
-  50%  { transform: translate(-45px, -60px) scale(1.1); }
-  100% { transform: translate(0px, 0px) scale(1); }
-}
-@keyframes blob5 {
-  0%   { transform: translate(0px, 0px) scale(1); }
-  50%  { transform: translate(60px, 40px) scale(1.06); }
-  100% { transform: translate(0px, 0px) scale(1); }
+@keyframes floatOrb2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(-35px, 20px) scale(1.04); }
+  100% { transform: translate(0, 0) scale(1); }
 }

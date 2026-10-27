@@ -14,12 +14,12 @@ export default function TeacherLoginForm({ onLogin, loading, error }) {
   return (
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <div>
-        <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#0f172a', marginBottom: '6px' }}>
+        <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>
           Teacher Email
         </label>
         <div style={{ position: 'relative' }}>
-          <span style={{ position: 'absolute', left: '12px', top: '11px', width: '22px', height: '22px', borderRadius: '6px', background: 'rgba(0,0,0,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <ShieldIcon size={12} color="rgba(255,255,255,0.95)" />
+          <span style={{ position: 'absolute', left: '12px', top: '11px', width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <ShieldIcon size={14} color="rgba(255,255,255,0.7)" />
           </span>
           <input
             type="text"
@@ -27,18 +27,18 @@ export default function TeacherLoginForm({ onLogin, loading, error }) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Admin Email"
-            style={{ width: '100%', paddingLeft: '42px' }}
+            style={{ width: '100%', paddingLeft: '40px' }}
           />
         </div>
       </div>
 
       <div>
-        <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#0f172a', marginBottom: '6px' }}>
+        <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>
           Passcode
         </label>
         <div style={{ position: 'relative' }}>
-          <span style={{ position: 'absolute', left: '12px', top: '11px', width: '22px', height: '22px', borderRadius: '6px', background: 'rgba(0,0,0,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <LockIcon size={12} color="rgba(255,255,255,0.95)" />
+          <span style={{ position: 'absolute', left: '12px', top: '11px', width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <LockIcon size={14} color="rgba(255,255,255,0.7)" />
           </span>
           <input
             type="password"
@@ -46,13 +46,13 @@ export default function TeacherLoginForm({ onLogin, loading, error }) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
-            style={{ width: '100%', paddingLeft: '42px' }}
+            style={{ width: '100%', paddingLeft: '40px' }}
           />
         </div>
       </div>
 
       {error && (
-        <div style={{ background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '10px', padding: '10px', color: '#dc2626', fontSize: '13px', fontWeight: 600 }}>
+        <div style={{ background: 'rgba(239, 68, 68, 0.2)', border: '1px solid rgba(239, 68, 68, 0.4)', borderRadius: '10px', padding: '10px', color: '#fca5a5', fontSize: '13px', fontWeight: 600 }}>
           {error}
         </div>
       )}
@@ -64,7 +64,7 @@ export default function TeacherLoginForm({ onLogin, loading, error }) {
           ...glassBtn,
           fontWeight: 800,
           padding: '12px',
-          borderRadius: '12px',
+          borderRadius: '14px',
           fontSize: '14px',
           marginTop: '6px',
           opacity: loading ? 0.7 : 1,

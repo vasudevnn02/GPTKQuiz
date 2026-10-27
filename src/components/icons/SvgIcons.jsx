@@ -1,17 +1,11 @@
 import React from 'react';
 
-// Light-white / soft silver stroked icons with subtle dark backdrop contrast when needed
-const Svg = ({ size = 20, color = 'rgba(255, 255, 255, 0.95)', fill = 'none', children, strokeWidth = '1.9' }) => (
+const Svg = ({ size = 20, color = 'rgba(255, 255, 255, 0.95)', fill = 'none', children, strokeWidth = '1.8' }) => (
   <svg
     width={size} height={size} viewBox="0 0 24 24"
     fill={fill} stroke={color}
     strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round"
-    style={{
-      display: 'inline-block',
-      verticalAlign: 'middle',
-      flexShrink: 0,
-      filter: 'drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25))'
-    }}
+    style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
   >{children}</svg>
 );
 
