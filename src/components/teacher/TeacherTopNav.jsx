@@ -3,9 +3,9 @@ import { LogOutIcon, AwardIcon, BookOpenIcon, ClockIcon } from '../icons/SvgIcon
 
 export default function TeacherTopNav({ admin, activeTab, onSelectTab, onLogout }) {
   const tabs = [
-    { id: 'scoreboard', label: 'Scoreboard', icon: AwardIcon },
-    { id: 'questions', label: 'Question Bank', icon: BookOpenIcon },
-    { id: 'schedule', label: 'Exam Window', icon: ClockIcon },
+    { id: 'dashboard', label: 'Dashboard & Tests', icon: ClockIcon },
+    { id: 'questions', label: 'Question Bank (QB)', icon: BookOpenIcon },
+    { id: 'results', label: 'Results & Scoreboard', icon: AwardIcon },
   ];
 
   return (

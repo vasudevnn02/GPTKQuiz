@@ -26,7 +26,7 @@ export default function App() {
   const [quizzes, setQuizzes] = useState({});
   const [results, setResults] = useState({});
   const [studentTab, setStudentTab] = useState('live');
-  const [teacherTab, setTeacherTab] = useState('scoreboard');
+  const [teacherTab, setTeacherTab] = useState('dashboard');
   const [activeQuiz, setActiveQuiz] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -57,9 +57,9 @@ export default function App() {
         <TeacherTopNav admin={currentUser} activeTab={teacherTab} onSelectTab={setTeacherTab} onLogout={logout} />
         <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '32px 24px' }}>
           <TeacherStats questionsCount={currentQuiz?.questions?.length || 0} results={results} currentQuiz={currentQuiz} />
-          {teacherTab === 'scoreboard' && <StudentScoreboard results={results} />}
+          {teacherTab === 'dashboard' && <QuizWindowConfig currentQuiz={currentQuiz} />}
           {teacherTab === 'questions' && <QuestionManager currentQuiz={currentQuiz} />}
-          {teacherTab === 'schedule' && <QuizWindowConfig currentQuiz={currentQuiz} />}
+          {teacherTab === 'results' && <StudentScoreboard results={results} />}
         </main>
       </div>
     );

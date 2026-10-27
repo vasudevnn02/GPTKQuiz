@@ -16,12 +16,13 @@ export default function QuestionView({ question, selectedOption, onSelectOption,
           </span>
         </div>
         <h2 style={{ fontSize: '19px', fontWeight: 600, color: '#ffffff', lineHeight: '1.5', fontFamily: 'var(--font-ny)', margin: 0 }}>
-          {question.text}
+          {question.text || question.question || question.statement || `Question ${currentIndex + 1}`}
         </h2>
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-        {question.options.map((optText, idx) => {
+        {(question.options || []).map((opt, idx) => {
+          const optText = typeof opt === 'string' ? opt : (opt?.text || opt?.label || '');
           const isSelected = selectedOption === idx;
           const letter = String.fromCharCode(65 + idx);
           return (

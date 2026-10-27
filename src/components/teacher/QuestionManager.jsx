@@ -15,7 +15,7 @@ export default function QuestionManager({ currentQuiz, answerKeys = {}, onUpdate
 
     const quizId = currentQuiz?.id || 'quiz_fsd_01';
     const newId = `q_${Date.now()}`;
-    const newQuestion = { id: newId, text: qText, options };
+    const newQuestion = { id: newId, text: qText, question: qText, options };
     const updatedQuestions = [...(currentQuiz?.questions || []), newQuestion];
     const updatedKeys = { ...answerKeys, [newId]: correctIdx };
 
@@ -101,22 +101,24 @@ export default function QuestionManager({ currentQuiz, answerKeys = {}, onUpdate
       <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
         {(currentQuiz?.questions || []).map((q, idx) => {
           const correctKey = answerKeys[q.id];
+          const statement = q.text || q.question || q.statement || q.prompt || `Question ${idx + 1}`;
           return (
-            <div key={q.id} style={{ background: 'rgba(255, 255, 255, 0.04)', backdropFilter: 'blur(30px)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '16px', padding: '20px', boxShadow: '0 8px 24px rgba(0,0,0,0.25)' }}>
+            <div key={q.id || idx} style={{ background: 'rgba(255, 255, 255, 0.04)', backdropFilter: 'blur(30px)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '16px', padding: '20px', boxShadow: '0 8px 24px rgba(0,0,0,0.25)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
-                <span style={{ fontSize: '15px', fontWeight: 600, color: '#ffffff' }}>
-                  {idx + 1}. {q.text}
+                <span style={{ fontSize: '16px', fontWeight: 600, color: '#ffffff', lineHeight: '1.4' }}>
+                  {idx + 1}. {statement}
                 </span>
                 <button onClick={() => handleDelete(q.id)} title="Delete Question" style={{ background: 'rgba(255, 69, 58, 0.12)', border: '1px solid rgba(255, 69, 58, 0.25)', color: '#ff453a', padding: '6px', borderRadius: '8px' }}>
                   <TrashIcon size={14} />
                 </button>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-                {q.options.map((opt, optIdx) => {
+                {(q.options || []).map((opt, optIdx) => {
+                  const optVal = typeof opt === 'string' ? opt : (opt?.text || opt?.label || '');
                   const isCorrect = correctKey === optIdx;
                   return (
-                    <div key={optIdx} style={{ fontSize: '12px', color: isCorrect ? '#30d158' : 'rgba(255, 255, 255, 0.7)', background: isCorrect ? 'rgba(48, 209, 88, 0.12)' : 'rgba(0, 0, 0, 0.25)', border: `1px solid ${isCorrect ? 'rgba(48, 209, 88, 0.3)' : 'rgba(255, 255, 255, 0.06)'}`, padding: '8px 12px', borderRadius: '10px' }}>
-                      {String.fromCharCode(65 + optIdx)}. {opt} {isCorrect && '✓ (Key)'}
+                    <div key={optIdx} style={{ fontSize: '13px', color: isCorrect ? '#30d158' : 'rgba(255, 255, 255, 0.7)', background: isCorrect ? 'rgba(48, 209, 88, 0.12)' : 'rgba(0, 0, 0, 0.25)', border: `1px solid ${isCorrect ? 'rgba(48, 209, 88, 0.3)' : 'rgba(255, 255, 255, 0.06)'}`, padding: '8px 12px', borderRadius: '10px' }}>
+                      {String.fromCharCode(65 + optIdx)}. {optVal} {isCorrect && '✓ (Key)'}
                     </div>
                   );
                 })}
