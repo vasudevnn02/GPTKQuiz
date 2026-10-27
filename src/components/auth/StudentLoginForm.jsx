@@ -28,7 +28,7 @@ export default function StudentLoginForm({ onLogin, loading, error }) {
             value={rollNo}
             onChange={(e) => setRollNo(e.target.value.toUpperCase())}
             placeholder="Register Number"
-            style={{ width: '100%', paddingLeft: '38px', background: 'rgba(0, 0, 0, 0.3)', border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: '10px', color: '#ffffff', textTransform: 'uppercase' }}
+            style={{ width: '100%', paddingLeft: '38px', background: 'rgba(0, 0, 0, 0.3)', border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: '10px', color: '#ffffff' }}
           />
         </div>
       </div>
