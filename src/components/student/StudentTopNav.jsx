@@ -1,30 +1,25 @@
 import React from 'react';
-import { PlayIcon, SearchIcon, LogOutIcon, UserIcon } from '../icons/SvgIcons.jsx';
+import { SearchIcon, LogOutIcon } from '../icons/SvgIcons.jsx';
 
 export default function StudentTopNav({ user, onLogout, searchQuery, setSearchQuery }) {
   const initial = user?.name ? user.name.charAt(0).toUpperCase() : 'S';
 
   return (
-    <header style={{ height: '56px', background: 'rgba(15, 15, 15, 0.96)', borderBottom: '1px solid #272727', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 24px', position: 'sticky', top: 0, zIndex: 50 }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-        <div style={{ width: '32px', height: '22px', background: '#ff0000', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
-          <PlayIcon size={12} />
-        </div>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
-          <span style={{ fontSize: '18px', fontWeight: 800, color: '#f1f1f1' }}>GPTK<span style={{ color: '#ff0000' }}>Quiz</span></span>
-          <span style={{ fontSize: '11px', color: '#aaaaaa', background: '#272727', padding: '2px 6px', borderRadius: '4px', textTransform: 'uppercase' }}>STUDENT</span>
-        </div>
+    <header style={{ height: '58px', background: 'rgba(18, 21, 30, 0.75)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 24px', position: 'sticky', top: 0, zIndex: 50 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <span style={{ fontSize: '18px', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.3px' }}>GPTK Quiz</span>
+        <span style={{ fontSize: '10px', color: 'rgba(255, 255, 255, 0.6)', background: 'rgba(255, 255, 255, 0.08)', padding: '2px 6px', borderRadius: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>STUDENT</span>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', maxWidth: '420px', width: '100%', margin: '0 20px', position: 'relative' }}>
+      <div style={{ display: 'flex', alignItems: 'center', maxWidth: '400px', width: '100%', margin: '0 20px', position: 'relative' }}>
         <input
           type="text"
           value={searchQuery || ''}
           onChange={(e) => setSearchQuery && setSearchQuery(e.target.value)}
-          placeholder="Search assessments, subjects..."
-          style={{ width: '100%', background: '#121212', border: '1px solid #303030', borderRadius: '20px 0 0 20px', padding: '8px 16px', fontSize: '13px', color: '#f1f1f1' }}
+          placeholder="Search assessments..."
+          style={{ width: '100%', background: 'rgba(0, 0, 0, 0.3)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '20px 0 0 20px', padding: '8px 16px', fontSize: '13px', color: '#ffffff' }}
         />
-        <button style={{ background: '#222222', border: '1px solid #303030', borderLeft: 'none', borderRadius: '0 20px 20px 0', padding: '8px 18px', color: '#aaaaaa' }}>
+        <button style={{ background: 'rgba(255, 255, 255, 0.08)', border: '1px solid rgba(255, 255, 255, 0.1)', borderLeft: 'none', borderRadius: '0 20px 20px 0', padding: '8px 18px', color: 'rgba(255, 255, 255, 0.6)' }}>
           <SearchIcon size={16} />
         </button>
       </div>
@@ -32,10 +27,10 @@ export default function StudentTopNav({ user, onLogout, searchQuery, setSearchQu
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <div style={{ textAlign: 'right' }}>
-            <div style={{ fontSize: '13px', fontWeight: 600, color: '#f1f1f1' }}>{user?.name || 'Student'}</div>
-            <div style={{ fontSize: '11px', color: '#3ea6ff', fontFamily: 'monospace' }}>{user?.rollNo}</div>
+            <div style={{ fontSize: '13px', fontWeight: 600, color: '#ffffff' }}>{user?.name || 'Student'}</div>
+            <div style={{ fontSize: '11px', color: '#60a5fa', fontFamily: 'monospace' }}>{user?.rollNo}</div>
           </div>
-          <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: '#cc0000', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '14px' }}>
+          <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: 'linear-gradient(135deg, #2563eb, #3b82f6)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '14px', border: '1px solid rgba(255, 255, 255, 0.2)' }}>
             {initial}
           </div>
         </div>
@@ -43,7 +38,7 @@ export default function StudentTopNav({ user, onLogout, searchQuery, setSearchQu
         <button
           onClick={onLogout}
           title="Sign Out"
-          style={{ background: '#272727', color: '#aaaaaa', padding: '7px 12px', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px' }}
+          style={{ background: 'rgba(255, 255, 255, 0.08)', border: '1px solid rgba(255, 255, 255, 0.1)', color: 'rgba(255, 255, 255, 0.7)', padding: '7px 12px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px' }}
         >
           <LogOutIcon size={14} />
           <span>Exit</span>
