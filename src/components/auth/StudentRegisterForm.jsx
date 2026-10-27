@@ -147,25 +147,6 @@ export default function StudentRegisterForm({ onRegister, loading, error, onSwit
       >
         {loading ? 'Registering...' : 'Register & Enter Portal'}
       </button>
-
-      {/* Switch to Login Link */}
-      <div style={{ textAlign: 'center', marginTop: '4px' }}>
-        <button
-          type="button"
-          onClick={onSwitchToLogin}
-          style={{
-            background: 'none',
-            border: 'none',
-            color: '#38bdf8',
-            fontSize: '12px',
-            fontWeight: 700,
-            cursor: 'pointer',
-            textDecoration: 'underline'
-          }}
-        >
-          Already have an account? Sign In
-        </button>
-      </div>
     </form>
   );
 }
