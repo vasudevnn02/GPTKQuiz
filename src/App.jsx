@@ -7,7 +7,7 @@ import AnimatedBg from './components/AnimatedBg.jsx';
 
 import AuthCard from './components/auth/AuthCard.jsx';
 import StudentTopNav from './components/student/StudentTopNav.jsx';
-import StudentSidebar from './components/student/StudentSidebar.jsx';
+
 import LiveExamGrid from './components/student/LiveExamGrid.jsx';
 import UpcomingExamGrid from './components/student/UpcomingExamGrid.jsx';
 import ResultsTable from './components/student/ResultsTable.jsx';
@@ -195,26 +195,12 @@ export default function App() {
     <>
       {Bg}
       <div style={{ ...PAGE, display: 'flex', flexDirection: 'column' }}>
-        <StudentTopNav user={currentUser} onLogout={logout} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-        <div style={{ display: 'flex', flex: 1 }}>
-          <StudentSidebar activeTab={studentTab} onSelectTab={setStudentTab} />
-          <main style={{ flex: 1, padding: '28px 36px', overflowY: 'auto' }}>
-            {studentTab === 'live'     && <LiveExamGrid quizzes={quizzes} results={results} student={currentUser} onStartExam={setActiveQuiz} onViewResult={() => setStudentTab('results')} />}
-            {studentTab === 'upcoming' && <UpcomingExamGrid />}
-            {studentTab === 'results'  && <ResultsTable results={results} student={currentUser} />}
-            {studentTab === 'rules'    && (
-              <div style={{ background:'rgba(12,20,38,0.52)', backdropFilter:'blur(32px)', WebkitBackdropFilter:'blur(32px)', border:'1px solid rgba(255,255,255,0.18)', borderRadius:'24px', padding:'32px', maxWidth:'720px', boxShadow:'0 24px 60px rgba(0,0,0,0.55)' }}>
-                <h2 style={{ fontSize:'20px', fontWeight:800, color:'#ffffff', marginBottom:'14px' }}>Examination Regulations & Honor Code</h2>
-                <ul style={{ color:'rgba(255,255,255,0.7)', fontSize:'13px', lineHeight:'1.9', paddingLeft:'22px' }}>
-                  <li>Assessments must be attended within the scheduled window (10:00 AM – 05:00 PM).</li>
-                  <li>Your countdown timer begins upon clicking "Start Quiz Now". Time is capped if joined near 5:00 PM.</li>
-                  <li>Full-screen lockdown is enforced. Tab-switches generate proctor alerts.</li>
-                  <li>Each candidate is allowed exactly ONE verified submission per assessment.</li>
-                </ul>
-              </div>
-            )}
-          </main>
-        </div>
+        <StudentTopNav user={currentUser} onLogout={logout} activeTab={studentTab} onSelectTab={setStudentTab} />
+        <main style={{ flex: 1, padding: '32px 36px', overflowY: 'auto', maxWidth: '1240px', width: '100%', margin: '0 auto', alignSelf: 'stretch' }}>
+          {studentTab === 'live'     && <LiveExamGrid quizzes={quizzes} results={results} student={currentUser} onStartExam={setActiveQuiz} onViewResult={() => setStudentTab('results')} />}
+          {studentTab === 'upcoming' && <UpcomingExamGrid />}
+          {studentTab === 'results'  && <ResultsTable results={results} student={currentUser} />}
+        </main>
       </div>
     </>
   );
