@@ -11,11 +11,12 @@ export const DEFAULT_STUDENTS = {
 
 export const DEFAULT_QUIZ = {
   id: "quiz_fsd_01",
-  title: "Full Stack Development (FSD) Unit Assessment",
-  course: "Computer Science and Engineering",
-  description: "Comprehensive 15-minute proctored assessment for FSD core concepts.",
+  title: "Computer Science",
+  course: "CSE Department",
+  description: "Comprehensive 15-minute proctored assessment for Computer Science examination.",
   windowStart: "10:00 AM",
   windowEnd: "05:00 PM",
+  date: "Oct 28, 2026",
   durationMinutes: 15,
   totalQuestions: 5,
   status: "active",

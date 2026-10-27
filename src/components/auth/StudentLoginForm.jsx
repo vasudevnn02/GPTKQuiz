@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { UserIcon, LockIcon } from '../icons/SvgIcons.jsx';
 import { glassBtn } from '../../glass.js';
 
-export default function StudentLoginForm({ onLogin, loading, error }) {
+export default function StudentLoginForm({ onLogin, loading, error, onSwitchToRegister }) {
   const [rollNo, setRollNo] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -88,6 +88,26 @@ export default function StudentLoginForm({ onLogin, loading, error }) {
       >
         {loading ? 'Authenticating...' : 'Enter Student Portal'}
       </button>
+
+      {onSwitchToRegister && (
+        <div style={{ textAlign: 'center', marginTop: '4px' }}>
+          <button
+            type="button"
+            onClick={onSwitchToRegister}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: '#38bdf8',
+              fontSize: '12px',
+              fontWeight: 700,
+              cursor: 'pointer',
+              textDecoration: 'underline'
+            }}
+          >
+            New student? Register here
+          </button>
+        </div>
+      )}
     </form>
   );
 }

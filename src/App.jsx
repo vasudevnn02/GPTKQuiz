@@ -25,7 +25,7 @@ import QuestionEditModal from './components/teacher/QuestionEditModal.jsx';
 const PAGE = { position: 'relative', zIndex: 1, minHeight: '100vh', display: 'flex', flexDirection: 'column' };
 
 export default function App() {
-  const { currentUser, loading, error, setError, loginStudent, loginTeacher, logout } = useStudentAuth();
+  const { currentUser, loading, error, setError, loginStudent, registerStudent, loginTeacher, logout } = useStudentAuth();
   const [quizzes, setQuizzes] = useState({});
   const [results, setResults] = useState({});
   const [studentTab, setStudentTab] = useState('live');
@@ -57,7 +57,7 @@ export default function App() {
       <>
         {Bg}
         <div style={PAGE}>
-          <AuthCard onStudentLogin={loginStudent} onTeacherLogin={loginTeacher} loading={loading} error={error} setError={setError} />
+          <AuthCard onStudentLogin={loginStudent} onStudentRegister={registerStudent} onTeacherLogin={loginTeacher} loading={loading} error={error} setError={setError} />
         </div>
       </>
     );

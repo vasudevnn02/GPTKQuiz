@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ref, get, child } from 'firebase/database';
+import { ref, get, child, set } from 'firebase/database';
 import { rtdb } from '../services/firebase.js';
 import { DEFAULT_STUDENTS } from '../services/seedData.js';
 
@@ -63,6 +63,81 @@ export function useStudentAuth() {
     }
   };
 
+  const registerStudent = async (rollNo, name, password, confirmPassword, course = 'Computer Science') => {
+    setLoading(true);
+    setError('');
+    const cleanRollNo = rollNo.trim().toUpperCase();
+    const cleanName = name.trim();
+    const cleanPass = password.trim();
+    const cleanConfirm = confirmPassword.trim();
+
+    try {
+      if (!cleanRollNo || !cleanName || !cleanPass) {
+        throw new Error('All fields are required.');
+      }
+      if (cleanPass !== cleanConfirm) {
+        throw new Error('Passwords do not match. Please re-enter.');
+      }
+      if (cleanPass.length < 4) {
+        throw new Error('Password must be at least 4 characters.');
+      }
+
+      // Check if student already exists in RTDB or local
+      let exists = false;
+      try {
+        const snap = await get(child(ref(rtdb), `students/${cleanRollNo}`));
+        if (snap.exists()) exists = true;
+      } catch {}
+
+      if (!exists) {
+        const local = JSON.parse(localStorage.getItem('gptk_students') || '{}');
+        if (local[cleanRollNo] || DEFAULT_STUDENTS[cleanRollNo]) exists = true;
+      }
+
+      if (exists) {
+        throw new Error('Register number already exists! Please login.');
+      }
+
+      const newStudent = {
+        rollNo: cleanRollNo,
+        name: cleanName,
+        passwordHash: cleanPass,
+        course: course || 'Computer Science and Engineering',
+        createdAt: Date.now(),
+        status: 'active'
+      };
+
+      // Save to RTDB
+      try {
+        await set(ref(rtdb, `students/${cleanRollNo}`), newStudent);
+      } catch (e) {
+        console.warn('Saving student to localStorage fallback:', e);
+      }
+
+      // Save to localStorage
+      const local = JSON.parse(localStorage.getItem('gptk_students') || '{}');
+      local[cleanRollNo] = newStudent;
+      localStorage.setItem('gptk_students', JSON.stringify(local));
+
+      // Auto login
+      const session = {
+        role: 'student',
+        rollNo: newStudent.rollNo,
+        name: newStudent.name,
+        course: newStudent.course,
+        loggedInAt: Date.now()
+      };
+      localStorage.setItem('gptk_student_session', JSON.stringify(session));
+      setCurrentUser(session);
+      return session;
+    } catch (err) {
+      setError(err.message || 'Registration failed');
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const loginTeacher = (email, password) => {
     const cleanEmail = email.trim().toLowerCase();
     if ((cleanEmail === 'admin@gptkquiz.edu' || cleanEmail === 'admin') && password === 'CSE@2026') {
@@ -84,5 +159,5 @@ export function useStudentAuth() {
     setCurrentUser(null);
   };
 
-  return { currentUser, loading, error, setError, loginStudent, loginTeacher, logout };
+  return { currentUser, loading, error, setError, loginStudent, registerStudent, loginTeacher, logout };
 }
