@@ -15,6 +15,7 @@ import {
   XIcon
 } from '../icons/SvgIcons.jsx';
 import { glassDeep, glassInner, glassBtn } from '../../glass.js';
+import AiQuestionImporter from './AiQuestionImporter.jsx';
 
 function computeEndTime(startTime, durationMinutes = 15) {
   if (!startTime) return '10:15 AM';
@@ -43,6 +44,7 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [showAiModal, setShowAiModal] = useState(false);
 
   // Editable fields in modal
   const [title, setTitle] = useState(quiz.title || '');
@@ -172,6 +174,22 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
         explanation: ''
       }
     ]);
+  };
+
+  const handleImportedFromAi = (importedQuestions) => {
+    if (!importedQuestions || importedQuestions.length === 0) return;
+    const formatted = importedQuestions.map((q, idx) => ({
+      id: q.id || `q_ai_${Date.now()}_${idx}`,
+      text: q.text || q.question || '',
+      options: Array.isArray(q.options) && q.options.length >= 4
+        ? q.options.slice(0, 4)
+        : [q.options?.[0] || '', q.options?.[1] || '', q.options?.[2] || '', q.options?.[3] || ''],
+      correctIdx: typeof q.correct === 'number' ? q.correct : 0,
+      explanation: q.explanation || ''
+    }));
+
+    setQuestionsList(prev => [...prev, ...formatted]);
+    setShowAiModal(false);
   };
 
   const handleRemoveQuestionLocal = (qid) => {
@@ -531,9 +549,7 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
                 <div style={{ display: 'flex', gap: '10px' }}>
                   <button
                     type="button"
-                    onClick={() => {
-                      if (onAiImport) onAiImport();
-                    }}
+                    onClick={() => setShowAiModal(true)}
                     style={{
                       background: 'rgba(99, 102, 241, 0.18)',
                       border: '1px solid rgba(129, 140, 248, 0.4)',
@@ -757,6 +773,14 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
               </button>
             </div>
           </div>
+
+          {showAiModal && (
+            <AiQuestionImporter
+              currentQuiz={quiz}
+              onClose={() => setShowAiModal(false)}
+              onImportQuestions={handleImportedFromAi}
+            />
+          )}
         </div>,
         document.body
       )}

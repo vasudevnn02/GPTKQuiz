@@ -3,7 +3,7 @@ import { ref, set } from 'firebase/database';
 import { rtdb } from '../../services/firebase.js';
 import { glassDeep, glassBtn } from '../../glass.js';
 
-export default function AiQuestionImporter({ currentQuiz, answerKeys = {}, onClose, onImported, embedded = false }) {
+export default function AiQuestionImporter({ currentQuiz, answerKeys = {}, onClose, onImported, onImportQuestions, embedded = false }) {
   const [step, setStep] = useState('prompt'); // 'prompt' | 'paste'
   const [topic, setTopic] = useState('Operating Systems & Memory Management');
   const [questionCount, setQuestionCount] = useState(5);
@@ -119,6 +119,13 @@ Answer: B
 
   const handleImport = async () => {
     if (parsedQuestions.length === 0) return;
+
+    if (onImportQuestions) {
+      onImportQuestions(parsedQuestions);
+      if (onClose) onClose();
+      return;
+    }
+
     const quizId = currentQuiz?.id || 'quiz_fsd_01';
     const updatedQuestions = [...(currentQuiz?.questions || []), ...parsedQuestions];
     const updatedKeys = { ...answerKeys };

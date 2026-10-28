@@ -22,6 +22,7 @@ import TeacherTopNav from './components/teacher/TeacherTopNav.jsx';
 import StudentScoreboard from './components/teacher/StudentScoreboard.jsx';
 import QuestionPackManager from './components/teacher/QuestionPackManager.jsx';
 import QuestionEditModal from './components/teacher/QuestionEditModal.jsx';
+import CreateQuizModal from './components/teacher/CreateQuizModal.jsx';
 
 const PAGE = { position: 'relative', zIndex: 1, minHeight: '100vh', display: 'flex', flexDirection: 'column' };
 
@@ -171,9 +172,7 @@ export default function App() {
           </footer>
 
           {showCreateModal && (
-            <QuestionEditModal
-              currentQuiz={currentQuiz}
-              answerKeys={{}}
+            <CreateQuizModal
               onClose={() => setShowCreateModal(false)}
               onSaved={() => setRefreshKey(k => k + 1)}
             />
