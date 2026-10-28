@@ -233,7 +233,7 @@ export default function App() {
       {Bg}
       <div style={{ ...PAGE, display: 'flex', flexDirection: 'column' }}>
         <StudentTopNav user={currentUser} onLogout={logout} activeTab={studentTab} onSelectTab={setStudentTab} />
-        <main style={{ flex: 1, padding: '32px 36px', overflowY: 'auto', maxWidth: '1240px', width: '100%', margin: '0 auto', alignSelf: 'stretch' }}>
+        <main style={{ flex: 1, padding: '32px 36px', overflowY: 'auto', maxWidth: '1240px', width: '100%', margin: '0 auto', alignSelf: 'stretch', display: 'flex', flexDirection: 'column' }}>
           {studentTab === 'live'     && <LiveExamGrid quizzes={quizzes} results={results} student={currentUser} onStartExam={setActiveQuiz} onViewResult={() => setStudentTab('results')} onGoToUpcoming={() => setStudentTab('upcoming')} />}
           {studentTab === 'upcoming' && <UpcomingExamGrid quizzes={quizzes} results={results} student={currentUser} />}
           {studentTab === 'results'  && <ResultsTable results={results} student={currentUser} />}
