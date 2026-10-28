@@ -28,39 +28,25 @@ export default function AnimatedBg() {
       pointerEvents: 'none',
       backgroundColor: '#020714',
     }}>
-      {/* 1. Deep Navy & Normal Blue Combination Canvas */}
+      {/* 1. Deep Navy & Midnight Space Canvas */}
       <div style={{
         position: 'absolute',
         inset: 0,
-        background: 'radial-gradient(ellipse at 50% 10%, #0d3278 0%, #071c47 30%, #040f28 65%, #010512 100%)',
+        background: 'linear-gradient(180deg, #07152e 0%, #040d1e 50%, #01050f 100%)',
       }} />
 
-      {/* 2. Ambient Normal Blue Cosmic Aura (Shining through the glass cards) */}
+      {/* 2. Very Subtle Dark Ambient Navy Glow (Deep, not bright neon blue) */}
       <div style={{
         position: 'absolute',
-        width: '980px',
-        height: '560px',
-        top: '18%',
+        width: '800px',
+        height: '450px',
+        top: '15%',
         left: '50%',
         transform: 'translateX(-50%)',
         borderRadius: '50%',
-        background: 'radial-gradient(ellipse at 50% 50%, rgba(29, 78, 216, 0.42) 0%, rgba(37, 99, 235, 0.28) 35%, rgba(15, 23, 42, 0.12) 70%, transparent 85%)',
-        filter: 'blur(75px)',
-        opacity: 0.9,
-        animation: 'cosmicCoreBreathing 12s ease-in-out infinite',
-      }} />
-
-      {/* 3. Gentle Secondary Blue Flow Accent */}
-      <div style={{
-        position: 'absolute',
-        width: '650px',
-        height: '350px',
-        top: '30%',
-        left: '42%',
-        borderRadius: '50%',
-        background: 'radial-gradient(ellipse at 50% 50%, rgba(59, 130, 246, 0.25) 0%, rgba(29, 78, 216, 0.15) 50%, transparent 80%)',
-        filter: 'blur(60px)',
-        opacity: 0.75,
+        background: 'radial-gradient(ellipse at 50% 50%, rgba(15, 45, 105, 0.22) 0%, rgba(8, 25, 65, 0.12) 50%, transparent 80%)',
+        filter: 'blur(80px)',
+        opacity: 0.6,
       }} />
 
       {/* 4. Animated Floating Stars */}

@@ -1,70 +1,65 @@
 // ══════════════════════════════════════════════════════════════════
-// Pure Transparent Glass  —  Blue Galaxy Bleeds Through
-// ══════════════════════════════════════════════════════════════════
-// Cards are nearly invisible — ultra-thin white sheen + strong blur
-// so the deep navy/blue star background saturates through naturally.
-// Pair inline spread with className="liqglass" / "liqglass-deep"
-// from index.css to get dome shine + noise grain + shimmer hover.
+// Pure Neutral Transparent Glass (Achromatic, Colorless Frosted Glass)
 // ══════════════════════════════════════════════════════════════════
 
-// Standard card — very transparent, blue galaxy shows through
+// Standard card — true colorless transparent glass
 export const glass = {
-  background: 'rgba(255,255,255,0.045)',
-  backdropFilter: 'blur(32px) saturate(180%) brightness(1.08)',
-  WebkitBackdropFilter: 'blur(32px) saturate(180%) brightness(1.08)',
+  background: 'rgba(255, 255, 255, 0.05)',
+  backdropFilter: 'blur(26px)',
+  WebkitBackdropFilter: 'blur(26px)',
   border: 'none',
-  outline: '1px solid rgba(255,255,255,0.20)',
+  outline: '1px solid rgba(255, 255, 255, 0.22)',
   outlineOffset: '-1px',
   boxShadow: [
-    '0 12px 36px rgba(0,0,0,0.28)',
-    'inset 0 1.5px 1px 0 rgba(255,255,255,0.65)',
-    'inset 0 -1px 1px 0 rgba(255,255,255,0.12)',
-    'inset 1px 0 1px -1px rgba(255,255,255,0.30)',
-    'inset -1px 0 1px -1px rgba(255,255,255,0.12)',
+    '0 14px 40px rgba(0, 0, 0, 0.35)',
+    'inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.65)',
+    'inset 0 -1px 1px 0 rgba(255, 255, 255, 0.12)',
+    'inset 1px 0 1px -1px rgba(255, 255, 255, 0.30)',
+    'inset -1px 0 1px -1px rgba(255, 255, 255, 0.12)',
   ].join(', '),
 };
 
-// Modal / elevated panel — slightly more visible
+// Modal / elevated panel — true colorless transparent glass
 export const glassDeep = {
-  background: 'rgba(255,255,255,0.055)',
-  backdropFilter: 'blur(40px) saturate(190%) brightness(1.10)',
-  WebkitBackdropFilter: 'blur(40px) saturate(190%) brightness(1.10)',
+  background: 'rgba(255, 255, 255, 0.065)',
+  backdropFilter: 'blur(30px)',
+  WebkitBackdropFilter: 'blur(30px)',
   border: 'none',
-  outline: '1px solid rgba(255,255,255,0.24)',
+  outline: '1px solid rgba(255, 255, 255, 0.26)',
   outlineOffset: '-1px',
   boxShadow: [
-    '0 20px 52px rgba(0,0,0,0.35)',
-    '0 6px 16px rgba(0,0,0,0.20)',
-    'inset 0 2px 1.5px 0 rgba(255,255,255,0.75)',
-    'inset 0 -1px 1px 0 rgba(255,255,255,0.15)',
-    'inset 1.5px 0 1px -1px rgba(255,255,255,0.35)',
-    'inset -1.5px 0 1px -1px rgba(255,255,255,0.14)',
+    '0 24px 60px rgba(0, 0, 0, 0.45)',
+    '0 6px 20px rgba(0, 0, 0, 0.25)',
+    'inset 0 2px 1.5px 0 rgba(255, 255, 255, 0.75)',
+    'inset 0 -1px 1px 0 rgba(255, 255, 255, 0.15)',
+    'inset 1.5px 0 1px -1px rgba(255, 255, 255, 0.35)',
+    'inset -1.5px 0 1px -1px rgba(255, 255, 255, 0.14)',
   ].join(', '),
 };
 
 // Nested inner panel
 export const glassInner = {
-  background: 'rgba(255,255,255,0.03)',
+  background: 'rgba(255, 255, 255, 0.035)',
   backdropFilter: 'blur(16px)',
   WebkitBackdropFilter: 'blur(16px)',
   border: 'none',
-  outline: '1px solid rgba(255,255,255,0.14)',
+  outline: '1px solid rgba(255, 255, 255, 0.16)',
   outlineOffset: '-1px',
-  boxShadow: 'inset 0 1px 0.5px 0 rgba(255,255,255,0.40)',
+  boxShadow: 'inset 0 1px 0.5px 0 rgba(255, 255, 255, 0.40)',
 };
 
 // Button pill
 export const glassBtn = {
-  background: 'rgba(255,255,255,0.08)',
-  backdropFilter: 'blur(20px)',
-  WebkitBackdropFilter: 'blur(20px)',
+  background: 'rgba(255, 255, 255, 0.08)',
+  backdropFilter: 'blur(18px)',
+  WebkitBackdropFilter: 'blur(18px)',
   border: 'none',
-  outline: '1px solid rgba(255,255,255,0.25)',
+  outline: '1px solid rgba(255, 255, 255, 0.25)',
   outlineOffset: '-1px',
   color: '#ffffff',
   boxShadow: [
-    '0 4px 14px rgba(0,0,0,0.22)',
-    'inset 0 1px 1px 0 rgba(255,255,255,0.60)',
-    'inset 0 -0.5px 0.5px 0 rgba(255,255,255,0.15)',
+    '0 4px 14px rgba(0, 0, 0, 0.22)',
+    'inset 0 1px 1px 0 rgba(255, 255, 255, 0.60)',
+    'inset 0 -0.5px 0.5px 0 rgba(255, 255, 255, 0.15)',
   ].join(', '),
 };

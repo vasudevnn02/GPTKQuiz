@@ -108,36 +108,35 @@ input:focus, select:focus, textarea:focus {
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  /* Nearly invisible — pure transparent so blue galaxy bleeds through */
-  background: rgba(255,255,255,0.045) !important;
-  backdrop-filter: blur(32px) saturate(180%) brightness(1.08) !important;
-  -webkit-backdrop-filter: blur(32px) saturate(180%) brightness(1.08) !important;
+  /* Pure neutral transparent glass — colorless */
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(26px) !important;
+  -webkit-backdrop-filter: blur(26px) !important;
   border: none !important;
-  outline: 1px solid rgba(255,255,255,0.20) !important;
+  outline: 1px solid rgba(255, 255, 255, 0.22) !important;
   outline-offset: -1px !important;
   box-shadow:
-    0 12px 36px rgba(0,0,0,0.28),
-    inset 0 1.5px 1px 0 rgba(255,255,255,0.65),
-    inset 0 -1px 1px 0 rgba(255,255,255,0.12),
-    inset 1px 0 1px -1px rgba(255,255,255,0.30),
-    inset -1px 0 1px -1px rgba(255,255,255,0.12) !important;
-  transition: transform 0.28s cubic-bezier(0.16,1,0.3,1), outline-color 0.22s ease, box-shadow 0.3s ease !important;
+    0 14px 40px rgba(0, 0, 0, 0.35),
+    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.65),
+    inset 0 -1px 1px 0 rgba(255, 255, 255, 0.12),
+    inset 1px 0 1px -1px rgba(255, 255, 255, 0.30),
+    inset -1px 0 1px -1px rgba(255, 255, 255, 0.12) !important;
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), outline-color 0.2s ease, box-shadow 0.24s ease !important;
   animation: none;
 }
 
-/* ── Inner dome radial shine (top-left specular orb) ── */
+/* ── Subtle neutral top-edge refraction glint ── */
 .liqglass::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  /* Subtle top-edge specular glint — not a big white blob */
   background: linear-gradient(
     to bottom,
-    rgba(255,255,255,0.10) 0%,
-    rgba(255,255,255,0.03) 30%,
-    transparent 60%
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.02) 25%,
+    transparent 50%
   );
   border-radius: inherit;
 }
@@ -150,35 +149,23 @@ input:focus, select:focus, textarea:focus {
   z-index: 1;
   pointer-events: none;
   border-radius: inherit;
-  opacity: 0.055;
+  opacity: 0.04;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
   background-size: 180px 180px;
-}
-
-/* Shimmer sweep on hover */
-.liqglass:hover::before {
-  animation: liqShimmer 0.7s ease forwards;
-  background: linear-gradient(
-    105deg,
-    transparent 35%,
-    rgba(255,255,255,0.32) 50%,
-    transparent 65%
-  );
-  border-radius: inherit;
 }
 
 /* Make sure children render above pseudo layers */
 .liqglass > * { position: relative; z-index: 2; }
 
 .liqglass:hover {
-  outline-color: rgba(255,255,255,0.32) !important;
+  outline-color: rgba(255, 255, 255, 0.38) !important;
   transform: translateY(-1px);
   box-shadow:
-    0 16px 42px rgba(0,0,0,0.32),
-    inset 0 1.5px 1px 0 rgba(255,255,255,0.70),
-    inset 0 -1px 1px 0 rgba(255,255,255,0.14),
-    inset 1px 0 1px -1px rgba(255,255,255,0.35),
-    inset -1px 0 1px -1px rgba(255,255,255,0.14) !important;
+    0 18px 48px rgba(0, 0, 0, 0.40),
+    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.75),
+    inset 0 -1px 1px 0 rgba(255, 255, 255, 0.15),
+    inset 1px 0 1px -1px rgba(255, 255, 255, 0.35),
+    inset -1px 0 1px -1px rgba(255, 255, 255, 0.14) !important;
 }
 
 /* ── DEEP variant (modals / elevated) ── */
@@ -186,19 +173,19 @@ input:focus, select:focus, textarea:focus {
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  background: rgba(255,255,255,0.055) !important;
-  backdrop-filter: blur(40px) saturate(190%) brightness(1.10) !important;
-  -webkit-backdrop-filter: blur(40px) saturate(190%) brightness(1.10) !important;
+  background: rgba(255, 255, 255, 0.065) !important;
+  backdrop-filter: blur(30px) !important;
+  -webkit-backdrop-filter: blur(30px) !important;
   border: none !important;
-  outline: 1px solid rgba(255,255,255,0.22) !important;
+  outline: 1px solid rgba(255, 255, 255, 0.26) !important;
   outline-offset: -1px !important;
   box-shadow:
-    0 20px 52px rgba(0,0,0,0.32),
-    0 6px 16px rgba(0,0,0,0.18),
-    inset 0 2px 1.5px 0 rgba(255,255,255,0.75),
-    inset 0 -1px 1px 0 rgba(255,255,255,0.15),
-    inset 1.5px 0 1px -1px rgba(255,255,255,0.35),
-    inset -1.5px 0 1px -1px rgba(255,255,255,0.14) !important;
+    0 24px 60px rgba(0, 0, 0, 0.45),
+    0 6px 20px rgba(0, 0, 0, 0.25),
+    inset 0 2px 1.5px 0 rgba(255, 255, 255, 0.75),
+    inset 0 -1px 1px 0 rgba(255, 255, 255, 0.15),
+    inset 1.5px 0 1px -1px rgba(255, 255, 255, 0.35),
+    inset -1.5px 0 1px -1px rgba(255, 255, 255, 0.14) !important;
 }
 .liqglass-deep::before {
   content: '';
@@ -208,9 +195,9 @@ input:focus, select:focus, textarea:focus {
   pointer-events: none;
   background: linear-gradient(
     to bottom,
-    rgba(255,255,255,0.12) 0%,
-    rgba(255,255,255,0.04) 30%,
-    transparent 65%
+    rgba(255, 255, 255, 0.10) 0%,
+    rgba(255, 255, 255, 0.03) 25%,
+    transparent 55%
   );
   border-radius: inherit;
 }
@@ -221,7 +208,7 @@ input:focus, select:focus, textarea:focus {
   z-index: 1;
   pointer-events: none;
   border-radius: inherit;
-  opacity: 0.06;
+  opacity: 0.045;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
   background-size: 180px 180px;
 }
