@@ -85,18 +85,16 @@ export default function QuestionView({
                 padding: '16px 22px',
                 background: isSelected
                   ? 'rgba(56, 189, 248, 0.16)'
-                  : 'rgba(255, 255, 255, 0.05)',
-                border: isSelected
-                  ? '1.5px solid rgba(56, 189, 248, 0.65)'
-                  : '1px solid rgba(255, 255, 255, 0.2)',
-                backdropFilter: 'blur(30px) saturate(190%)',
-                WebkitBackdropFilter: 'blur(30px) saturate(190%)',
-                borderRadius: '20px',
+                  : 'rgba(255, 255, 255, 0.08)',
+                border: '1.5px solid transparent',
+                backdropFilter: 'blur(28px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(28px) saturate(180%)',
+                borderRadius: '22px',
                 textAlign: 'left',
                 color: '#ffffff',
                 boxShadow: isSelected
-                  ? '0 8px 24px rgba(2, 132, 199, 0.35), inset 0 1.5px 1px rgba(255, 255, 255, 0.5), inset 0 -1px 1px rgba(255, 255, 255, 0.15)'
-                  : '0 8px 24px rgba(0, 0, 0, 0.2), inset 0 1.5px 1px rgba(255, 255, 255, 0.35), inset 0 -1px 1px rgba(255, 255, 255, 0.08)',
+                  ? '0 0 0 2px #38bdf8, 0 16px 32px rgba(2, 132, 199, 0.35), inset 0 1.5px 1px rgba(255, 255, 255, 0.65)'
+                  : '0 0 0 1.5px rgba(255, 255, 255, 0.45), 0 16px 32px rgba(0, 0, 0, 0.18), inset 0 1.5px 1px rgba(255, 255, 255, 0.55)',
                 transition: 'all 0.18s cubic-bezier(0.16, 1, 0.3, 1)',
                 cursor: 'pointer'
               }}

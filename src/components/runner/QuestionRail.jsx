@@ -26,8 +26,7 @@ export default function QuestionRail({
       flexShrink: 0,
       alignSelf: 'flex-start',
       position: 'sticky',
-      top: '84px',
-      boxShadow: '0 20px 48px rgba(0, 0, 0, 0.35), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.1)'
+      top: '84px'
     }}>
       {/* ── HEADER ── */}
       <div>

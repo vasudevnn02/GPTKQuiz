@@ -98,9 +98,7 @@ export default function QuestionEditModal({ question, currentQuiz, answerKeys = 
         overflowY: 'auto',
         ...glassDeep,
         borderRadius: '26px',
-        padding: '32px',
-        border: '1px solid rgba(255, 255, 255, 0.22)',
-        boxShadow: '0 24px 64px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35)'
+        padding: '32px'
       }}>
 
         {/* Header */}

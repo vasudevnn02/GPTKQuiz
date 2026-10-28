@@ -63,13 +63,13 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
       <div
         onClick={() => setShowModal(true)}
         style={{
-          background: 'rgba(255, 255, 255, 0.05)',
-          backdropFilter: 'blur(24px)',
-          WebkitBackdropFilter: 'blur(24px)',
-          border: '1px solid rgba(255, 255, 255, 0.22)',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.35)',
-          borderRadius: '22px',
-          padding: '18px 20px',
+          background: 'rgba(255, 255, 255, 0.08)',
+          backdropFilter: 'blur(28px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(28px) saturate(180%)',
+          border: '2px solid transparent',
+          boxShadow: '0 0 0 2px rgba(255, 255, 255, 0.55), 0 16px 32px rgba(0, 0, 0, 0.22), inset 0 1.5px 1px rgba(255, 255, 255, 0.65)',
+          borderRadius: '24px',
+          padding: '20px 22px',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
@@ -247,9 +247,7 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
               maxHeight: '88vh',
               display: 'flex',
               flexDirection: 'column',
-              overflow: 'hidden',
-              border: '1px solid rgba(255, 255, 255, 0.22)',
-              boxShadow: '0 24px 64px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35)'
+              overflow: 'hidden'
             }}
           >
             {/* Modal Header */}

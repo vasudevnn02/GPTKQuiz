@@ -22,7 +22,15 @@ export default function ResultsTable({ results = {}, student, onViewBreakdown })
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {studentResults.map((r, i) => (
-            <div key={i} style={{ background: 'rgba(255, 255, 255, 0.045)', backdropFilter: 'blur(30px)', border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: '20px', padding: '24px', boxShadow: '0 16px 36px rgba(0, 0, 0, 0.35)' }}>
+            <div key={i} style={{
+              background: 'rgba(255, 255, 255, 0.08)',
+              backdropFilter: 'blur(28px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(28px) saturate(180%)',
+              border: '2px solid transparent',
+              borderRadius: '24px',
+              padding: '24px',
+              boxShadow: '0 0 0 2px rgba(255, 255, 255, 0.55), 0 16px 32px rgba(0, 0, 0, 0.22), inset 0 1.5px 1px rgba(255, 255, 255, 0.65)'
+            }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '14px' }}>
                 <div>
                   <div style={{ fontSize: '17px', fontWeight: 700, color: '#ffffff' }}>{r.quizTitle}</div>

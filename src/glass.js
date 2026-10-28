@@ -1,35 +1,37 @@
-// Apple iOS Liquid Glassmorphism System
-// Squircles with frosted blur, translucent fills, and specular rim highlights allowing the deep galaxy background to shine through.
+// User's Frosted Displacement Glass Specification:
+// background: rgba(255,255,255,.08); border: 2px solid transparent;
+// box-shadow: 0 0 0 2px rgba(255,255,255,.6), 0 16px 32px rgba(0,0,0,.12);
+// backdrop-filter: blur(28px) saturate(180%);
 
 export const glass = {
-  background: 'rgba(255, 255, 255, 0.07)',
-  backdropFilter: 'blur(30px) saturate(190%)',
-  WebkitBackdropFilter: 'blur(30px) saturate(190%)',
-  border: '1px solid rgba(255, 255, 255, 0.24)',
-  boxShadow: '0 20px 48px rgba(0, 0, 0, 0.35), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.1)',
+  background: 'rgba(255, 255, 255, 0.08)',
+  border: '2px solid transparent',
+  boxShadow: '0 0 0 2px rgba(255, 255, 255, 0.55), 0 16px 32px rgba(0, 0, 0, 0.22), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.65)',
+  backdropFilter: 'blur(28px) saturate(180%)',
+  WebkitBackdropFilter: 'blur(28px) saturate(180%)',
 };
 
 export const glassDeep = {
-  background: 'rgba(255, 255, 255, 0.09)',
-  backdropFilter: 'blur(32px) saturate(200%)',
-  WebkitBackdropFilter: 'blur(32px) saturate(200%)',
-  border: '1px solid rgba(255, 255, 255, 0.28)',
-  boxShadow: '0 24px 60px rgba(0, 0, 0, 0.4), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.5), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.12)',
+  background: 'rgba(255, 255, 255, 0.08)',
+  border: '2px solid transparent',
+  boxShadow: '0 0 0 2px rgba(255, 255, 255, 0.6), 0 20px 40px rgba(0, 0, 0, 0.28), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.75)',
+  backdropFilter: 'blur(30px) saturate(190%)',
+  WebkitBackdropFilter: 'blur(30px) saturate(190%)',
 };
 
 export const glassInner = {
-  background: 'rgba(255, 255, 255, 0.05)',
+  background: 'rgba(255, 255, 255, 0.06)',
+  border: '1.5px solid transparent',
+  boxShadow: '0 0 0 1.5px rgba(255, 255, 255, 0.35), inset 0 1px 1px 0 rgba(255, 255, 255, 0.45)',
   backdropFilter: 'blur(20px)',
   WebkitBackdropFilter: 'blur(20px)',
-  border: '1px solid rgba(255, 255, 255, 0.18)',
-  boxShadow: 'inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.25)',
 };
 
 export const glassBtn = {
-  background: 'rgba(255, 255, 255, 0.12)',
-  backdropFilter: 'blur(22px)',
-  WebkitBackdropFilter: 'blur(22px)',
-  border: '1px solid rgba(255, 255, 255, 0.3)',
+  background: 'rgba(255, 255, 255, 0.1)',
+  border: '1.5px solid transparent',
+  boxShadow: '0 0 0 1.5px rgba(255, 255, 255, 0.5), 0 8px 20px rgba(0, 0, 0, 0.2), inset 0 1px 1px 0 rgba(255, 255, 255, 0.6)',
+  backdropFilter: 'blur(20px)',
+  WebkitBackdropFilter: 'blur(20px)',
   color: '#ffffff',
-  boxShadow: '0 6px 18px rgba(0, 0, 0, 0.25), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.45)',
 };

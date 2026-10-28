@@ -31,7 +31,18 @@ export default function UpcomingExamGrid() {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
         {upcomingList.map((item) => (
-          <div key={item.id} style={{ background: 'rgba(255, 255, 255, 0.04)', backdropFilter: 'blur(30px)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '18px', padding: '20px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '0 8px 24px rgba(0,0,0,0.25)' }}>
+          <div key={item.id} style={{
+            background: 'rgba(255, 255, 255, 0.08)',
+            backdropFilter: 'blur(28px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(28px) saturate(180%)',
+            border: '2px solid transparent',
+            borderRadius: '24px',
+            padding: '22px 26px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            boxShadow: '0 0 0 2px rgba(255, 255, 255, 0.55), 0 16px 32px rgba(0, 0, 0, 0.22), inset 0 1.5px 1px rgba(255, 255, 255, 0.65)'
+          }}>
             <div>
               <div style={{ fontSize: '11px', color: '#0a84ff', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: '4px' }}>
                 {item.department}
