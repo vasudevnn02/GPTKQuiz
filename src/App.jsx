@@ -89,16 +89,14 @@ export default function App() {
                 <button
                   onClick={() => setTeacherTab('quizzes')}
                   style={{
-                    padding: '8px 20px',
+                    padding: '9px 22px',
                     borderRadius: '12px',
                     fontSize: '13px',
                     fontWeight: teacherTab === 'quizzes' ? 800 : 600,
-                    background: teacherTab === 'quizzes'
-                      ? 'rgba(56, 189, 248, 0.22)'
-                      : 'transparent',
-                    color: teacherTab === 'quizzes' ? '#ffffff' : 'rgba(255, 255, 255, 0.7)',
-                    border: teacherTab === 'quizzes' ? '1px solid rgba(56, 189, 248, 0.55)' : '1px solid transparent',
-                    boxShadow: teacherTab === 'quizzes' ? '0 2px 12px rgba(56, 189, 248, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.35)' : 'none',
+                    background: teacherTab === 'quizzes' ? '#ffffff' : 'transparent',
+                    color: teacherTab === 'quizzes' ? '#0f172a' : '#ffffff',
+                    border: 'none',
+                    cursor: 'pointer',
                     transition: 'all 0.18s ease'
                   }}
                 >
@@ -108,46 +106,44 @@ export default function App() {
                 <button
                   onClick={() => setTeacherTab('results')}
                   style={{
-                    padding: '8px 20px',
+                    padding: '9px 22px',
                     borderRadius: '12px',
                     fontSize: '13px',
                     fontWeight: teacherTab === 'results' ? 800 : 600,
-                    background: teacherTab === 'results'
-                      ? 'rgba(56, 189, 248, 0.22)'
-                      : 'transparent',
-                    color: teacherTab === 'results' ? '#ffffff' : 'rgba(255, 255, 255, 0.7)',
-                    border: teacherTab === 'results' ? '1px solid rgba(56, 189, 248, 0.55)' : '1px solid transparent',
-                    boxShadow: teacherTab === 'results' ? '0 2px 12px rgba(56, 189, 248, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.35)' : 'none',
+                    background: teacherTab === 'results' ? '#ffffff' : 'transparent',
+                    color: teacherTab === 'results' ? '#0f172a' : '#ffffff',
+                    border: 'none',
+                    cursor: 'pointer',
                     transition: 'all 0.18s ease',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '6px'
+                    gap: '7px'
                   }}
                 >
-                  <MessageIcon size={14} color={teacherTab === 'results' ? '#38bdf8' : 'rgba(255,255,255,0.7)'} />
+                  <MessageIcon size={14} color={teacherTab === 'results' ? '#0f172a' : '#22c55e'} />
                   <span>Student Results & WhatsApp Hub ({Object.keys(results).length})</span>
                 </button>
               </div>
 
-              {/* Right: + Create New Quiz button */}
+              {/* Right: + Create New Quiz button (Matching Screenshot 1) */}
               <button
                 onClick={() => setShowCreateModal(true)}
                 style={{
-                  background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
-                  border: '1px solid rgba(56, 189, 248, 0.5)',
+                  background: '#0ea5e9',
+                  border: 'none',
                   color: '#ffffff',
-                  padding: '10px 22px',
+                  padding: '11px 24px',
                   borderRadius: '12px',
                   fontSize: '13px',
                   fontWeight: 800,
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
-                  boxShadow: '0 4px 20px rgba(2, 132, 199, 0.45)',
+                  cursor: 'pointer',
                   transition: 'all 0.2s ease'
                 }}
               >
-                <span style={{ fontSize: '15px' }}>+</span>
+                <span style={{ fontSize: '16px', fontWeight: 800 }}>+</span>
                 <span>Create New Quiz</span>
               </button>
             </div>

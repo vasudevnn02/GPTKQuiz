@@ -20,6 +20,10 @@ export default function QuestionPackManager({ quizzes = {}, onUpdated, onOpenNew
   const [newPackCourse, setNewPackCourse] = useState('');
 
   const packList = Object.values(quizzes);
+  const todayCount = packList.filter(q => (q.date || '').toLowerCase().includes('today') || q.date === new Date().toISOString().split('T')[0]).length;
+  const filteredList = filter === 'today'
+    ? packList.filter(q => (q.date || '').toLowerCase().includes('today') || q.date === new Date().toISOString().split('T')[0])
+    : packList;
 
   const handleCreatePack = async (e) => {
     e.preventDefault();
@@ -44,7 +48,13 @@ export default function QuestionPackManager({ quizzes = {}, onUpdated, onOpenNew
   };
 
   return (
-    <div style={{ padding: '0' }}>
+    <div style={{
+      background: 'rgba(11, 19, 38, 0.75)',
+      border: '1px solid rgba(255, 255, 255, 0.1)',
+      borderRadius: '24px',
+      padding: '26px 28px',
+      boxShadow: 'none'
+    }}>
       {/* ── Subheader Bar matching Screenshot 1 ── */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '22px', flexWrap: 'wrap', gap: '14px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -52,13 +62,13 @@ export default function QuestionPackManager({ quizzes = {}, onUpdated, onOpenNew
             Manage Examination Sets & Questions
           </h2>
           <span style={{
-            background: 'rgba(34, 197, 94, 0.15)',
-            border: '1px solid rgba(34, 197, 94, 0.35)',
-            borderRadius: '8px',
-            padding: '3px 9px',
+            background: 'rgba(34, 197, 94, 0.12)',
+            border: '1px solid #16a34a',
+            borderRadius: '6px',
+            padding: '3px 8px',
             fontSize: '11px',
             fontWeight: 800,
-            color: '#4ade80',
+            color: '#22c55e',
             textTransform: 'uppercase',
             letterSpacing: '0.6px'
           }}>
@@ -66,11 +76,11 @@ export default function QuestionPackManager({ quizzes = {}, onUpdated, onOpenNew
           </span>
         </div>
 
-        {/* Filter Pills: All (N) | Today (N) */}
+        {/* Filter Pills: All (N) | Today (N) (Matching Screenshot 1) */}
         <div style={{
           display: 'flex',
           background: 'rgba(255, 255, 255, 0.05)',
-          borderRadius: '14px',
+          borderRadius: '12px',
           padding: '3px',
           border: '1px solid rgba(255, 255, 255, 0.14)',
           gap: '3px'
@@ -79,15 +89,13 @@ export default function QuestionPackManager({ quizzes = {}, onUpdated, onOpenNew
             onClick={() => setFilter('all')}
             style={{
               padding: '6px 16px',
-              borderRadius: '10px',
+              borderRadius: '9px',
               fontSize: '12px',
               fontWeight: filter === 'all' ? 800 : 600,
-              background: filter === 'all'
-                ? 'linear-gradient(135deg, rgba(56,189,248,0.35) 0%, rgba(2,132,199,0.35) 100%)'
-                : 'transparent',
-              color: filter === 'all' ? '#ffffff' : 'rgba(255, 255, 255, 0.65)',
-              border: filter === 'all' ? '1px solid rgba(56,189,248,0.55)' : '1px solid transparent',
-              boxShadow: filter === 'all' ? '0 2px 8px rgba(56,189,248,0.25)' : 'none',
+              background: filter === 'all' ? '#ffffff' : 'transparent',
+              color: filter === 'all' ? '#0f172a' : '#ffffff',
+              border: 'none',
+              cursor: 'pointer',
               transition: 'all 0.15s ease'
             }}
           >
@@ -97,19 +105,17 @@ export default function QuestionPackManager({ quizzes = {}, onUpdated, onOpenNew
             onClick={() => setFilter('today')}
             style={{
               padding: '6px 16px',
-              borderRadius: '10px',
+              borderRadius: '9px',
               fontSize: '12px',
               fontWeight: filter === 'today' ? 800 : 600,
-              background: filter === 'today'
-                ? 'linear-gradient(135deg, rgba(56,189,248,0.35) 0%, rgba(2,132,199,0.35) 100%)'
-                : 'transparent',
-              color: filter === 'today' ? '#ffffff' : 'rgba(255, 255, 255, 0.65)',
-              border: filter === 'today' ? '1px solid rgba(56,189,248,0.55)' : '1px solid transparent',
-              boxShadow: filter === 'today' ? '0 2px 8px rgba(56,189,248,0.25)' : 'none',
+              background: filter === 'today' ? '#ffffff' : 'transparent',
+              color: filter === 'today' ? '#0f172a' : '#ffffff',
+              border: 'none',
+              cursor: 'pointer',
               transition: 'all 0.15s ease'
             }}
           >
-            Today (0)
+            Today ({todayCount})
           </button>
         </div>
       </div>
@@ -133,17 +139,17 @@ export default function QuestionPackManager({ quizzes = {}, onUpdated, onOpenNew
       )}
 
       {/* ── Sets Grid with Compact Square Cards ── */}
-      {packList.length === 0 ? (
+      {filteredList.length === 0 ? (
         <div style={{ textAlign: 'center', padding: '60px 20px', color: 'rgba(255, 255, 255, 0.55)', fontSize: '14px' }}>
           No quizzes found for this filter.
         </div>
       ) : (
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-          gap: '18px'
+          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+          gap: '20px'
         }}>
-          {packList.map(quiz => (
+          {filteredList.map(quiz => (
             <PackCard
               key={quiz.id}
               quiz={quiz}

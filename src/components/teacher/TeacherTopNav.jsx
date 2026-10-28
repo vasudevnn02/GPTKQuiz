@@ -13,7 +13,7 @@ export default function TeacherTopNav({ admin, activeTab, onSelectTab, onLogout 
     return () => clearInterval(timer);
   }, []);
 
-  const dayStr = time.toLocaleDateString('en-US', { weekday: 'short' });
+  const dayStr = time.toLocaleDateString('en-US', { weekday: 'long' });
   const dateStr = time.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   const timeStr = time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
 
@@ -46,9 +46,9 @@ export default function TeacherTopNav({ admin, activeTab, onSelectTab, onLogout 
         }}>
           G
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
-          <span style={{ fontSize: '19px', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.3px' }}>GPTK</span>
-          <span style={{ fontSize: '19px', fontWeight: 800, color: '#38bdf8', letterSpacing: '-0.3px' }}>Quiz</span>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <span style={{ fontSize: '20px', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.3px' }}>GPTK</span>
+          <span style={{ fontSize: '20px', fontWeight: 800, color: '#38bdf8', letterSpacing: '-0.3px' }}>Quiz</span>
         </div>
       </div>
 
