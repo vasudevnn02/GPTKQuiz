@@ -45,13 +45,13 @@ export default function QuestionPackManager({ quizzes = {}, onUpdated, onOpenNew
 
   return (
     <div style={{
-      border: '3px solid hsl(0, 0%, 100%, 0.3)',
-      background: 'hsl(0, 0%, 100%, 0.2)',
-      backdropFilter: 'blur(2px)',
-      WebkitBackdropFilter: 'blur(2px)',
-      boxShadow: '0 16px 36px rgba(0, 0, 0, 0.25)',
-      borderRadius: '26px',
-      padding: '24px'
+      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 100%)',
+      backdropFilter: 'blur(28px) saturate(190%)',
+      WebkitBackdropFilter: 'blur(28px) saturate(190%)',
+      border: '1px solid rgba(255, 255, 255, 0.28)',
+      boxShadow: '0 24px 60px rgba(0, 0, 0, 0.38), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.65), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.12)',
+      borderRadius: '28px',
+      padding: '26px'
     }}>
       {/* ── Subheader Bar matching Screenshot 1 ── */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '22px', flexWrap: 'wrap', gap: '14px' }}>

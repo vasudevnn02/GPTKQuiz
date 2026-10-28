@@ -23,13 +23,13 @@ export default function ResultsTable({ results = {}, student, onViewBreakdown })
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {studentResults.map((r, i) => (
             <div key={i} style={{
-              border: '3px solid hsl(0, 0%, 100%, 0.3)',
-              background: 'hsl(0, 0%, 100%, 0.2)',
-              backdropFilter: 'blur(2px)',
-              WebkitBackdropFilter: 'blur(2px)',
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%)',
+              backdropFilter: 'blur(28px) saturate(190%)',
+              WebkitBackdropFilter: 'blur(28px) saturate(190%)',
+              border: '1px solid rgba(255, 255, 255, 0.28)',
+              boxShadow: '0 20px 48px rgba(0,0,0,0.38), inset 0 1.5px 1px 0 rgba(255,255,255,0.65), inset 0 -1px 1px 0 rgba(255,255,255,0.12)',
               borderRadius: '24px',
               padding: '24px',
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.25)'
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '14px' }}>
                 <div>

@@ -204,12 +204,12 @@ export default function StudentScoreboard({ results = {}, quizzes = {} }) {
 
   return (
     <div style={{
-      border: '3px solid hsl(0, 0%, 100%, 0.3)',
-      background: 'hsl(0, 0%, 100%, 0.2)',
-      backdropFilter: 'blur(2px)',
-      WebkitBackdropFilter: 'blur(2px)',
+      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%)',
+      backdropFilter: 'blur(30px) saturate(190%)',
+      WebkitBackdropFilter: 'blur(30px) saturate(190%)',
+      border: '1px solid rgba(255, 255, 255, 0.28)',
       borderRadius: '26px',
-      boxShadow: '0 16px 44px rgba(0, 0, 0, 0.3)',
+      boxShadow: '0 24px 60px rgba(0, 0, 0, 0.4), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.7), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.12)',
       overflow: 'visible'
     }}>
       {/* ── CARD HEADER TOOLBAR WITH GLASS DROPDOWNS ON THE RIGHT EDGE ── */}

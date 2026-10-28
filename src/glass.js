@@ -1,36 +1,35 @@
-// Exact match to User's Uploaded Specification (Screenshot 2):
-// border: 3px solid hsl(0, 0%, 100%, 0.3);
-// background: hsl(0, 0%, 100%, 0.2);
-// backdrop-filter: blur(2px);
+// Ultra Liquid Frosted Glass (Apple VisionOS & iOS Specular Architecture)
+// Multi-stop gradient light transmission, specular rim refraction, ambient drop shadow, and saturated frosted blur.
 
 export const glass = {
-  background: 'hsl(0, 0%, 100%, 0.2)',
-  border: '3px solid hsl(0, 0%, 100%, 0.3)',
-  backdropFilter: 'blur(2px)',
-  WebkitBackdropFilter: 'blur(2px)',
-  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.25)',
+  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%)',
+  backdropFilter: 'blur(28px) saturate(190%)',
+  WebkitBackdropFilter: 'blur(28px) saturate(190%)',
+  border: '1px solid rgba(255, 255, 255, 0.28)',
+  boxShadow: '0 20px 48px rgba(0, 0, 0, 0.38), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.65), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.12)',
 };
 
 export const glassDeep = {
-  background: 'hsl(0, 0%, 100%, 0.2)',
-  border: '3px solid hsl(0, 0%, 100%, 0.3)',
-  backdropFilter: 'blur(2px)',
-  WebkitBackdropFilter: 'blur(2px)',
-  boxShadow: '0 12px 36px rgba(0, 0, 0, 0.3)',
+  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 100%)',
+  backdropFilter: 'blur(32px) saturate(200%)',
+  WebkitBackdropFilter: 'blur(32px) saturate(200%)',
+  border: '1px solid rgba(255, 255, 255, 0.32)',
+  boxShadow: '0 24px 60px rgba(0, 0, 0, 0.42), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.75), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.15)',
 };
 
 export const glassInner = {
-  background: 'hsl(0, 0%, 100%, 0.12)',
-  border: '2px solid hsl(0, 0%, 100%, 0.25)',
-  backdropFilter: 'blur(2px)',
-  WebkitBackdropFilter: 'blur(2px)',
+  background: 'rgba(255, 255, 255, 0.06)',
+  backdropFilter: 'blur(16px)',
+  WebkitBackdropFilter: 'blur(16px)',
+  border: '1px solid rgba(255, 255, 255, 0.18)',
+  boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.35)',
 };
 
 export const glassBtn = {
-  background: 'hsl(0, 0%, 100%, 0.2)',
-  border: '2px solid hsl(0, 0%, 100%, 0.3)',
-  backdropFilter: 'blur(2px)',
-  WebkitBackdropFilter: 'blur(2px)',
+  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.06) 100%)',
+  backdropFilter: 'blur(20px)',
+  WebkitBackdropFilter: 'blur(20px)',
+  border: '1px solid rgba(255, 255, 255, 0.32)',
   color: '#ffffff',
-  boxShadow: '0 4px 14px rgba(0, 0, 0, 0.2)',
+  boxShadow: '0 6px 18px rgba(0, 0, 0, 0.25), inset 0 1px 1px 0 rgba(255, 255, 255, 0.5)',
 };
