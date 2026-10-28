@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UserIcon, LockIcon } from '../icons/SvgIcons.jsx';
+import { UserIcon, LockIcon, IdCardIcon } from '../icons/SvgIcons.jsx';
 import { glassBtn } from '../../glass.js';
 
 export default function StudentRegisterForm({ onRegister, loading, error, onSwitchToLogin }) {
@@ -62,7 +62,7 @@ export default function StudentRegisterForm({ onRegister, loading, error, onSwit
         </label>
         <div style={{ position: 'relative' }}>
           <span style={{ position: 'absolute', left: '14px', top: '13px', width: '20px', height: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <UserIcon size={16} color="#38bdf8" />
+            <IdCardIcon size={16} color="#38bdf8" />
           </span>
           <input
             type="text"

@@ -85,6 +85,17 @@ export const UserIcon = (p) => (
   </Svg>
 );
 
+// ── Student / ID Card (SF Symbol: person.text.rectangle / idcard) ──
+export const IdCardIcon = (p) => (
+  <Svg {...p}>
+    <rect x="3.5" y="4.5" width="17" height="15" rx="3" ry="3" />
+    <circle cx="8" cy="10" r="2" />
+    <line x1="13" y1="9" x2="17.5" y2="9" strokeWidth="2" />
+    <line x1="13" y1="12.5" x2="16.5" y2="12.5" strokeWidth="2" />
+    <line x1="6.5" y1="15.8" x2="17.5" y2="15.8" strokeWidth="2" />
+  </Svg>
+);
+
 // ── Logout (SF Symbol: rectangle.portrait.and.arrow.right) ──
 export const LogOutIcon = (p) => (
   <Svg {...p}>
