@@ -13,7 +13,7 @@ export default function AvatarPickerModal({ student, onClose, onAvatarSelected }
   const [activeCategory, setActiveCategory] = useState('all');
   const [search, setSearch] = useState('');
   const savedId = localStorage.getItem(`gptk_avatar_${student?.rollNo || 'student'}`);
-  const [selectedId, setSelectedId] = useState(savedId || 'ind_tiger');
+  const [selectedId, setSelectedId] = useState(savedId || 'german_shepherd');
 
   const filteredAvatars = useMemo(() => {
     return AVATAR_DEFINITIONS.filter(a => {
@@ -82,7 +82,7 @@ export default function AvatarPickerModal({ student, onClose, onAvatarSelected }
               Choose Profile Picture
             </h3>
             <p style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.6)', margin: '2px 0 0 0' }}>
-              Select from 50+ 2D illustrated heritage, cute animals, places & things
+              Select from 60+ 2D illustrated profile avatars
             </p>
           </div>
 
