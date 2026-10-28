@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { LogOutIcon, TargetIcon, CalendarIcon, TrophyIcon, ClockIcon } from '../icons/SvgIcons.jsx';
 import { glass, glassBtn } from '../../glass.js';
-import { getSavedStudentAvatar } from '../../utils/avatarGallery.js';
+import { getSavedStudentAvatarDef } from '../../utils/avatarGallery.js';
 import AvatarPickerModal from './AvatarPickerModal.jsx';
+import AvatarBubble from './AvatarBubble.jsx';
 
 const TABS = [
   { id: 'live',     label: 'Exam Center',    icon: TargetIcon },
@@ -16,10 +17,10 @@ export default function StudentTopNav({ user, onLogout, activeTab, onSelectTab }
   const [showAvatarPicker, setShowAvatarPicker] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isLogoutHovered, setIsLogoutHovered] = useState(false);
-  const [avatarUrl, setAvatarUrl] = useState(() => getSavedStudentAvatar(user?.rollNo));
+  const [avatarDef, setAvatarDef] = useState(() => getSavedStudentAvatarDef(user?.rollNo));
 
   useEffect(() => {
-    setAvatarUrl(getSavedStudentAvatar(user?.rollNo));
+    setAvatarDef(getSavedStudentAvatarDef(user?.rollNo));
   }, [user?.rollNo]);
 
   // Live ticking date and clock
@@ -172,37 +173,23 @@ export default function StudentTopNav({ user, onLogout, activeTab, onSelectTab }
             onClick={() => setShowAvatarPicker(true)}
             title="Change 2D Profile Avatar"
             style={{
-              width: '38px',
-              height: '38px',
-              borderRadius: '50%',
-              padding: '2px',
-              background: 'rgba(56, 189, 248, 0.22)',
-              border: '1.5px solid rgba(56, 189, 248, 0.55)',
-              boxShadow: '0 0 12px rgba(56, 189, 248, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.4)',
+              background: 'transparent',
+              border: 'none',
+              padding: 0,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              position: 'relative',
-              overflow: 'hidden',
-              transition: 'transform 0.15s ease, box-shadow 0.15s ease'
+              transition: 'transform 0.15s ease'
             }}
+            onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.08)')}
+            onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
           >
-            {avatarUrl ? (
-              <img
-                src={avatarUrl}
-                alt="Profile Avatar"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  borderRadius: '50%',
-                  display: 'block',
-                  objectFit: 'cover'
-                }}
-              />
-            ) : (
-              <span style={{ fontWeight: 800, fontSize: '14px', color: '#ffffff' }}>{initial}</span>
-            )}
+            <AvatarBubble
+              avatar={avatarDef}
+              size={38}
+              interactive={false}
+            />
           </button>
         </div>
 
@@ -349,8 +336,8 @@ export default function StudentTopNav({ user, onLogout, activeTab, onSelectTab }
         <AvatarPickerModal
           student={user}
           onClose={() => setShowAvatarPicker(false)}
-          onAvatarSelected={(newPng) => {
-            setAvatarUrl(newPng);
+          onAvatarSelected={() => {
+            setAvatarDef(getSavedStudentAvatarDef(user?.rollNo));
           }}
         />
       )}

@@ -3,10 +3,11 @@ import { createPortal } from 'react-dom';
 import {
   AVATAR_CATEGORIES,
   AVATAR_DEFINITIONS,
-  getAvatar2DPng,
+  getAvatarById,
   saveStudentAvatar
 } from '../../utils/avatarGallery.js';
-import { CheckIcon, XIcon } from '../icons/SvgIcons.jsx';
+import AvatarBubble from './AvatarBubble.jsx';
+import { XIcon, SearchIcon, SparklesIcon, CheckIcon } from '../icons/SvgIcons.jsx';
 import { glassDeep, glassBtn } from '../../glass.js';
 
 export default function AvatarPickerModal({ student, onClose, onAvatarSelected }) {
@@ -16,18 +17,26 @@ export default function AvatarPickerModal({ student, onClose, onAvatarSelected }
   const [selectedId, setSelectedId] = useState(savedId || 'german_shepherd');
 
   const filteredAvatars = useMemo(() => {
+    const q = search.trim().toLowerCase();
     return AVATAR_DEFINITIONS.filter(a => {
       const matchCat = activeCategory === 'all' || a.category === activeCategory;
-      const matchSearch = !search.trim() || a.name.toLowerCase().includes(search.toLowerCase());
+      const matchSearch =
+        !q ||
+        a.name.toLowerCase().includes(q) ||
+        a.shortName.toLowerCase().includes(q) ||
+        a.id.toLowerCase().includes(q);
       return matchCat && matchSearch;
     });
   }, [activeCategory, search]);
 
+  const selectedAvatar = useMemo(() => {
+    return getAvatarById(selectedId);
+  }, [selectedId]);
+
   const handleSelect = (avatar) => {
     setSelectedId(avatar.id);
     saveStudentAvatar(student?.rollNo, avatar.id);
-    const png = getAvatar2DPng(avatar);
-    if (onAvatarSelected) onAvatarSelected(png);
+    if (onAvatarSelected) onAvatarSelected(avatar.id);
   };
 
   const modalNode = (
@@ -42,48 +51,130 @@ export default function AvatarPickerModal({ student, onClose, onAvatarSelected }
         width: '100vw',
         height: '100vh',
         zIndex: 999999,
-        background: 'rgba(2, 6, 23, 0.72)',
+        background: 'rgba(2, 6, 23, 0.78)',
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '24px',
+        padding: '20px',
         boxSizing: 'border-box'
       }}
     >
+      <style>{`
+        .avatar-scroll-hide {
+          scrollbar-width: none !important;
+          -ms-overflow-style: none !important;
+        }
+        .avatar-scroll-hide::-webkit-scrollbar {
+          display: none !important;
+          width: 0 !important;
+          height: 0 !important;
+        }
+        .avatar-grid-scroll {
+          scrollbar-width: thin;
+          scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+        }
+        .avatar-grid-scroll::-webkit-scrollbar {
+          width: 6px;
+        }
+        .avatar-grid-scroll::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.22);
+          border-radius: 999px;
+        }
+        .avatar-card-hover {
+          transition: transform 0.15s ease, background 0.15s ease;
+        }
+        .avatar-card-hover:hover {
+          transform: translateY(-3px);
+        }
+      `}</style>
+
       <div
         className="liqglass-deep"
         onClick={e => e.stopPropagation()}
         style={{
           ...glassDeep,
-          maxWidth: '680px',
+          maxWidth: '740px',
           width: '100%',
-          maxHeight: '84vh',
+          maxHeight: '88vh',
           borderRadius: '26px',
           display: 'flex',
           flexDirection: 'column',
           overflow: 'hidden',
           padding: 0,
           margin: 'auto',
-          boxShadow: '0 28px 72px rgba(0, 0, 0, 0.7), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.65)'
+          boxShadow: '0 32px 80px rgba(0, 0, 0, 0.8), inset 0 1px 1px 0 rgba(255, 255, 255, 0.5)'
         }}
       >
-        {/* Modal Header */}
+        {/* ── Modal Header ── */}
         <div style={{
-          padding: '20px 24px',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+          padding: '20px 24px 16px 24px',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
+          gap: '16px'
         }}>
           <div>
-            <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#ffffff', margin: 0 }}>
-              Choose Profile Picture
-            </h3>
-            <p style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.6)', margin: '2px 0 0 0' }}>
-              Select from 60+ 2D illustrated profile avatars
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <SparklesIcon size={18} color="#38bdf8" />
+              <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#ffffff', margin: 0, letterSpacing: '-0.01em' }}>
+                Choose Profile Picture
+              </h3>
+            </div>
+            <p style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.6)', margin: '3px 0 0 0' }}>
+              Select from 63 official 2D illustrated profile avatars
             </p>
+          </div>
+
+          {/* Quick Search */}
+          <div style={{
+            position: 'relative',
+            display: 'flex',
+            alignItems: 'center',
+            maxWidth: '220px',
+            width: '100%'
+          }}>
+            <div style={{ position: 'absolute', left: '10px', pointerEvents: 'none', display: 'flex' }}>
+              <SearchIcon size={14} color="rgba(255, 255, 255, 0.45)" />
+            </div>
+            <input
+              type="text"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="Search avatars..."
+              style={{
+                width: '100%',
+                background: 'rgba(255, 255, 255, 0.06)',
+                border: '1px solid rgba(255, 255, 255, 0.14)',
+                borderRadius: '12px',
+                padding: '7px 12px 7px 30px',
+                fontSize: '12px',
+                color: '#ffffff',
+                outline: 'none',
+                transition: 'border-color 0.15s ease'
+              }}
+              onFocus={e => (e.target.style.borderColor = '#38bdf8')}
+              onBlur={e => (e.target.style.borderColor = 'rgba(255, 255, 255, 0.14)')}
+            />
+            {search && (
+              <button
+                onClick={() => setSearch('')}
+                style={{
+                  position: 'absolute',
+                  right: '8px',
+                  background: 'transparent',
+                  border: 'none',
+                  color: 'rgba(255, 255, 255, 0.5)',
+                  cursor: 'pointer',
+                  padding: 0,
+                  fontSize: '12px'
+                }}
+              >
+                ✕
+              </button>
+            )}
           </div>
 
           <button
@@ -96,22 +187,29 @@ export default function AvatarPickerModal({ student, onClose, onAvatarSelected }
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: 0
+              padding: 0,
+              flexShrink: 0
             }}
           >
             <XIcon size={14} color="#ffffff" />
           </button>
         </div>
 
-        {/* Categories Bar */}
-        <div style={{
-          padding: '12px 20px',
-          display: 'flex',
-          gap: '6px',
-          overflowX: 'auto',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-          background: 'rgba(255, 255, 255, 0.02)'
-        }}>
+        {/* ── Categories Bar (Scrollbar completely hidden) ── */}
+        <div
+          className="avatar-scroll-hide"
+          style={{
+            padding: '10px 20px',
+            display: 'flex',
+            gap: '8px',
+            overflowX: 'auto',
+            overflowY: 'hidden',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'rgba(255, 255, 255, 0.02)',
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none'
+          }}
+        >
           {AVATAR_CATEGORIES.map(cat => {
             const isActive = activeCategory === cat.id;
             return (
@@ -119,16 +217,17 @@ export default function AvatarPickerModal({ student, onClose, onAvatarSelected }
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
                 style={{
-                  padding: '6px 14px',
-                  borderRadius: '10px',
+                  padding: '7px 14px',
+                  borderRadius: '12px',
                   fontSize: '12px',
-                  fontWeight: isActive ? 800 : 600,
-                  color: isActive ? '#ffffff' : 'rgba(255, 255, 255, 0.7)',
-                  background: isActive ? 'rgba(56, 189, 248, 0.25)' : 'rgba(255, 255, 255, 0.05)',
-                  border: isActive ? '1px solid rgba(56, 189, 248, 0.55)' : '1px solid rgba(255, 255, 255, 0.12)',
+                  fontWeight: isActive ? 700 : 500,
+                  color: isActive ? '#0f172a' : 'rgba(255, 255, 255, 0.8)',
+                  background: isActive ? '#ffffff' : 'rgba(255, 255, 255, 0.06)',
+                  border: isActive ? '1px solid #ffffff' : '1px solid rgba(255, 255, 255, 0.12)',
                   whiteSpace: 'nowrap',
                   cursor: 'pointer',
-                  transition: 'all 0.15s ease'
+                  transition: 'all 0.15s ease',
+                  flexShrink: 0
                 }}
               >
                 {cat.label}
@@ -137,126 +236,112 @@ export default function AvatarPickerModal({ student, onClose, onAvatarSelected }
           })}
         </div>
 
-        {/* 2D Avatar Grid */}
-        <div style={{
-          padding: '20px 24px',
-          overflowY: 'auto',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(76px, 1fr))',
-          gap: '14px',
-          flex: 1
-        }}>
-          {filteredAvatars.map(avatar => {
-            const isSelected = selectedId === avatar.id;
-            const pngUrl = getAvatar2DPng(avatar);
-
-            return (
+        {/* ── 2D Avatar Grid ── */}
+        <div
+          className="avatar-grid-scroll"
+          style={{
+            padding: '20px 24px',
+            overflowY: 'auto',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(88px, 1fr))',
+            gap: '16px 12px',
+            alignContent: 'start',
+            flex: 1,
+            minHeight: '340px'
+          }}
+        >
+          {filteredAvatars.length === 0 ? (
+            <div style={{
+              gridColumn: '1 / -1',
+              textAlign: 'center',
+              padding: '48px 16px',
+              color: 'rgba(255, 255, 255, 0.5)'
+            }}>
+              <p style={{ fontSize: '14px', margin: '0 0 6px 0' }}>No avatars matched "{search}"</p>
               <button
-                key={avatar.id}
-                onClick={() => handleSelect(avatar)}
-                title={avatar.name}
+                onClick={() => { setSearch(''); setActiveCategory('all'); }}
                 style={{
-                  background: 'transparent',
-                  border: 'none',
-                  padding: 0,
-                  cursor: 'pointer',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: '6px',
-                  position: 'relative',
-                  outline: 'none',
-                  transition: 'transform 0.18s ease'
+                  ...glassBtn,
+                  padding: '6px 14px',
+                  borderRadius: '10px',
+                  fontSize: '12px',
+                  color: '#38bdf8'
                 }}
               >
-                <div style={{
-                  width: '68px',
-                  height: '68px',
-                  borderRadius: '50%',
-                  padding: '2px',
-                  border: isSelected ? '2.5px solid #38bdf8' : '1.5px solid rgba(255, 255, 255, 0.18)',
-                  boxShadow: isSelected ? '0 0 16px rgba(56, 189, 248, 0.6)' : '0 4px 12px rgba(0, 0, 0, 0.25)',
-                  transition: 'all 0.18s ease',
-                  position: 'relative',
-                  overflow: 'hidden'
-                }}>
-                  {pngUrl && (
-                    <img
-                      src={pngUrl}
-                      alt={avatar.name}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        borderRadius: '50%',
-                        display: 'block',
-                        objectFit: 'cover'
-                      }}
-                    />
-                  )}
-                  {isSelected && (
-                    <div style={{
-                      position: 'absolute',
-                      inset: 0,
-                      background: 'rgba(56, 189, 248, 0.25)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      borderRadius: '50%'
-                    }}>
-                      <div style={{
-                        width: '20px',
-                        height: '20px',
-                        borderRadius: '50%',
-                        background: '#38bdf8',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                      }}>
-                        <CheckIcon size={12} color="#000" />
-                      </div>
-                    </div>
-                  )}
-                </div>
-                <span style={{
-                  fontSize: '10px',
-                  color: isSelected ? '#38bdf8' : 'rgba(255, 255, 255, 0.7)',
-                  fontWeight: isSelected ? 800 : 500,
-                  textAlign: 'center',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  maxWidth: '72px'
-                }}>
-                  {avatar.name.split(' ')[0]}
-                </span>
+                View all 63 avatars
               </button>
-            );
-          })}
+            </div>
+          ) : (
+            filteredAvatars.map(avatar => {
+              const isSelected = selectedId === avatar.id;
+              return (
+                <div
+                  key={avatar.id}
+                  className="avatar-card-hover"
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start'
+                  }}
+                >
+                  <AvatarBubble
+                    avatar={avatar}
+                    size={62}
+                    isSelected={isSelected}
+                    onClick={() => handleSelect(avatar)}
+                    showLabel={true}
+                  />
+                </div>
+              );
+            })
+          )}
         </div>
 
-        {/* Modal Footer */}
+        {/* ── Modal Footer ── */}
         <div style={{
           padding: '14px 24px',
           borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+          background: 'rgba(2, 6, 23, 0.45)',
           display: 'flex',
-          justifyContent: 'space-between',
           alignItems: 'center',
-          background: 'rgba(255, 255, 255, 0.02)'
+          justifyContent: 'space-between',
+          gap: '16px'
         }}>
-          <span style={{ fontSize: '12px', color: '#4ade80', fontWeight: 700 }}>
-            ✓ Selected profile picture saved
-          </span>
+          {/* Active Preview */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            {selectedAvatar && (
+              <>
+                <AvatarBubble avatar={selectedAvatar} size={36} interactive={false} />
+                <div>
+                  <div style={{ fontSize: '13px', fontWeight: 700, color: '#ffffff' }}>
+                    {selectedAvatar.name}
+                  </div>
+                  <div style={{ fontSize: '11px', color: '#10b981', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <CheckIcon size={12} color="#10b981" />
+                    Saved to profile
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+
           <button
             onClick={onClose}
             style={{
-              ...glassBtn,
-              background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
-              border: '1px solid rgba(56, 189, 248, 0.6)',
-              padding: '8px 22px',
+              padding: '10px 24px',
               borderRadius: '12px',
               fontSize: '13px',
-              fontWeight: 800
+              fontWeight: 700,
+              color: '#ffffff',
+              background: '#0ea5e9',
+              border: 'none',
+              cursor: 'pointer',
+              transition: 'background 0.15s ease',
+              flexShrink: 0
             }}
+            onMouseEnter={e => (e.currentTarget.style.background = '#0284c7')}
+            onMouseLeave={e => (e.currentTarget.style.background = '#0ea5e9')}
           >
             Done
           </button>
@@ -265,7 +350,5 @@ export default function AvatarPickerModal({ student, onClose, onAvatarSelected }
     </div>
   );
 
-  return typeof document !== 'undefined'
-    ? createPortal(modalNode, document.body)
-    : modalNode;
+  return createPortal(modalNode, document.body);
 }

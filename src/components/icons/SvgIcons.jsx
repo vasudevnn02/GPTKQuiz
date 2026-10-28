@@ -207,6 +207,7 @@ export const SparkleIcon = ({ size = 20, color = '#ffffff' }) => (
     <path d="M4.5 4.5c0 1.4 1.1 2.5 2.5 2.5-1.4 0-2.5 1.1-2.5 2.5 0-1.4-1.1-2.5-2.5-2.5 1.4 0 2.5-1.1 2.5-2.5z" />
   </svg>
 );
+export const SparklesIcon = SparkleIcon;
 
 // ── Close / X (SF Symbol: xmark) ──
 export const XIcon = (p) => (
