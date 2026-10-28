@@ -1,31 +1,79 @@
 import React from 'react';
-import { ChevronRightIcon } from '../icons/SvgIcons.jsx';
+import { ChevronRightIcon, CheckCircleIcon } from '../icons/SvgIcons.jsx';
 import { glassDeep, glassBtn } from '../../glass.js';
 
-export default function QuestionView({ question, selectedOption, onSelectOption, currentIndex, totalQuestions, onNext, onPrev }) {
+export default function QuestionView({
+  question,
+  selectedOption,
+  onSelectOption,
+  currentIndex,
+  totalQuestions,
+  onNext,
+  onPrev,
+  onSubmitExam,
+  isSubmitting
+}) {
   if (!question) return null;
 
+  const isLastQuestion = currentIndex === totalQuestions - 1;
+
   return (
-    <div style={{ maxWidth: '840px', width: '100%', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '22px' }}>
-      <div style={{ ...glassDeep, borderRadius: '26px', padding: '30px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '14px' }}>
-          <span style={{ fontSize: '11px', fontWeight: 800, color: '#ffffff', textTransform: 'uppercase', letterSpacing: '0.6px', background: 'rgba(255,255,255,0.12)', padding: '4px 10px', borderRadius: '8px' }}>
+    <div style={{ maxWidth: '860px', width: '100%', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      
+      {/* ── QUESTION STATEMENT GLASS CARD ── */}
+      <div style={{
+        ...glassDeep,
+        borderRadius: '26px',
+        padding: '28px 32px',
+        position: 'relative'
+      }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+          <span style={{
+            fontSize: '11px',
+            fontWeight: 800,
+            color: '#38bdf8',
+            textTransform: 'uppercase',
+            letterSpacing: '0.6px',
+            background: 'rgba(56, 189, 248, 0.15)',
+            border: '1px solid rgba(56, 189, 248, 0.35)',
+            padding: '4px 12px',
+            borderRadius: '10px',
+            boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+          }}>
             Question {currentIndex + 1} of {totalQuestions}
           </span>
-          <span style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.55)', fontWeight: 600 }}>
+          <span style={{
+            fontSize: '12px',
+            color: 'rgba(255, 255, 255, 0.65)',
+            fontWeight: 700,
+            background: 'rgba(255, 255, 255, 0.06)',
+            padding: '4px 10px',
+            borderRadius: '8px',
+            border: '1px solid rgba(255, 255, 255, 0.14)'
+          }}>
             1 Mark
           </span>
         </div>
-        <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#ffffff', lineHeight: '1.5', fontFamily: 'var(--font-ny)', margin: 0 }}>
+
+        <h2 style={{
+          fontSize: '21px',
+          fontWeight: 700,
+          color: '#ffffff',
+          lineHeight: '1.5',
+          fontFamily: 'var(--font-ny)',
+          margin: 0
+        }}>
           {question.text || question.question || question.statement || `Question ${currentIndex + 1}`}
         </h2>
       </div>
 
+      {/* ── OPTIONS (Apple Liquid Glass Cards) ── */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
         {(question.options || []).map((opt, idx) => {
           const optText = typeof opt === 'string' ? opt : (opt?.text || opt?.label || '');
           const isSelected = selectedOption === idx;
           const letter = String.fromCharCode(65 + idx);
+
           return (
             <button
               key={idx}
@@ -33,57 +81,140 @@ export default function QuestionView({ question, selectedOption, onSelectOption,
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '14px',
-                padding: '16px 20px',
-                background: isSelected ? 'rgba(255, 255, 255, 0.18)' : 'rgba(255, 255, 255, 0.05)',
-                border: `1.5px solid ${isSelected ? 'rgba(255, 255, 255, 0.45)' : 'rgba(255, 255, 255, 0.14)'}`,
-                backdropFilter: 'blur(30px)',
-                WebkitBackdropFilter: 'blur(30px)',
-                borderRadius: '18px',
+                gap: '16px',
+                padding: '16px 22px',
+                background: isSelected
+                  ? 'rgba(56, 189, 248, 0.16)'
+                  : 'rgba(255, 255, 255, 0.05)',
+                border: isSelected
+                  ? '1.5px solid rgba(56, 189, 248, 0.65)'
+                  : '1px solid rgba(255, 255, 255, 0.2)',
+                backdropFilter: 'blur(30px) saturate(190%)',
+                WebkitBackdropFilter: 'blur(30px) saturate(190%)',
+                borderRadius: '20px',
                 textAlign: 'left',
                 color: '#ffffff',
-                boxShadow: isSelected ? '0 6px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.4)' : 'none',
-                transition: 'all 0.15s ease'
+                boxShadow: isSelected
+                  ? '0 8px 24px rgba(2, 132, 199, 0.35), inset 0 1.5px 1px rgba(255, 255, 255, 0.5), inset 0 -1px 1px rgba(255, 255, 255, 0.15)'
+                  : '0 8px 24px rgba(0, 0, 0, 0.2), inset 0 1.5px 1px rgba(255, 255, 255, 0.35), inset 0 -1px 1px rgba(255, 255, 255, 0.08)',
+                transition: 'all 0.18s cubic-bezier(0.16, 1, 0.3, 1)',
+                cursor: 'pointer'
               }}
             >
+              {/* Option Letter Icon Circle */}
               <div style={{
-                width: '32px',
-                height: '32px',
+                width: '36px',
+                height: '36px',
                 borderRadius: '50%',
-                background: isSelected ? '#ffffff' : 'rgba(255, 255, 255, 0.1)',
-                color: isSelected ? '#000000' : '#ffffff',
+                background: isSelected
+                  ? '#38bdf8'
+                  : 'rgba(255, 255, 255, 0.08)',
+                color: isSelected ? '#031525' : '#ffffff',
+                border: isSelected
+                  ? '2px solid #38bdf8'
+                  : '1.5px solid rgba(255, 255, 255, 0.28)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontWeight: 800,
-                fontSize: '13px',
-                flexShrink: 0
+                fontSize: '14px',
+                flexShrink: 0,
+                boxShadow: isSelected
+                  ? '0 0 14px rgba(56, 189, 248, 0.6)'
+                  : 'inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                transition: 'all 0.18s ease'
               }}>
                 {letter}
               </div>
-              <span style={{ fontSize: '15px', fontWeight: 600, lineHeight: '1.4' }}>{optText}</span>
+
+              {/* Option Statement */}
+              <span style={{
+                fontSize: '15px',
+                fontWeight: isSelected ? 700 : 500,
+                lineHeight: '1.4',
+                color: isSelected ? '#ffffff' : 'rgba(255, 255, 255, 0.92)'
+              }}>
+                {optText}
+              </span>
             </button>
           );
         })}
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '12px' }}>
+      {/* ── BOTTOM ACTIONS: Previous / Next / Submit Exam ── */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginTop: '10px',
+        padding: '6px 0',
+        gap: '14px',
+        flexWrap: 'wrap'
+      }}>
+        {/* Previous Button */}
         <button
           onClick={onPrev}
           disabled={currentIndex === 0}
-          style={{ ...glassBtn, padding: '10px 20px', borderRadius: '14px', fontSize: '13px', fontWeight: 700, opacity: currentIndex === 0 ? 0.4 : 1 }}
+          style={{
+            ...glassBtn,
+            padding: '12px 24px',
+            borderRadius: '16px',
+            fontSize: '13px',
+            fontWeight: 800,
+            opacity: currentIndex === 0 ? 0.35 : 1,
+            cursor: currentIndex === 0 ? 'not-allowed' : 'pointer'
+          }}
         >
-          Previous
+          ← Previous
         </button>
 
-        <button
-          onClick={onNext}
-          disabled={currentIndex === totalQuestions - 1}
-          style={{ ...glassBtn, padding: '10px 22px', borderRadius: '14px', fontSize: '13px', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px', opacity: currentIndex === totalQuestions - 1 ? 0.4 : 1 }}
-        >
-          <span>Next Question</span>
-          <ChevronRightIcon size={14} color="rgba(255,255,255,0.95)" />
-        </button>
+        {/* Right Action: Next Question OR Submit Exam on Last Question */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          {!isLastQuestion ? (
+            <button
+              onClick={onNext}
+              style={{
+                background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
+                border: '1px solid rgba(56, 189, 248, 0.6)',
+                color: '#ffffff',
+                padding: '12px 26px',
+                borderRadius: '16px',
+                fontSize: '14px',
+                fontWeight: 800,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                boxShadow: '0 4px 20px rgba(2, 132, 199, 0.4), inset 0 1.5px 1px rgba(255, 255, 255, 0.4)',
+                cursor: 'pointer'
+              }}
+            >
+              <span>Next Question</span>
+              <ChevronRightIcon size={14} color="#ffffff" />
+            </button>
+          ) : (
+            <button
+              onClick={onSubmitExam}
+              disabled={isSubmitting}
+              style={{
+                background: 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)',
+                border: '1px solid rgba(74, 222, 128, 0.7)',
+                color: '#ffffff',
+                padding: '12px 32px',
+                borderRadius: '16px',
+                fontSize: '14px',
+                fontWeight: 800,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                boxShadow: '0 6px 24px rgba(22, 163, 74, 0.45), inset 0 1.5px 1px rgba(255, 255, 255, 0.5)',
+                cursor: 'pointer'
+              }}
+            >
+              <CheckCircleIcon size={16} color="#ffffff" />
+              <span>{isSubmitting ? 'Submitting...' : 'Submit Assessment'}</span>
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

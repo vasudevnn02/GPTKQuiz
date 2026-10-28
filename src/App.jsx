@@ -194,11 +194,37 @@ export default function App() {
         <div style={{ ...PAGE, display: 'flex', flexDirection: 'column' }}>
           <RunnerHeader quizTitle={activeQuiz.title} currentIndex={runner.currentIndex} totalQuestions={activeQuiz.questions?.length || 1} timeLeft={runner.timeLeft} violations={runner.violations} onSubmitExam={() => runner.handleFinalSubmit('manual')} isSubmitting={runner.isSubmitting} />
           <AntiCheatGuard onViolation={(reason) => runner.addViolation(reason)} />
-          <div style={{ display: 'flex', flex: 1 }}>
-            <main style={{ flex: 1, padding: '36px 28px', overflowY: 'auto' }}>
-              <QuestionView question={currentQuestion} selectedOption={runner.answers[currentQuestion?.id]} onSelectOption={(idx) => runner.selectAnswer(currentQuestion.id, idx)} currentIndex={runner.currentIndex} totalQuestions={activeQuiz.questions?.length || 1} onNext={() => runner.setCurrentIndex(p => Math.min((activeQuiz.questions?.length||1)-1, p+1))} onPrev={() => runner.setCurrentIndex(p => Math.max(0, p-1))} />
+          <div style={{
+            display: 'flex',
+            flex: 1,
+            maxWidth: '1280px',
+            width: '100%',
+            margin: '0 auto',
+            padding: '32px 24px',
+            gap: '28px',
+            alignItems: 'flex-start'
+          }}>
+            <main style={{ flex: 1, minWidth: 0 }}>
+              <QuestionView
+                question={currentQuestion}
+                selectedOption={runner.answers[currentQuestion?.id]}
+                onSelectOption={(idx) => runner.selectAnswer(currentQuestion.id, idx)}
+                currentIndex={runner.currentIndex}
+                totalQuestions={activeQuiz.questions?.length || 1}
+                onNext={() => runner.setCurrentIndex(p => Math.min((activeQuiz.questions?.length || 1) - 1, p + 1))}
+                onPrev={() => runner.setCurrentIndex(p => Math.max(0, p - 1))}
+                onSubmitExam={() => runner.handleFinalSubmit('manual')}
+                isSubmitting={runner.isSubmitting}
+              />
             </main>
-            <QuestionRail questions={activeQuiz.questions || []} answers={runner.answers} currentIndex={runner.currentIndex} onJumpToQuestion={runner.setCurrentIndex} />
+            <QuestionRail
+              questions={activeQuiz.questions || []}
+              answers={runner.answers}
+              currentIndex={runner.currentIndex}
+              onJumpToQuestion={runner.setCurrentIndex}
+              onSubmitExam={() => runner.handleFinalSubmit('manual')}
+              isSubmitting={runner.isSubmitting}
+            />
           </div>
         </div>
       </>
