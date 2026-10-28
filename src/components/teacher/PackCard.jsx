@@ -228,9 +228,9 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
             position: 'fixed',
             inset: 0,
             zIndex: 1000,
-            background: 'rgba(2, 6, 17, 0.78)',
-            backdropFilter: 'blur(24px)',
-            WebkitBackdropFilter: 'blur(24px)',
+            background: 'rgba(2, 6, 23, 0.58)',
+            backdropFilter: 'blur(22px)',
+            WebkitBackdropFilter: 'blur(22px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -249,7 +249,7 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
               flexDirection: 'column',
               overflow: 'hidden',
               border: '1px solid rgba(255, 255, 255, 0.22)',
-              boxShadow: '0 24px 64px rgba(0,0,0,0.6)'
+              boxShadow: '0 24px 64px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35)'
             }}
           >
             {/* Modal Header */}

@@ -76,18 +76,29 @@ export default function App() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '14px' }}>
               
               {/* Left Segmented Switcher: Quizzes & Question Sets (N) | Student Results & WhatsApp Hub (N) */}
-              <div style={{ display: 'flex', background: 'rgba(0, 0, 0, 0.4)', borderRadius: '14px', padding: '4px', border: '1px solid rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(20px)' }}>
+              <div style={{
+                display: 'flex',
+                background: 'rgba(255, 255, 255, 0.05)',
+                borderRadius: '16px',
+                padding: '4px',
+                border: '1px solid rgba(255, 255, 255, 0.14)',
+                backdropFilter: 'blur(20px)',
+                gap: '4px'
+              }}>
                 <button
                   onClick={() => setTeacherTab('quizzes')}
                   style={{
-                    padding: '8px 18px',
-                    borderRadius: '10px',
+                    padding: '8px 20px',
+                    borderRadius: '12px',
                     fontSize: '13px',
-                    fontWeight: 800,
-                    background: teacherTab === 'quizzes' ? '#ffffff' : 'transparent',
-                    color: teacherTab === 'quizzes' ? '#000000' : 'rgba(255, 255, 255, 0.7)',
-                    boxShadow: teacherTab === 'quizzes' ? '0 4px 14px rgba(0,0,0,0.35)' : 'none',
-                    transition: 'all 0.15s ease'
+                    fontWeight: teacherTab === 'quizzes' ? 800 : 600,
+                    background: teacherTab === 'quizzes'
+                      ? 'linear-gradient(135deg, rgba(56,189,248,0.35) 0%, rgba(2,132,199,0.35) 100%)'
+                      : 'transparent',
+                    color: teacherTab === 'quizzes' ? '#ffffff' : 'rgba(255, 255, 255, 0.7)',
+                    border: teacherTab === 'quizzes' ? '1px solid rgba(56,189,248,0.55)' : '1px solid transparent',
+                    boxShadow: teacherTab === 'quizzes' ? '0 2px 12px rgba(56,189,248,0.25), inset 0 1px 0 rgba(255,255,255,0.3)' : 'none',
+                    transition: 'all 0.18s ease'
                   }}
                 >
                   Quizzes & Question Sets ({quizList.length})
@@ -96,14 +107,17 @@ export default function App() {
                 <button
                   onClick={() => setTeacherTab('results')}
                   style={{
-                    padding: '8px 18px',
-                    borderRadius: '10px',
+                    padding: '8px 20px',
+                    borderRadius: '12px',
                     fontSize: '13px',
-                    fontWeight: 800,
-                    background: teacherTab === 'results' ? '#ffffff' : 'transparent',
-                    color: teacherTab === 'results' ? '#000000' : 'rgba(255, 255, 255, 0.7)',
-                    boxShadow: teacherTab === 'results' ? '0 4px 14px rgba(0,0,0,0.35)' : 'none',
-                    transition: 'all 0.15s ease',
+                    fontWeight: teacherTab === 'results' ? 800 : 600,
+                    background: teacherTab === 'results'
+                      ? 'linear-gradient(135deg, rgba(56,189,248,0.35) 0%, rgba(2,132,199,0.35) 100%)'
+                      : 'transparent',
+                    color: teacherTab === 'results' ? '#ffffff' : 'rgba(255, 255, 255, 0.7)',
+                    border: teacherTab === 'results' ? '1px solid rgba(56,189,248,0.55)' : '1px solid transparent',
+                    boxShadow: teacherTab === 'results' ? '0 2px 12px rgba(56,189,248,0.25), inset 0 1px 0 rgba(255,255,255,0.3)' : 'none',
+                    transition: 'all 0.18s ease',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '6px'

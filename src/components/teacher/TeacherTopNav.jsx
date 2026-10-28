@@ -9,10 +9,10 @@ export default function TeacherTopNav({ admin, activeTab, onSelectTab, onLogout 
   return (
     <header style={{
       height: '64px',
-      background: 'rgba(8, 14, 28, 0.75)',
-      backdropFilter: 'blur(28px) saturate(180%)',
-      WebkitBackdropFilter: 'blur(28px) saturate(180%)',
-      borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+      background: 'rgba(255, 255, 255, 0.05)',
+      backdropFilter: 'blur(28px)',
+      WebkitBackdropFilter: 'blur(28px)',
+      borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -20,7 +20,7 @@ export default function TeacherTopNav({ admin, activeTab, onSelectTab, onLogout 
       position: 'sticky',
       top: 0,
       zIndex: 50,
-      boxShadow: '0 4px 24px rgba(0,0,0,0.4)'
+      boxShadow: '0 4px 24px rgba(0,0,0,0.25)'
     }}>
       {/* 1. Left: Brand Logo & Title */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -42,17 +42,17 @@ export default function TeacherTopNav({ admin, activeTab, onSelectTab, onLogout 
 
       {/* 2. Center: Live Date & Time Stamp Badge */}
       <div style={{
-        background: 'rgba(0, 0, 0, 0.35)',
-        border: '1px solid rgba(255, 255, 255, 0.12)',
+        background: 'rgba(255, 255, 255, 0.06)',
+        border: '1px solid rgba(255, 255, 255, 0.16)',
         borderRadius: '12px',
         padding: '7px 16px',
         fontSize: '12px',
         fontWeight: 600,
-        color: 'rgba(255, 255, 255, 0.85)',
+        color: 'rgba(255, 255, 255, 0.9)',
         display: 'flex',
         alignItems: 'center',
         gap: '8px',
-        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08)'
+        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2)'
       }}>
         <span>📅</span>
         <span>{dateStr} • {timeStr}</span>
@@ -61,8 +61,8 @@ export default function TeacherTopNav({ admin, activeTab, onSelectTab, onLogout 
       {/* 3. Right: Lecturer / Faculty Tag & Logout */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
         <div style={{
-          background: 'rgba(59, 130, 246, 0.15)',
-          border: '1px solid rgba(59, 130, 246, 0.35)',
+          background: 'rgba(56, 189, 248, 0.15)',
+          border: '1px solid rgba(56, 189, 248, 0.35)',
           borderRadius: '12px',
           padding: '7px 14px',
           fontSize: '12px',
@@ -71,7 +71,7 @@ export default function TeacherTopNav({ admin, activeTab, onSelectTab, onLogout 
           display: 'flex',
           alignItems: 'center',
           gap: '6px',
-          boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.15)'
+          boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2)'
         }}>
           <span>👤</span>
           <span>Lecturer: {admin?.name || 'Faculty Administrator'}</span>
@@ -80,20 +80,21 @@ export default function TeacherTopNav({ admin, activeTab, onSelectTab, onLogout 
         <button
           onClick={onLogout}
           style={{
-            background: 'rgba(239, 68, 68, 0.15)',
-            border: '1px solid rgba(239, 68, 68, 0.35)',
+            background: 'rgba(255, 255, 255, 0.08)',
+            border: '1px solid rgba(255, 255, 255, 0.22)',
             borderRadius: '12px',
             padding: '7px 14px',
             fontSize: '12px',
             fontWeight: 700,
-            color: '#fca5a5',
+            color: '#ffffff',
             display: 'flex',
             alignItems: 'center',
             gap: '6px',
-            boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.15)'
+            boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2)',
+            transition: 'all 0.15s ease'
           }}
         >
-          <LogOutIcon size={13} color="#fca5a5" />
+          <LogOutIcon size={13} color="#ffffff" />
           <span>Logout</span>
         </button>
       </div>

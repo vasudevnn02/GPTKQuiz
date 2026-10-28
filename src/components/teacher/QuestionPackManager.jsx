@@ -74,17 +74,27 @@ export default function QuestionPackManager({ quizzes = {}, onUpdated, onOpenNew
         </div>
 
         {/* Filter Pills: All (N) | Today (N) */}
-        <div style={{ display: 'flex', background: 'rgba(0, 0, 0, 0.35)', borderRadius: '12px', padding: '3px', border: '1px solid rgba(255, 255, 255, 0.12)' }}>
+        <div style={{
+          display: 'flex',
+          background: 'rgba(255, 255, 255, 0.05)',
+          borderRadius: '14px',
+          padding: '3px',
+          border: '1px solid rgba(255, 255, 255, 0.14)',
+          gap: '3px'
+        }}>
           <button
             onClick={() => setFilter('all')}
             style={{
-              padding: '6px 14px',
-              borderRadius: '9px',
+              padding: '6px 16px',
+              borderRadius: '10px',
               fontSize: '12px',
-              fontWeight: 800,
-              background: filter === 'all' ? '#ffffff' : 'transparent',
-              color: filter === 'all' ? '#000000' : 'rgba(255, 255, 255, 0.65)',
-              boxShadow: filter === 'all' ? '0 2px 8px rgba(0,0,0,0.3)' : 'none',
+              fontWeight: filter === 'all' ? 800 : 600,
+              background: filter === 'all'
+                ? 'linear-gradient(135deg, rgba(56,189,248,0.35) 0%, rgba(2,132,199,0.35) 100%)'
+                : 'transparent',
+              color: filter === 'all' ? '#ffffff' : 'rgba(255, 255, 255, 0.65)',
+              border: filter === 'all' ? '1px solid rgba(56,189,248,0.55)' : '1px solid transparent',
+              boxShadow: filter === 'all' ? '0 2px 8px rgba(56,189,248,0.25)' : 'none',
               transition: 'all 0.15s ease'
             }}
           >
@@ -93,13 +103,16 @@ export default function QuestionPackManager({ quizzes = {}, onUpdated, onOpenNew
           <button
             onClick={() => setFilter('today')}
             style={{
-              padding: '6px 14px',
-              borderRadius: '9px',
+              padding: '6px 16px',
+              borderRadius: '10px',
               fontSize: '12px',
-              fontWeight: 800,
-              background: filter === 'today' ? '#ffffff' : 'transparent',
-              color: filter === 'today' ? '#000000' : 'rgba(255, 255, 255, 0.65)',
-              boxShadow: filter === 'today' ? '0 2px 8px rgba(0,0,0,0.3)' : 'none',
+              fontWeight: filter === 'today' ? 800 : 600,
+              background: filter === 'today'
+                ? 'linear-gradient(135deg, rgba(56,189,248,0.35) 0%, rgba(2,132,199,0.35) 100%)'
+                : 'transparent',
+              color: filter === 'today' ? '#ffffff' : 'rgba(255, 255, 255, 0.65)',
+              border: filter === 'today' ? '1px solid rgba(56,189,248,0.55)' : '1px solid transparent',
+              boxShadow: filter === 'today' ? '0 2px 8px rgba(56,189,248,0.25)' : 'none',
               transition: 'all 0.15s ease'
             }}
           >
