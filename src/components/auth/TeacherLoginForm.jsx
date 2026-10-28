@@ -26,7 +26,7 @@ export default function TeacherLoginForm({ onLogin, loading, error }) {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Admin Email (admin@gptkquiz.edu)"
+            placeholder="Admin Email"
             style={{ width: '100%', paddingLeft: '44px' }}
           />
         </div>
