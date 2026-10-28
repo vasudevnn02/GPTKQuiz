@@ -369,11 +369,11 @@ export default function StudentScoreboard({ results = {}, quizzes = {} }) {
                         fontSize: '11px',
                         fontWeight: 800,
                         letterSpacing: '0.4px',
-                        background: isPass ? 'rgba(34, 197, 94, 0.15)' : 'rgba(239, 68, 68, 0.15)',
-                        border: isPass ? '1px solid rgba(34, 197, 94, 0.35)' : '1px solid rgba(239, 68, 68, 0.35)',
-                        color: isPass ? '#4ade80' : '#f87171'
+                        background: r.isDebarred ? 'rgba(239, 68, 68, 0.25)' : isPass ? 'rgba(34, 197, 94, 0.15)' : 'rgba(239, 68, 68, 0.15)',
+                        border: r.isDebarred ? '1px solid rgba(239, 68, 68, 0.55)' : isPass ? '1px solid rgba(34, 197, 94, 0.35)' : '1px solid rgba(239, 68, 68, 0.35)',
+                        color: isPass && !r.isDebarred ? '#4ade80' : '#f87171'
                       }}>
-                        {isPass ? 'PASS' : 'FAIL'}
+                        {r.isDebarred ? 'DEBARRED (FAIL)' : isPass ? 'PASS' : 'FAIL'}
                       </span>
                     </td>
                     <td style={{ padding: '16px 20px' }}>
@@ -383,14 +383,25 @@ export default function StudentScoreboard({ results = {}, quizzes = {} }) {
                         gap: '6px',
                         padding: '4px 10px',
                         borderRadius: '8px',
-                        background: (r.violations || 0) === 0 ? 'rgba(34, 197, 94, 0.15)' : 'rgba(245, 158, 11, 0.15)',
-                        border: (r.violations || 0) === 0 ? '1px solid rgba(34, 197, 94, 0.35)' : '1px solid rgba(245, 158, 11, 0.35)',
-                        color: (r.violations || 0) === 0 ? '#4ade80' : '#fbbf24',
+                        background: r.isDebarred ? 'rgba(239, 68, 68, 0.2)' : (r.violations || 0) === 0 ? 'rgba(34, 197, 94, 0.15)' : 'rgba(245, 158, 11, 0.15)',
+                        border: r.isDebarred ? '1px solid rgba(239, 68, 68, 0.5)' : (r.violations || 0) === 0 ? '1px solid rgba(34, 197, 94, 0.35)' : '1px solid rgba(245, 158, 11, 0.35)',
+                        color: r.isDebarred ? '#f87171' : (r.violations || 0) === 0 ? '#4ade80' : '#fbbf24',
                         fontSize: '11px',
                         fontWeight: 700
                       }}>
-                        {(r.violations || 0) === 0 ? <CheckCircleIcon size={12} color="#4ade80" /> : <AlertTriangleIcon size={12} color="#fbbf24" />}
-                        <span>{(r.violations || 0) === 0 ? 'Clean Record' : `${r.violations} Alert${r.violations > 1 ? 's' : ''}`}</span>
+                        {r.isDebarred ? (
+                          <span>❌ 2 Violations (Debarred)</span>
+                        ) : (r.violations || 0) === 0 ? (
+                          <>
+                            <CheckCircleIcon size={12} color="#4ade80" />
+                            <span>Clean Record</span>
+                          </>
+                        ) : (
+                          <>
+                            <AlertTriangleIcon size={12} color="#fbbf24" />
+                            <span>{r.violations} Alert{r.violations > 1 ? 's' : ''}</span>
+                          </>
+                        )}
                       </span>
                     </td>
                     <td style={{ padding: '16px 20px', fontSize: '12px', color: 'rgba(255, 255, 255, 0.55)', fontWeight: 600 }}>

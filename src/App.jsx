@@ -24,6 +24,7 @@ import QuestionPackManager from './components/teacher/QuestionPackManager.jsx';
 import QuestionEditModal from './components/teacher/QuestionEditModal.jsx';
 import CreateQuizModal from './components/teacher/CreateQuizModal.jsx';
 import ShareResultsMenu from './components/teacher/ShareResultsMenu.jsx';
+import ExamInstructionsModal from './components/student/ExamInstructionsModal.jsx';
 
 const PAGE = { position: 'relative', zIndex: 1, minHeight: '100vh', display: 'flex', flexDirection: 'column' };
 
@@ -34,6 +35,7 @@ export default function App() {
   const [studentTab, setStudentTab] = useState('live');
   const [teacherTab, setTeacherTab] = useState('quizzes'); // 'quizzes' | 'results' | 'dashboard'
   const [activeQuiz, setActiveQuiz] = useState(null);
+  const [instructionQuiz, setInstructionQuiz] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [refreshKey, setRefreshKey] = useState(0);
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -194,7 +196,11 @@ export default function App() {
         {Bg}
         <div style={{ ...PAGE, display: 'flex', flexDirection: 'column' }}>
           <RunnerHeader quizTitle={activeQuiz.title} currentIndex={runner.currentIndex} totalQuestions={activeQuiz.questions?.length || 1} timeLeft={runner.timeLeft} violations={runner.violations} onSubmitExam={() => runner.handleFinalSubmit('manual')} isSubmitting={runner.isSubmitting} />
-          <AntiCheatGuard onViolation={(reason) => runner.addViolation(reason)} />
+          <AntiCheatGuard
+            onViolation={(reason) => runner.addViolation(reason)}
+            onDebar={(reason) => runner.handleFinalSubmit(reason, true)}
+            violations={runner.violations}
+          />
           <div style={{
             display: 'flex',
             flex: 1,
@@ -238,10 +244,31 @@ export default function App() {
       <div style={{ ...PAGE, display: 'flex', flexDirection: 'column' }}>
         <StudentTopNav user={currentUser} onLogout={logout} activeTab={studentTab} onSelectTab={setStudentTab} />
         <main style={{ flex: 1, padding: '32px 36px', overflowY: 'auto', maxWidth: '1240px', width: '100%', margin: '0 auto', alignSelf: 'stretch', display: 'flex', flexDirection: 'column' }}>
-          {studentTab === 'live'     && <LiveExamGrid quizzes={quizzes} results={results} student={currentUser} onStartExam={setActiveQuiz} onViewResult={() => setStudentTab('results')} onGoToUpcoming={() => setStudentTab('upcoming')} />}
+          {studentTab === 'live'     && (
+            <LiveExamGrid
+              quizzes={quizzes}
+              results={results}
+              student={currentUser}
+              onStartExam={(quiz) => setInstructionQuiz(quiz)}
+              onViewResult={() => setStudentTab('results')}
+              onGoToUpcoming={() => setStudentTab('upcoming')}
+            />
+          )}
           {studentTab === 'upcoming' && <UpcomingExamGrid quizzes={quizzes} results={results} student={currentUser} />}
           {studentTab === 'results'  && <ResultsTable results={results} student={currentUser} />}
         </main>
+
+        {/* ── Pre-Test Instructions & Rules Modal with 10s Timer ── */}
+        {instructionQuiz && (
+          <ExamInstructionsModal
+            quiz={instructionQuiz}
+            onClose={() => setInstructionQuiz(null)}
+            onConfirmStart={(q) => {
+              setInstructionQuiz(null);
+              setActiveQuiz(q);
+            }}
+          />
+        )}
       </div>
     </>
   );

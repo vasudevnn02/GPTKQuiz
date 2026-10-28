@@ -34,55 +34,62 @@ export function useQuizRunner(quiz, student, initialSeconds = 900, onComplete) {
     setViolations((prev) => prev + 1);
   };
 
-  const handleFinalSubmit = async (reason = 'manual') => {
+  const handleFinalSubmit = async (reason = 'manual', isDebarred = false) => {
     if (submittedRef.current) return;
     submittedRef.current = true;
     setIsSubmitting(true);
 
-    let keyMap = DEFAULT_QUIZ_KEYS[quiz.id] || DEFAULT_QUIZ_KEYS.quiz_fsd_01;
+    let keyMap = DEFAULT_QUIZ_KEYS[quiz?.id] || DEFAULT_QUIZ_KEYS.quiz_fsd_01;
     try {
-      const snap = await get(child(ref(rtdb), `quiz_keys/${quiz.id}`));
-      if (snap.exists()) keyMap = snap.val();
+      if (quiz?.id) {
+        const snap = await get(child(ref(rtdb), `quiz_keys/${quiz.id}`));
+        if (snap.exists()) keyMap = snap.val();
+      }
     } catch (e) {
       console.warn("Keys fetched locally fallback:", e);
     }
 
     let score = 0;
-    const breakdown = (quiz.questions || []).map((q) => {
+    const breakdown = (quiz?.questions || []).map((q) => {
       const selected = answers[q.id];
       const correct = keyMap[q.id];
       const isCorrect = selected !== undefined && selected === correct;
-      if (isCorrect) score += 1;
+      if (isCorrect && !isDebarred) score += 1;
       return {
         questionId: q.id,
         questionText: q.text,
         selected: selected !== undefined ? selected : null,
         correct: correct !== undefined ? correct : 0,
-        isCorrect
+        isCorrect: isDebarred ? false : isCorrect
       };
     });
 
-    const total = quiz.questions?.length || 1;
-    const percentage = Math.round((score / total) * 100);
+    const total = quiz?.questions?.length || 1;
+    const finalScore = isDebarred ? 0 : score;
+    const percentage = isDebarred ? 0 : Math.round((finalScore / total) * 100);
 
     const resultPayload = {
-      quizId: quiz.id,
-      quizTitle: quiz.title,
-      rollNo: student.rollNo,
-      studentName: student.name,
-      course: student.course,
-      score,
+      quizId: quiz?.id || 'quiz_default',
+      quizTitle: quiz?.title || 'Assessment',
+      rollNo: student?.rollNo || 'Candidate',
+      studentName: student?.name || 'Candidate',
+      course: student?.course || 'Computer Science',
+      score: finalScore,
       total,
       percentage,
-      violations,
+      isDebarred: Boolean(isDebarred),
+      status: isDebarred ? 'FAIL' : (percentage >= 35 ? 'PASS' : 'FAIL'),
+      violations: isDebarred ? Math.max(violations, 2) : violations,
       completedAt: Date.now(),
       attendedDate: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
       attendedTime: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
-      reason,
+      reason: isDebarred ? 'Debarred: Tab Switch Violation (Disqualified)' : reason,
       breakdown
     };
 
-    await submitQuizResult(student.rollNo, resultPayload);
+    if (student?.rollNo) {
+      await submitQuizResult(student.rollNo, resultPayload);
+    }
     setIsSubmitting(false);
     if (onComplete) onComplete(resultPayload);
   };

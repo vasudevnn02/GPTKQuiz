@@ -293,3 +293,55 @@ export const ListIcon = (p) => (
     <line x1="9.5" y1="17" x2="20" y2="17" strokeWidth="2.1" />
   </Svg>
 );
+
+// ── Share (SF Symbol: square.and.arrow.up) ──
+export const ShareIcon = (p) => (
+  <Svg {...p}>
+    <path d="M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6" />
+    <polyline points="16 6 12 2 8 6" />
+    <line x1="12" y1="2" x2="12" y2="15" />
+  </Svg>
+);
+
+// ── Clipboard (SF Symbol: clipboard) ──
+export const ClipboardIcon = (p) => (
+  <Svg {...p}>
+    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+    <rect x="8" y="2" width="8" height="4" rx="1.5" ry="1.5" />
+    <line x1="8" y1="11" x2="16" y2="11" strokeWidth="1.8" />
+    <line x1="8" y1="15" x2="14" y2="15" strokeWidth="1.8" />
+  </Svg>
+);
+
+// ── WhatsApp (SF Symbol styled vector) ──
+export const WhatsAppIcon = ({ size = 20, color = '#22c55e' }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+  >
+    <path
+      d="M17.5 6.5A7.8 7.8 0 0 0 4 15.3L3 21l5.8-1.5a7.8 7.8 0 0 0 8.7-13z"
+      stroke={color}
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M9.5 8.8c-.3-.7-.6-.7-.9-.7h-.7c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.3 1.4 3.5c.2.3 2.4 3.7 5.8 5.1 2.8 1.2 3.4 1 4 .9.6-.1 2-1 2.3-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5-.4-.2-2.3-1.1-2.7-1.3-.4-.2-.7-.2-.9.2-.3.4-1 1.3-1.2 1.5-.2.2-.5.3-.9.1-.4-.2-1.7-.6-3.2-2-.9-.8-1.5-1.8-1.7-2.1-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-1.9-1.1-2.6z"
+      fill={color}
+    />
+  </svg>
+);
+
+// ── Printer (SF Symbol: printer) ──
+export const PrinterIcon = (p) => (
+  <Svg {...p}>
+    <polyline points="6 9 6 2 18 2 18 9" />
+    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+    <rect x="6" y="14" width="12" height="8" rx="1.5" ry="1.5" />
+    <circle cx="18" cy="11.5" r="1" fill={p.color || 'currentColor'} stroke="none" />
+  </Svg>
+);

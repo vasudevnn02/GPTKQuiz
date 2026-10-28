@@ -269,16 +269,16 @@ export default function ResultsTable({ results = {}, student, onViewBreakdown })
                           </span>
 
                           <span style={{
-                            background: 'rgba(34, 197, 94, 0.18)',
-                            color: '#4ade80',
-                            border: '1px solid rgba(34, 197, 94, 0.4)',
+                            background: r.isDebarred ? 'rgba(239, 68, 68, 0.22)' : 'rgba(34, 197, 94, 0.18)',
+                            color: r.isDebarred ? '#f87171' : '#4ade80',
+                            border: r.isDebarred ? '1px solid rgba(239, 68, 68, 0.5)' : '1px solid rgba(34, 197, 94, 0.4)',
                             fontSize: '10px',
                             fontWeight: 800,
                             padding: '4px 9px',
                             borderRadius: '10px',
                             letterSpacing: '0.4px'
                           }}>
-                            ● COMPLETED
+                            {r.isDebarred ? '● DEBARRED' : '● COMPLETED'}
                           </span>
                         </div>
                       </div>
@@ -309,7 +309,7 @@ export default function ResultsTable({ results = {}, student, onViewBreakdown })
                             Score Obtained
                           </div>
                           <div style={{ fontSize: '13px', fontWeight: 700, color: '#ffffff', marginTop: '2px' }}>
-                            {r.score} / {r.total} Marks
+                            {r.score} / {r.total} Marks {r.isDebarred && <span style={{ color: '#f87171', fontSize: '11px', fontWeight: 800 }}>(DEBARRED)</span>}
                           </div>
                         </div>
 
@@ -317,7 +317,7 @@ export default function ResultsTable({ results = {}, student, onViewBreakdown })
                           <div style={{
                             fontSize: '22px',
                             fontWeight: 800,
-                            color: isPass ? '#4ade80' : '#f87171',
+                            color: r.isDebarred ? '#f87171' : isPass ? '#4ade80' : '#f87171',
                             letterSpacing: '-0.3px'
                           }}>
                             {r.percentage}%
@@ -332,12 +332,21 @@ export default function ResultsTable({ results = {}, student, onViewBreakdown })
                           gap: '5px',
                           padding: '3px 8px',
                           borderRadius: '8px',
-                          background: r.violations === 0 ? 'rgba(48, 209, 88, 0.15)' : 'rgba(255, 159, 10, 0.15)',
-                          color: r.violations === 0 ? '#30d158' : '#ff9f0a',
-                          fontWeight: 600
+                          background: r.isDebarred ? 'rgba(239, 68, 68, 0.2)' : r.violations === 0 ? 'rgba(48, 209, 88, 0.15)' : 'rgba(255, 159, 10, 0.15)',
+                          color: r.isDebarred ? '#f87171' : r.violations === 0 ? '#30d158' : '#ff9f0a',
+                          fontWeight: 700
                         }}>
-                          {r.violations === 0 ? <CheckCircleIcon size={12} /> : <AlertTriangleIcon size={12} />}
-                          <span>{r.violations === 0 ? 'Clean Record' : `${r.violations} Alert${r.violations > 1 ? 's' : ''}`}</span>
+                          {r.isDebarred ? <span>❌ Debarred (Tab Switch)</span> : r.violations === 0 ? (
+                            <>
+                              <CheckCircleIcon size={12} />
+                              <span>Clean Record</span>
+                            </>
+                          ) : (
+                            <>
+                              <AlertTriangleIcon size={12} />
+                              <span>{r.violations} Alert{r.violations > 1 ? 's' : ''}</span>
+                            </>
+                          )}
                         </span>
                         <span style={{ color: 'rgba(255, 255, 255, 0.3)' }}>•</span>
                         <span style={{ color: 'rgba(255, 255, 255, 0.5)' }}>Proctored: Verified</span>

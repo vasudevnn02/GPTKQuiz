@@ -1,4 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
+import {
+  ShareIcon,
+  ClipboardIcon,
+  WhatsAppIcon,
+  PrinterIcon,
+  ChevronDownIcon,
+  CheckIcon
+} from '../icons/SvgIcons.jsx';
 
 export default function ShareResultsMenu({ results = {}, quizzes = {} }) {
   const [open, setOpen] = useState(false);
@@ -320,15 +328,15 @@ export default function ShareResultsMenu({ results = {}, quizzes = {} }) {
           e.currentTarget.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
         }}
       >
-        <span style={{ fontSize: '15px' }}>📤</span>
+        <ShareIcon size={16} color="#ffffff" />
         <span>Share Results</span>
         <span style={{
-          fontSize: '10px',
-          opacity: 0.8,
+          display: 'inline-flex',
+          alignItems: 'center',
           transform: open ? 'rotate(180deg)' : 'none',
           transition: 'transform 0.18s ease'
         }}>
-          ▼
+          <ChevronDownIcon size={13} color="#ffffff" />
         </span>
       </button>
 
@@ -361,7 +369,7 @@ export default function ShareResultsMenu({ results = {}, quizzes = {} }) {
             letterSpacing: '0.6px',
             borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
           }}>
-            Export & Share Options ({resultList.length} submissions)
+            Export &amp; Share Options ({resultList.length} submissions)
           </div>
 
           {/* Action 1: Copy the Result */}
@@ -387,22 +395,21 @@ export default function ShareResultsMenu({ results = {}, quizzes = {} }) {
               width: '34px',
               height: '34px',
               borderRadius: '10px',
-              background: 'rgba(56, 189, 248, 0.16)',
-              border: '1px solid rgba(56, 189, 248, 0.35)',
+              background: copied ? 'rgba(34, 197, 94, 0.22)' : 'rgba(56, 189, 248, 0.16)',
+              border: copied ? '1px solid rgba(34, 197, 94, 0.45)' : '1px solid rgba(56, 189, 248, 0.35)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '16px',
               flexShrink: 0
             }}>
-              📋
+              {copied ? <CheckIcon size={18} color="#4ade80" /> : <ClipboardIcon size={18} color="#38bdf8" />}
             </div>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: '13px', fontWeight: 800, color: copied ? '#4ade80' : '#ffffff' }}>
                 {copied ? '✓ Copied to Clipboard!' : 'Copy the Result'}
               </div>
               <div style={{ fontSize: '11px', color: 'rgba(255, 255, 255, 0.55)', marginTop: '2px' }}>
-                Copy formatted marks & status list
+                Copy formatted marks &amp; status list
               </div>
             </div>
           </button>
@@ -435,10 +442,9 @@ export default function ShareResultsMenu({ results = {}, quizzes = {} }) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '16px',
               flexShrink: 0
             }}>
-              💬
+              <WhatsAppIcon size={18} color="#4ade80" />
             </div>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: '13px', fontWeight: 800, color: '#ffffff' }}>
@@ -478,17 +484,16 @@ export default function ShareResultsMenu({ results = {}, quizzes = {} }) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '16px',
               flexShrink: 0
             }}>
-              🖨️
+              <PrinterIcon size={18} color="#f87171" />
             </div>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: '13px', fontWeight: 800, color: '#ffffff' }}>
                 Print as PDF
               </div>
               <div style={{ fontSize: '11px', color: 'rgba(255, 255, 255, 0.55)', marginTop: '2px' }}>
-                Official PDF with college header & table
+                Official PDF with college header &amp; table
               </div>
             </div>
           </button>
