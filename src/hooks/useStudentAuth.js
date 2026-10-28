@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ref, get, child, set } from 'firebase/database';
-import { rtdb } from '../services/firebase.js';
+import { rtdb, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '../services/firebase.js';
 import { DEFAULT_STUDENTS } from '../services/seedData.js';
 
 export function useStudentAuth() {
@@ -17,8 +17,18 @@ export function useStudentAuth() {
     const cleanRollNo = rollNo.trim().toUpperCase();
     const cleanName = name.trim().toLowerCase();
     const cleanPass = password.trim();
+    const virtualEmail = `${cleanRollNo}@gptk.internal`;
 
     try {
+      // 1. Firebase Auth sign-in first
+      try {
+        await signInWithEmailAndPassword(auth, virtualEmail, cleanPass);
+      } catch (authErr) {
+        // Auth failed — fall through to RTDB-only check (legacy accounts)
+        console.warn('Firebase Auth sign-in failed, trying RTDB only:', authErr.code);
+      }
+
+      // 2. Fetch student record from RTDB
       let student = null;
       try {
         const snap = await get(child(ref(rtdb), `students/${cleanRollNo}`));
@@ -70,6 +80,7 @@ export function useStudentAuth() {
     const cleanName = name.trim();
     const cleanPass = password.trim();
     const cleanConfirm = confirmPassword.trim();
+    const virtualEmail = `${cleanRollNo}@gptk.internal`;
 
     try {
       if (!cleanRollNo || !cleanName || !cleanPass) {
@@ -78,8 +89,8 @@ export function useStudentAuth() {
       if (cleanPass !== cleanConfirm) {
         throw new Error('Passwords do not match. Please re-enter.');
       }
-      if (cleanPass.length < 4) {
-        throw new Error('Password must be at least 4 characters.');
+      if (cleanPass.length < 6) {
+        throw new Error('Password must be at least 6 characters.');
       }
 
       // Check if student already exists in RTDB or local
@@ -96,6 +107,16 @@ export function useStudentAuth() {
 
       if (exists) {
         throw new Error('Register number already exists! Please login.');
+      }
+
+      // 🔐 Register with Firebase Auth using virtual email
+      try {
+        await createUserWithEmailAndPassword(auth, virtualEmail, cleanPass);
+      } catch (authErr) {
+        // If email-already-in-use, student exists in Auth but not RTDB — still proceed
+        if (authErr.code !== 'auth/email-already-in-use') {
+          throw new Error(authErr.message || 'Firebase Auth registration failed.');
+        }
       }
 
       const newStudent = {
@@ -119,7 +140,7 @@ export function useStudentAuth() {
       local[cleanRollNo] = newStudent;
       localStorage.setItem('gptk_students', JSON.stringify(local));
 
-      // Auto login
+      // Auto login session
       const session = {
         role: 'student',
         rollNo: newStudent.rollNo,

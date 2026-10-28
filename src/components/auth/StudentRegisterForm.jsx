@@ -24,8 +24,8 @@ export default function StudentRegisterForm({ onRegister, loading, error, onSwit
       setLocalErr('Passwords do not match. Please re-enter your password.');
       return;
     }
-    if (password.length < 4) {
-      setLocalErr('Password must be at least 4 characters.');
+    if (password.length < 6) {
+      setLocalErr('Password must be at least 6 characters.');
       return;
     }
     onRegister(rollNo, name, password, confirmPassword);
@@ -136,8 +136,7 @@ export default function StudentRegisterForm({ onRegister, loading, error, onSwit
             style={{
               width: '100%',
               paddingLeft: '44px',
-              borderColor: isMatch ? 'rgba(74, 222, 128, 0.6)' : undefined,
-              boxShadow: isMatch ? '0 0 12px rgba(74, 222, 128, 0.25)' : undefined
+              borderColor: isMatch ? 'rgba(74, 222, 128, 0.6)' : undefined
             }}
           />
         </div>

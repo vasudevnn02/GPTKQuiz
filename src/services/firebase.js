@@ -1,5 +1,6 @@
 import { initializeApp, getApps } from 'firebase/app';
 import { getDatabase, ref, onValue, set, get, child, remove } from 'firebase/database';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { DEFAULT_STUDENTS, DEFAULT_QUIZ_KEYS } from './seedData.js';
 
 const firebaseConfig = {
@@ -13,6 +14,8 @@ const firebaseConfig = {
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApps()[0];
 export const rtdb = getDatabase(app);
+export const auth = getAuth(app);
+export { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut };
 
 // Initialize Default Seeds in RTDB and clean old dummy test data
 export async function initializeDatabaseSeed() {
