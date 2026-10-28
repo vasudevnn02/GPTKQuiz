@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { LogOutIcon, TargetIcon, CalendarIcon, TrophyIcon, ClockIcon } from '../icons/SvgIcons.jsx';
 import { glass, glassBtn } from '../../glass.js';
+import { getSavedStudentAvatar } from '../../utils/avatarGallery.js';
+import AvatarPickerModal from './AvatarPickerModal.jsx';
 
 const TABS = [
   { id: 'live',     label: 'Exam Center',    icon: TargetIcon },
@@ -10,6 +12,12 @@ const TABS = [
 
 export default function StudentTopNav({ user, onLogout, activeTab, onSelectTab }) {
   const initial = user?.name ? user.name.charAt(0).toUpperCase() : 'S';
+  const [showAvatarPicker, setShowAvatarPicker] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState(() => getSavedStudentAvatar(user?.rollNo));
+
+  useEffect(() => {
+    setAvatarUrl(getSavedStudentAvatar(user?.rollNo));
+  }, [user?.rollNo]);
 
   // Live ticking date and clock
   const [time, setTime] = useState(() => new Date());
@@ -146,7 +154,7 @@ export default function StudentTopNav({ user, onLogout, activeTab, onSelectTab }
           <span>{dayName}, {dateStr} • {timeStr}</span>
         </div>
 
-        {/* Student Avatar & Roll */}
+        {/* Student Avatar & Roll (Click to change 50+ 2D Profile Pic) */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '9px' }}>
           <div style={{ textAlign: 'right', lineHeight: '1.2' }}>
             <div style={{ fontSize: '13px', fontWeight: 700, color: '#ffffff' }}>
@@ -156,22 +164,43 @@ export default function StudentTopNav({ user, onLogout, activeTab, onSelectTab }
               {user?.rollNo}
             </div>
           </div>
-          <div style={{
-            width: '34px',
-            height: '34px',
-            borderRadius: '50%',
-            background: 'rgba(56, 189, 248, 0.22)',
-            color: '#ffffff',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontWeight: 800,
-            fontSize: '13px',
-            border: '1px solid rgba(56, 189, 248, 0.5)',
-            boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.4)',
-          }}>
-            {initial}
-          </div>
+          <button
+            type="button"
+            onClick={() => setShowAvatarPicker(true)}
+            title="Change 2D Profile Avatar"
+            style={{
+              width: '38px',
+              height: '38px',
+              borderRadius: '50%',
+              padding: '2px',
+              background: 'rgba(56, 189, 248, 0.22)',
+              border: '1.5px solid rgba(56, 189, 248, 0.55)',
+              boxShadow: '0 0 12px rgba(56, 189, 248, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.4)',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'relative',
+              overflow: 'hidden',
+              transition: 'transform 0.15s ease, box-shadow 0.15s ease'
+            }}
+          >
+            {avatarUrl ? (
+              <img
+                src={avatarUrl}
+                alt="Profile Avatar"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  borderRadius: '50%',
+                  display: 'block',
+                  objectFit: 'cover'
+                }}
+              />
+            ) : (
+              <span style={{ fontWeight: 800, fontSize: '14px', color: '#ffffff' }}>{initial}</span>
+            )}
+          </button>
         </div>
 
         {/* Exit Button */}
@@ -192,6 +221,17 @@ export default function StudentTopNav({ user, onLogout, activeTab, onSelectTab }
           <span>Exit</span>
         </button>
       </div>
+
+      {/* Google-style Profile Picture Picker Modal */}
+      {showAvatarPicker && (
+        <AvatarPickerModal
+          student={user}
+          onClose={() => setShowAvatarPicker(false)}
+          onAvatarSelected={(newPng) => {
+            setAvatarUrl(newPng);
+          }}
+        />
+      )}
     </header>
   );
 }

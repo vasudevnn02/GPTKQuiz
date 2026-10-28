@@ -1,29 +1,80 @@
 import React from 'react';
 import QuizCardItem from './QuizCardItem.jsx';
-import { RadioIcon } from '../icons/SvgIcons.jsx';
+import { checkQuizAvailability } from '../../hooks/useQuizWindow.js';
+import { glassBtn } from '../../glass.js';
+import { CalendarIcon } from '../icons/SvgIcons.jsx';
 
-export default function LiveExamGrid({ quizzes = {}, results = {}, student, onStartExam, onViewResult }) {
+export default function LiveExamGrid({ quizzes = {}, results = {}, student, onStartExam, onViewResult, onGoToUpcoming }) {
   const quizList = Object.values(quizzes);
+
+  // Exam Center ONLY shows tests that are available to attend RIGHT NOW (not attended, open window)
+  const liveAvailableQuizzes = quizList.filter((quiz) => {
+    const key = `${student?.rollNo}_${quiz.id}`;
+    const isAttended = Boolean(results[key]);
+    if (isAttended) return false;
+
+    const { isOpen } = checkQuizAvailability(quiz);
+    return isOpen;
+  });
 
   return (
     <div>
-      <div style={{ marginBottom: '22px' }}>
-        <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#ffffff', display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <span style={{ color: '#38bdf8', display: 'flex', alignItems: 'center' }}><RadioIcon size={20} color="#38bdf8" /></span>
-          <span>Today's Examination Window (10:00 AM – 05:00 PM)</span>
-        </h2>
-        <p style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.55)', marginTop: '4px' }}>
-          Tests can be attended any time inside the 10:00 AM – 5:00 PM window. Your personal 15-minute timer begins when you start.
-        </p>
-      </div>
-
-      {quizList.length === 0 ? (
-        <div style={{ background: 'rgba(255, 255, 255, 0.04)', backdropFilter: 'blur(30px)', border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: '20px', padding: '48px 24px', textAlign: 'center', color: 'rgba(255, 255, 255, 0.6)' }}>
-          No assessments currently open for this window.
+      {liveAvailableQuizzes.length === 0 ? (
+        <div className="liqglass" style={{
+          borderRadius: '24px',
+          padding: '48px 32px',
+          textAlign: 'center',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '14px',
+          maxWidth: '560px',
+          margin: '30px auto'
+        }}>
+          <div style={{
+            width: '46px',
+            height: '46px',
+            borderRadius: '14px',
+            background: 'rgba(56, 189, 248, 0.15)',
+            border: '1px solid rgba(56, 189, 248, 0.35)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#38bdf8'
+          }}>
+            <CalendarIcon size={22} color="#38bdf8" />
+          </div>
+          <div>
+            <div style={{ fontSize: '17px', fontWeight: 800, color: '#ffffff', marginBottom: '4px' }}>
+              No Assessments Available Right Now
+            </div>
+            <div style={{ fontSize: '13px', color: 'rgba(255, 255, 255, 0.65)', lineHeight: '1.5' }}>
+              All tests outside the current active time window are listed under the Scheduled section.
+            </div>
+          </div>
+          {onGoToUpcoming && (
+            <button
+              onClick={onGoToUpcoming}
+              style={{
+                ...glassBtn,
+                background: 'rgba(56, 189, 248, 0.18)',
+                border: '1px solid rgba(56, 189, 248, 0.45)',
+                color: '#38bdf8',
+                padding: '9px 20px',
+                borderRadius: '12px',
+                fontSize: '13px',
+                fontWeight: 700,
+                marginTop: '6px',
+                cursor: 'pointer'
+              }}
+            >
+              View Scheduled Tests →
+            </button>
+          )}
         </div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '22px' }}>
-          {quizList.map((quiz) => {
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '22px' }}>
+          {liveAvailableQuizzes.map((quiz) => {
             const key = `${student?.rollNo}_${quiz.id}`;
             const attendedResult = results[key] || null;
             return (

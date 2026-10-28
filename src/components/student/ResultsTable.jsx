@@ -7,14 +7,6 @@ export default function ResultsTable({ results = {}, student, onViewBreakdown })
 
   return (
     <div>
-      <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#ffffff', display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
-        <span style={{ color: '#ff9f0a' }}><AwardIcon size={22} /></span>
-        <span>My Assessment Transcript</span>
-      </h2>
-      <p style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.55)', marginBottom: '22px' }}>
-        Verified examination record, score percentage, and proctor integrity status.
-      </p>
-
       {studentResults.length === 0 ? (
         <div style={{ background: 'rgba(255, 255, 255, 0.04)', backdropFilter: 'blur(30px)', border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: '20px', padding: '40px 24px', textAlign: 'center', color: 'rgba(255, 255, 255, 0.6)' }}>
           No completed examinations on record for {student?.name} ({student?.rollNo}).

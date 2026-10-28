@@ -1,57 +1,204 @@
 import React from 'react';
-import { CalendarIcon, ClockIcon } from '../icons/SvgIcons.jsx';
+import { ClockIcon, LockIcon, BookOpenIcon } from '../icons/SvgIcons.jsx';
+import { checkQuizAvailability } from '../../hooks/useQuizWindow.js';
 
-export default function UpcomingExamGrid() {
-  const upcomingList = [
+export default function UpcomingExamGrid({ quizzes = {}, results = {}, student }) {
+  const quizList = Object.values(quizzes);
+
+  // Scheduled / upcoming quizzes (those not live right now or date != today)
+  const scheduledFromQuizzes = quizList.filter((quiz) => {
+    const key = `${student?.rollNo}_${quiz.id}`;
+    const isAttended = Boolean(results[key]);
+    if (isAttended) return false;
+
+    const { isOpen } = checkQuizAvailability(quiz);
+    return !isOpen; // All non-live quizzes belong here
+  }).map(q => {
+    const { label } = checkQuizAvailability(q);
+    return {
+      id: q.id,
+      title: q.title,
+      course: q.course || 'Computer Science and Engineering',
+      date: q.date || 'Today',
+      timeWindow: `${q.windowStart || '10:00 AM'} – ${q.windowEnd || '05:00 PM'}`,
+      duration: `${q.durationMinutes || 15} Mins`,
+      questionsCount: Array.isArray(q.questions) ? q.questions.length : Object.keys(q.questions || {}).length,
+      statusLabel: label,
+    };
+  });
+
+  // Department scheduled curricular roster
+  const defaultDepartmentSchedule = [
     {
       id: 'up_01',
       title: 'Database Management Systems (DBMS) - SQL & Normalization',
-      date: 'Tomorrow, 10:00 AM – 05:00 PM',
+      course: 'Computer Science and Engineering',
+      date: 'Tomorrow',
+      timeWindow: '10:00 AM – 05:00 PM',
       duration: '20 Mins',
-      department: 'Computer Science and Engineering'
+      questionsCount: 20,
+      statusLabel: 'Scheduled Tomorrow'
     },
     {
       id: 'up_02',
       title: 'Operating Systems - Process Scheduling & Deadlocks',
-      date: 'Friday, 10:00 AM – 05:00 PM',
+      course: 'Computer Science and Engineering',
+      date: 'Friday',
+      timeWindow: '10:00 AM – 05:00 PM',
       duration: '15 Mins',
-      department: 'Computer Science and Engineering'
+      questionsCount: 15,
+      statusLabel: 'Scheduled Friday'
     }
   ];
 
+  const allScheduled = [...scheduledFromQuizzes, ...defaultDepartmentSchedule];
+
   return (
     <div>
-      <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#ffffff', display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
-        <span style={{ color: '#38bdf8', display: 'flex', alignItems: 'center' }}><CalendarIcon size={20} color="#38bdf8" /></span>
-        <span>Scheduled Examination Roster</span>
-      </h2>
-      <p style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.55)', marginBottom: '22px' }}>
-        Upcoming window timetable for department academic evaluations.
-      </p>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-        {upcomingList.map((item) => (
-          <div key={item.id} className="liqglass" style={{
-            borderRadius: '24px',
-            padding: '22px 26px',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
+      {/* ── SQUARE CARD GRID (Matching QuizCardItem) ── */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+        gap: '22px'
+      }}>
+        {allScheduled.map((item) => (
+          <div
+            key={item.id}
+            className="liqglass"
+            style={{
+              borderRadius: '26px',
+              padding: '24px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              minHeight: '230px',
+              position: 'relative',
+              userSelect: 'none'
+            }}
+          >
+            {/* Top: Icon + Department + Scheduled Badge */}
             <div>
-              <div style={{ fontSize: '11px', color: '#0a84ff', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: '4px' }}>
-                {item.department}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
+                <div style={{
+                  width: '42px',
+                  height: '42px',
+                  borderRadius: '13px',
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  border: '1px solid rgba(255, 255, 255, 0.22)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.3)'
+                }}>
+                  <BookOpenIcon size={20} color="#38bdf8" />
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{
+                    background: 'rgba(255, 255, 255, 0.08)',
+                    border: '1px solid rgba(255, 255, 255, 0.16)',
+                    color: '#ffffff',
+                    fontSize: '11px',
+                    fontWeight: 700,
+                    padding: '4px 10px',
+                    borderRadius: '10px',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.4px'
+                  }}>
+                    {item.course}
+                  </span>
+
+                  <span style={{
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    color: 'rgba(255, 255, 255, 0.85)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    fontSize: '10px',
+                    fontWeight: 800,
+                    padding: '4px 9px',
+                    borderRadius: '10px',
+                    letterSpacing: '0.4px'
+                  }}>
+                    ● SCHEDULED
+                  </span>
+                </div>
               </div>
-              <div style={{ fontSize: '16px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
+
+              {/* Title & Date */}
+              <h3 style={{
+                fontSize: '17px',
+                fontWeight: 800,
+                color: '#ffffff',
+                marginBottom: '4px',
+                lineHeight: '1.35',
+                fontFamily: 'var(--font-ny)'
+              }}>
                 {item.title}
-              </div>
-              <div style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.55)', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <ClockIcon size={14} />
-                <span>{item.date}</span>
-              </div>
+              </h3>
+              <p style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.65)', lineHeight: '1.4', marginBottom: '14px' }}>
+                Evaluation Window: {item.date}
+              </p>
             </div>
-            <div style={{ background: 'rgba(255, 255, 255, 0.08)', border: '1px solid rgba(255, 255, 255, 0.12)', padding: '6px 14px', borderRadius: '10px', fontSize: '12px', color: '#ffffff', fontWeight: 600 }}>
-              {item.duration}
+
+            {/* Meta Chips */}
+            <div>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: '8px',
+                marginBottom: '14px'
+              }}>
+                <div style={{
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  border: '1px solid rgba(255, 255, 255, 0.14)',
+                  borderRadius: '10px',
+                  padding: '7px 10px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '11px',
+                  color: '#ffffff',
+                  fontWeight: 700
+                }}>
+                  <ClockIcon size={12} color="#38bdf8" />
+                  <span>{item.duration}</span>
+                </div>
+
+                <div style={{
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  border: '1px solid rgba(255, 255, 255, 0.14)',
+                  borderRadius: '10px',
+                  padding: '7px 10px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '11px',
+                  color: 'rgba(255, 255, 255, 0.85)',
+                  fontWeight: 700,
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis'
+                }}>
+                  <span>{item.timeWindow}</span>
+                </div>
+              </div>
+
+              {/* Locked Status Chip */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.14)',
+                padding: '10px 14px',
+                borderRadius: '12px',
+                fontSize: '12px',
+                color: 'rgba(255, 255, 255, 0.65)',
+                fontWeight: 700
+              }}>
+                <LockIcon size={13} color="rgba(255, 255, 255, 0.65)" />
+                <span>{item.statusLabel || `Starts on ${item.date}`}</span>
+              </div>
             </div>
           </div>
         ))}

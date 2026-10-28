@@ -67,3 +67,32 @@ export function useQuizWindow(windowStart = "10:00 AM", windowEnd = "05:00 PM", 
     durationMinutes
   };
 }
+
+export function checkQuizAvailability(quiz) {
+  if (!quiz) return { isOpen: false, status: 'closed', label: 'Unavailable' };
+  if (quiz.isLive === true) return { isOpen: true, status: 'open', label: 'Live Now' };
+
+  const todayStr = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  const quizDate = (quiz.date || 'Today').trim();
+  const isToday = quizDate.toLowerCase() === 'today' || quizDate === todayStr;
+
+  if (!isToday) {
+    return { isOpen: false, status: 'upcoming', label: `Scheduled: ${quizDate}` };
+  }
+
+  const now = new Date();
+  const startDate = parseTimeString(quiz.windowStart || '10:00 AM');
+  const endDate = parseTimeString(quiz.windowEnd || '05:00 PM');
+
+  if (startDate && endDate) {
+    if (now < startDate) {
+      return { isOpen: false, status: 'upcoming', label: `Starts at ${quiz.windowStart}` };
+    } else if (now >= startDate && now <= endDate) {
+      return { isOpen: true, status: 'open', label: `Live Now (Closes ${quiz.windowEnd})` };
+    } else {
+      return { isOpen: false, status: 'closed', label: 'Window Closed' };
+    }
+  }
+
+  return { isOpen: false, status: 'closed', label: 'Window Closed' };
+}
