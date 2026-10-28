@@ -1,75 +1,54 @@
 import React, { useState } from 'react';
-import { UserIcon, LockIcon, IdCardIcon } from '../icons/SvgIcons.jsx';
-import { glassBtn } from '../../glass.js';
+import { MailIcon, LockIcon } from '../icons/SvgIcons.jsx';
 
 export default function StudentRegisterForm({ onRegister, loading, error, onSwitchToLogin }) {
-  const [name, setName] = useState('');
-  const [rollNo, setRollNo] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [localErr, setLocalErr] = useState('');
 
-  const showConfirm = Boolean(password.length > 0 || passwordFocused);
+  const showConfirm = password.length > 0 || passwordFocused;
   const isMatch = password.length > 0 && confirmPassword.length > 0 && password === confirmPassword;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setLocalErr('');
-    if (!name.trim() || !rollNo.trim() || !password || !confirmPassword) {
+    if (!email.trim() || !password) {
       setLocalErr('Please fill in all fields.');
       return;
     }
     if (password !== confirmPassword) {
-      setLocalErr('Passwords do not match. Please re-enter your password.');
+      setLocalErr('Passwords do not match. Please re-enter.');
       return;
     }
     if (password.length < 6) {
       setLocalErr('Password must be at least 6 characters.');
       return;
     }
-    onRegister(rollNo, name, password, confirmPassword);
+    onRegister(email.trim().toLowerCase(), password);
   };
 
   const displayError = localErr || error;
 
   return (
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-      {/* Student Name */}
-      <div>
-        <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: 'rgba(255,255,255,0.7)', marginBottom: '7px' }}>
-          Candidate Full Name
-        </label>
-        <div style={{ position: 'relative' }}>
-          <span style={{ position: 'absolute', left: '14px', top: '13px', width: '20px', height: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <UserIcon size={16} color="#38bdf8" />
-          </span>
-          <input
-            type="text"
-            required
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Full Name"
-            style={{ width: '100%', paddingLeft: '44px' }}
-          />
-        </div>
-      </div>
 
-      {/* Register Number */}
+      {/* Email */}
       <div>
         <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: 'rgba(255,255,255,0.7)', marginBottom: '7px' }}>
-          Register Number / Roll No
+          Email Address
         </label>
         <div style={{ position: 'relative' }}>
           <span style={{ position: 'absolute', left: '14px', top: '13px', width: '20px', height: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <IdCardIcon size={16} color="#38bdf8" />
+            <MailIcon size={16} color="#38bdf8" />
           </span>
           <input
-            type="text"
+            type="email"
             required
-            value={rollNo}
-            onChange={(e) => setRollNo(e.target.value.toUpperCase())}
-            placeholder="Register Number (e.g. 197CS...)"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="your@email.com"
             style={{ width: '100%', paddingLeft: '44px' }}
           />
         </div>
@@ -91,13 +70,13 @@ export default function StudentRegisterForm({ onRegister, loading, error, onSwit
             onFocus={() => setPasswordFocused(true)}
             onBlur={() => setPasswordFocused(false)}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password (min. 4 characters)"
+            placeholder="Password (min. 6 characters)"
             style={{ width: '100%', paddingLeft: '44px' }}
           />
         </div>
       </div>
 
-      {/* Re-enter Password (Reveals dynamically when user clicks or types password) */}
+      {/* Confirm Password (slides in) */}
       <div style={{
         maxHeight: showConfirm ? '110px' : '0px',
         opacity: showConfirm ? 1 : 0,
@@ -111,14 +90,7 @@ export default function StudentRegisterForm({ onRegister, loading, error, onSwit
             Re-enter Password
           </label>
           {confirmPassword.length > 0 && (
-            <span style={{
-              fontSize: '11px',
-              fontWeight: 700,
-              color: isMatch ? '#4ade80' : 'rgba(255, 255, 255, 0.55)',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '4px'
-            }}>
+            <span style={{ fontSize: '11px', fontWeight: 700, color: isMatch ? '#4ade80' : 'rgba(255,255,255,0.55)' }}>
               {isMatch ? '✓ Passwords match' : 'Must match'}
             </span>
           )}
@@ -142,7 +114,7 @@ export default function StudentRegisterForm({ onRegister, loading, error, onSwit
         </div>
       </div>
 
-      {/* Error Banner */}
+      {/* Error */}
       {displayError && (
         <div style={{
           background: 'rgba(239, 68, 68, 0.2)',
@@ -157,7 +129,7 @@ export default function StudentRegisterForm({ onRegister, loading, error, onSwit
         </div>
       )}
 
-      {/* Submit Button */}
+      {/* Submit */}
       <button
         type="submit"
         disabled={loading}
@@ -174,10 +146,11 @@ export default function StudentRegisterForm({ onRegister, loading, error, onSwit
           marginTop: '8px',
           opacity: loading ? 0.7 : 1,
           cursor: 'pointer',
-          transition: 'all 0.2s ease'
+          transition: 'all 0.2s ease',
+          width: '100%'
         }}
       >
-        {loading ? 'Registering...' : 'Register & Enter Portal'}
+        {loading ? 'Creating Account...' : 'Create Account →'}
       </button>
     </form>
   );

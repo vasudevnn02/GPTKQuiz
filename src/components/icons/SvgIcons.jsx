@@ -112,6 +112,14 @@ export const ShieldIcon = (p) => (
   </Svg>
 );
 
+// ── Mail / Envelope (SF Symbol: envelope) ──
+export const MailIcon = (p) => (
+  <Svg {...p}>
+    <rect x="3.5" y="5.5" width="17" height="13" rx="2.5" ry="2.5" />
+    <polyline points="3.5 8 12 13.5 20.5 8" />
+  </Svg>
+);
+
 // ── Search (SF Symbol: magnifyingglass) ──
 export const SearchIcon = (p) => (
   <Svg {...p}>
