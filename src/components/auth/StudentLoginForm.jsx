@@ -78,8 +78,8 @@ export default function StudentLoginForm({ onLogin, loading, error, onSwitchToRe
         disabled={loading}
         style={{
           background: 'rgba(255, 255, 255, 0.12)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
+          backdropFilter: 'blur(2px)',
+          WebkitBackdropFilter: 'blur(2px)',
           border: '1px solid rgba(255, 255, 255, 0.35)',
           color: '#ffffff',
           fontWeight: 800,
@@ -87,7 +87,6 @@ export default function StudentLoginForm({ onLogin, loading, error, onSwitchToRe
           borderRadius: '14px',
           fontSize: '15px',
           marginTop: '8px',
-          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.45)',
           opacity: loading ? 0.7 : 1,
           cursor: 'pointer',
           transition: 'all 0.2s ease'
