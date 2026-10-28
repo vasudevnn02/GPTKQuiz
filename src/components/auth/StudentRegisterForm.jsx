@@ -7,7 +7,11 @@ export default function StudentRegisterForm({ onRegister, loading, error, onSwit
   const [rollNo, setRollNo] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordFocused, setPasswordFocused] = useState(false);
   const [localErr, setLocalErr] = useState('');
+
+  const showConfirm = Boolean(password.length > 0 || passwordFocused);
+  const isMatch = password.length > 0 && confirmPassword.length > 0 && password === confirmPassword;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -71,7 +75,7 @@ export default function StudentRegisterForm({ onRegister, loading, error, onSwit
         </div>
       </div>
 
-      {/* Password */}
+      {/* Create Password */}
       <div>
         <label style={{ display: 'block', fontSize: '13px', fontWeight: 800, color: '#ffffff', marginBottom: '7px' }}>
           Create Password
@@ -84,29 +88,57 @@ export default function StudentRegisterForm({ onRegister, loading, error, onSwit
             type="password"
             required
             value={password}
+            onFocus={() => setPasswordFocused(true)}
+            onBlur={() => setPasswordFocused(false)}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
+            placeholder="Password (min. 4 characters)"
             style={{ width: '100%', paddingLeft: '44px' }}
           />
         </div>
       </div>
 
-      {/* Re-enter Password */}
-      <div>
-        <label style={{ display: 'block', fontSize: '13px', fontWeight: 800, color: '#ffffff', marginBottom: '7px' }}>
-          Re-enter Password
-        </label>
+      {/* Re-enter Password (Reveals dynamically when user clicks or types password) */}
+      <div style={{
+        maxHeight: showConfirm ? '110px' : '0px',
+        opacity: showConfirm ? 1 : 0,
+        transform: showConfirm ? 'translateY(0)' : 'translateY(-6px)',
+        overflow: 'hidden',
+        transition: 'all 0.32s cubic-bezier(0.16, 1, 0.3, 1)',
+        pointerEvents: showConfirm ? 'auto' : 'none',
+      }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '7px' }}>
+          <label style={{ fontSize: '13px', fontWeight: 800, color: '#ffffff' }}>
+            Re-enter Password
+          </label>
+          {confirmPassword.length > 0 && (
+            <span style={{
+              fontSize: '11px',
+              fontWeight: 700,
+              color: isMatch ? '#4ade80' : 'rgba(255, 255, 255, 0.55)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px'
+            }}>
+              {isMatch ? '✓ Passwords match' : 'Must match'}
+            </span>
+          )}
+        </div>
         <div style={{ position: 'relative' }}>
           <span style={{ position: 'absolute', left: '14px', top: '13px', width: '20px', height: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <LockIcon size={16} color="#38bdf8" />
+            <LockIcon size={16} color={isMatch ? '#4ade80' : '#38bdf8'} />
           </span>
           <input
             type="password"
-            required
+            required={showConfirm}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             placeholder="Confirm Password"
-            style={{ width: '100%', paddingLeft: '44px' }}
+            style={{
+              width: '100%',
+              paddingLeft: '44px',
+              borderColor: isMatch ? 'rgba(74, 222, 128, 0.6)' : undefined,
+              boxShadow: isMatch ? '0 0 12px rgba(74, 222, 128, 0.25)' : undefined
+            }}
           />
         </div>
       </div>
