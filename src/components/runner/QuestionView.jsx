@@ -21,8 +21,7 @@ export default function QuestionView({
     <div style={{ maxWidth: '860px', width: '100%', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '20px' }}>
       
       {/* ── QUESTION STATEMENT GLASS CARD ── */}
-      <div style={{
-        ...glassDeep,
+      <div className="liqglass-deep" style={{
         borderRadius: '26px',
         padding: '28px 32px',
         position: 'relative'
@@ -78,23 +77,27 @@ export default function QuestionView({
             <button
               key={idx}
               onClick={() => onSelectOption(idx)}
+              className={isSelected ? 'liqglass' : 'liqglass'}
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: '16px',
                 padding: '16px 22px',
-                border: isSelected ? '3px solid #38bdf8' : '3px solid hsl(0, 0%, 100%, 0.3)',
-                background: isSelected ? 'hsla(199, 89%, 48%, 0.25)' : 'hsl(0, 0%, 100%, 0.2)',
-                backdropFilter: 'blur(2px)',
-                WebkitBackdropFilter: 'blur(2px)',
+                outline: isSelected
+                  ? '2px solid rgba(56,189,248,0.85) !important'
+                  : undefined,
+                background: isSelected
+                  ? 'linear-gradient(158deg, rgba(56,189,248,0.30) 0%, rgba(2,132,199,0.14) 60%, rgba(56,189,248,0.06) 100%) !important'
+                  : undefined,
                 borderRadius: '22px',
                 textAlign: 'left',
                 color: '#ffffff',
                 boxShadow: isSelected
-                  ? '0 0 16px rgba(56, 189, 248, 0.4), 0 8px 24px rgba(0, 0, 0, 0.2)'
-                  : '0 8px 24px rgba(0, 0, 0, 0.2)',
-                transition: 'all 0.18s cubic-bezier(0.16, 1, 0.3, 1)',
-                cursor: 'pointer'
+                  ? '0 0 28px rgba(56,189,248,0.45), 0 32px 72px rgba(0,0,0,0.55), 0 8px 24px rgba(0,0,0,0.35), inset 0 2.5px 2px 0 rgba(255,255,255,0.90), inset 0 -1.5px 2px 0 rgba(56,189,248,0.35) !important'
+                  : undefined,
+                transition: 'all 0.22s cubic-bezier(0.16, 1, 0.3, 1)',
+                cursor: 'pointer',
+                width: '100%',
               }}
             >
               {/* Option Letter Icon Circle */}

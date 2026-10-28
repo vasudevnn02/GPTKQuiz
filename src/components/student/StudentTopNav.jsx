@@ -12,15 +12,12 @@ export default function StudentTopNav({ user, onLogout, activeTab, onSelectTab }
   const initial = user?.name ? user.name.charAt(0).toUpperCase() : 'S';
 
   return (
-    <header style={{
-      ...glass,
+    <header className="liqglass" style={{
       borderRadius: 0,
-      borderTop: 'none',
-      borderLeft: 'none',
-      borderRight: 'none',
       position: 'sticky',
       top: 0,
       zIndex: 50,
+      animation: 'none',
     }}>
       {/* ── ROW 1: Brand + User + Exit ── */}
       <div style={{

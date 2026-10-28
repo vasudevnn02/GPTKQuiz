@@ -22,12 +22,7 @@ export default function ResultsTable({ results = {}, student, onViewBreakdown })
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {studentResults.map((r, i) => (
-            <div key={i} style={{
-              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%)',
-              backdropFilter: 'blur(28px) saturate(190%)',
-              WebkitBackdropFilter: 'blur(28px) saturate(190%)',
-              border: '1px solid rgba(255, 255, 255, 0.28)',
-              boxShadow: '0 20px 48px rgba(0,0,0,0.38), inset 0 1.5px 1px 0 rgba(255,255,255,0.65), inset 0 -1px 1px 0 rgba(255,255,255,0.12)',
+            <div key={i} className="liqglass" style={{
               borderRadius: '24px',
               padding: '24px',
             }}>

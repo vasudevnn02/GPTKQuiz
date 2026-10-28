@@ -12,12 +12,10 @@ export default function RunnerHeader({ quizTitle, currentIndex, totalQuestions, 
   const isTimeCritical = timeLeft < 120;
 
   return (
-    <header style={{
-      ...glass,
+    <header className="liqglass" style={{
       borderRadius: 0,
-      borderTop: 'none',
-      borderLeft: 'none',
-      borderRight: 'none',
+      outline: 'none !important',
+      borderBottom: '1px solid rgba(255,255,255,0.18)',
       height: '66px',
       display: 'flex',
       alignItems: 'center',

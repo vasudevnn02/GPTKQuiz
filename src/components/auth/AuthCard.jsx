@@ -20,17 +20,14 @@ export default function AuthCard({ onStudentLogin, onStudentRegister, onTeacherL
 
   return (
     <div style={{ minHeight: '100vh', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-      <div style={{
-        maxWidth: '440px',
-        width: '100%',
-        background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 100%)',
-        backdropFilter: 'blur(32px) saturate(200%)',
-        WebkitBackdropFilter: 'blur(32px) saturate(200%)',
-        border: '1px solid rgba(255, 255, 255, 0.32)',
-        boxShadow: '0 24px 60px rgba(0, 0, 0, 0.42), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.75), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.15)',
-        borderRadius: '28px',
-        padding: '38px 32px',
-      }}>
+      <div
+        className="liqglass-deep"
+        style={{
+          maxWidth: '440px',
+          width: '100%',
+          borderRadius: '28px',
+          padding: '38px 32px',
+        }}>
         {/* Portal Header */}
         <div style={{ textAlign: 'center', marginBottom: '24px' }}>
           <h1 style={{ fontSize: '28px', fontWeight: 800, letterSpacing: '-0.5px', color: '#ffffff', margin: 0, fontFamily: 'var(--font-ny)' }}>

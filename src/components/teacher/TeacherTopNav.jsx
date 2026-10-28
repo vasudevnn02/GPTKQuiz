@@ -8,12 +8,9 @@ export default function TeacherTopNav({ admin, activeTab, onSelectTab, onLogout 
   const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
 
   return (
-    <header style={{
+    <header className="liqglass" style={{
       ...glass,
       borderRadius: 0,
-      borderTop: 'none',
-      borderLeft: 'none',
-      borderRight: 'none',
       height: '64px',
       display: 'flex',
       alignItems: 'center',
@@ -22,6 +19,7 @@ export default function TeacherTopNav({ admin, activeTab, onSelectTab, onLogout 
       position: 'sticky',
       top: 0,
       zIndex: 50,
+      animation: 'none',
     }}>
       {/* 1. Left: Brand Logo & Title */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>

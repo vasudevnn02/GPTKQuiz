@@ -15,9 +15,8 @@ export default function QuestionRail({
   const allAnswered = totalCount > 0 && answeredCount === totalCount;
 
   return (
-    <aside style={{
+    <aside className="liqglass-deep" style={{
       width: '280px',
-      ...glassDeep,
       borderRadius: '28px',
       padding: '26px 20px',
       display: 'flex',

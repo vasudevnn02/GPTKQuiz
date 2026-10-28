@@ -14,19 +14,14 @@ export default function QuizCardItem({ quiz, attendedResult, onStartExam, onView
 
   return (
     <div
+      className="liqglass"
       style={{
-        background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%)',
-        backdropFilter: 'blur(28px) saturate(190%)',
-        WebkitBackdropFilter: 'blur(28px) saturate(190%)',
-        border: '1px solid rgba(255, 255, 255, 0.28)',
-        boxShadow: '0 20px 48px rgba(0, 0, 0, 0.38), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.65), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.12)',
         borderRadius: '26px',
         padding: '24px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
         minHeight: '230px',
-        transition: 'all 0.25s ease',
         position: 'relative',
         userSelect: 'none'
       }}

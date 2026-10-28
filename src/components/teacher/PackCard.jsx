@@ -61,13 +61,9 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
     <>
       {/* ── COMPACT TRANSPARENT GLASS SQUARE CARD ── */}
       <div
+        className="liqglass"
         onClick={() => setShowModal(true)}
         style={{
-          background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%)',
-          backdropFilter: 'blur(28px) saturate(190%)',
-          WebkitBackdropFilter: 'blur(28px) saturate(190%)',
-          border: '1px solid rgba(255, 255, 255, 0.28)',
-          boxShadow: '0 20px 48px rgba(0, 0, 0, 0.38), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.65), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.12)',
           borderRadius: '26px',
           padding: '22px 24px',
           display: 'flex',
@@ -76,7 +72,6 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
           minHeight: '220px',
           cursor: 'pointer',
           position: 'relative',
-          transition: 'all 0.25s ease',
           userSelect: 'none'
         }}
       >
@@ -238,9 +233,9 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
           }}
         >
           <div
+            className="liqglass-deep"
             onClick={(e) => e.stopPropagation()}
             style={{
-              ...glassDeep,
               borderRadius: '26px',
               maxWidth: '920px',
               width: '100%',

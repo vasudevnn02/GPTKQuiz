@@ -91,15 +91,16 @@ export default function QuestionEditModal({ question, currentQuiz, answerKeys = 
       justifyContent: 'center',
       padding: '20px'
     }}>
-      <div style={{
-        maxWidth: '720px',
-        width: '100%',
-        maxHeight: '92vh',
-        overflowY: 'auto',
-        ...glassDeep,
-        borderRadius: '26px',
-        padding: '32px'
-      }}>
+      <div
+        className="liqglass-deep"
+        style={{
+          maxWidth: '720px',
+          width: '100%',
+          maxHeight: '92vh',
+          overflowY: 'auto',
+          borderRadius: '26px',
+          padding: '32px'
+        }}>
 
         {/* Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '22px' }}>
