@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { saveQuizQuestions } from '../../services/firebase.js';
 import { glassDeep, glassBtn } from '../../glass.js';
 import AiQuestionImporter from './AiQuestionImporter.jsx';
@@ -78,18 +79,24 @@ export default function QuestionEditModal({ question, currentQuiz, answerKeys = 
     return copy;
   });
 
-  return (
+  const modalJsx = (
     <div style={{
       position: 'fixed',
-      inset: 0,
-      zIndex: 200,
-      background: 'rgba(2, 6, 23, 0.58)',
-      backdropFilter: 'blur(22px)',
-      WebkitBackdropFilter: 'blur(22px)',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      width: '100vw',
+      height: '100vh',
+      zIndex: 99999,
+      background: 'rgba(2, 6, 23, 0.72)',
+      backdropFilter: 'blur(16px)',
+      WebkitBackdropFilter: 'blur(16px)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '20px'
+      padding: '20px',
+      boxSizing: 'border-box'
     }}>
       <div
         className="liqglass-deep"
@@ -496,4 +503,8 @@ export default function QuestionEditModal({ question, currentQuiz, answerKeys = 
       </div>
     </div>
   );
+
+  return typeof document !== 'undefined'
+    ? createPortal(modalJsx, document.body)
+    : modalJsx;
 }

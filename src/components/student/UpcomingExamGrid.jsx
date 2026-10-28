@@ -6,7 +6,7 @@ export default function UpcomingExamGrid({ quizzes = {}, results = {}, student }
   const quizList = Object.values(quizzes);
 
   // Scheduled / upcoming quizzes (those not live right now or date != today)
-  const scheduledFromQuizzes = quizList.filter((quiz) => {
+  const allScheduled = quizList.filter((quiz) => {
     const key = `${student?.rollNo}_${quiz.id}`;
     const isAttended = Boolean(results[key]);
     if (isAttended) return false;
@@ -27,40 +27,29 @@ export default function UpcomingExamGrid({ quizzes = {}, results = {}, student }
     };
   });
 
-  // Department scheduled curricular roster
-  const defaultDepartmentSchedule = [
-    {
-      id: 'up_01',
-      title: 'Database Management Systems (DBMS) - SQL & Normalization',
-      course: 'Computer Science and Engineering',
-      date: 'Tomorrow',
-      timeWindow: '10:00 AM – 05:00 PM',
-      duration: '20 Mins',
-      questionsCount: 20,
-      statusLabel: 'Scheduled Tomorrow'
-    },
-    {
-      id: 'up_02',
-      title: 'Operating Systems - Process Scheduling & Deadlocks',
-      course: 'Computer Science and Engineering',
-      date: 'Friday',
-      timeWindow: '10:00 AM – 05:00 PM',
-      duration: '15 Mins',
-      questionsCount: 15,
-      statusLabel: 'Scheduled Friday'
-    }
-  ];
-
-  const allScheduled = [...scheduledFromQuizzes, ...defaultDepartmentSchedule];
-
   return (
     <div>
-      {/* ── SQUARE CARD GRID (Matching QuizCardItem) ── */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-        gap: '22px'
-      }}>
+      {allScheduled.length === 0 ? (
+        <div className="liqglass" style={{
+          borderRadius: '24px',
+          padding: '48px 32px',
+          textAlign: 'center',
+          maxWidth: '520px',
+          margin: '30px auto'
+        }}>
+          <div style={{ fontSize: '16px', fontWeight: 800, color: '#ffffff', marginBottom: '6px' }}>
+            No Scheduled Assessments
+          </div>
+          <div style={{ fontSize: '13px', color: 'rgba(255, 255, 255, 0.65)' }}>
+            All active quizzes are currently available in the Exam Center.
+          </div>
+        </div>
+      ) : (
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+          gap: '22px'
+        }}>
         {allScheduled.map((item) => (
           <div
             key={item.id}
@@ -203,6 +192,7 @@ export default function UpcomingExamGrid({ quizzes = {}, results = {}, student }
           </div>
         ))}
       </div>
+      )}
     </div>
   );
 }

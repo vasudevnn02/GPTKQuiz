@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import {
   AVATAR_CATEGORIES,
   AVATAR_DEFINITIONS,
@@ -29,20 +30,26 @@ export default function AvatarPickerModal({ student, onClose, onAvatarSelected }
     if (onAvatarSelected) onAvatarSelected(png);
   };
 
-  return (
+  const modalNode = (
     <div
       onClick={onClose}
       style={{
         position: 'fixed',
-        inset: 0,
-        zIndex: 200,
-        background: 'rgba(2, 6, 23, 0.65)',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: '100vw',
+        height: '100vh',
+        zIndex: 999999,
+        background: 'rgba(2, 6, 23, 0.72)',
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '20px'
+        padding: '24px',
+        boxSizing: 'border-box'
       }}
     >
       <div
@@ -52,12 +59,14 @@ export default function AvatarPickerModal({ student, onClose, onAvatarSelected }
           ...glassDeep,
           maxWidth: '680px',
           width: '100%',
-          maxHeight: '88vh',
+          maxHeight: '84vh',
           borderRadius: '26px',
           display: 'flex',
           flexDirection: 'column',
           overflow: 'hidden',
-          padding: 0
+          padding: 0,
+          margin: 'auto',
+          boxShadow: '0 28px 72px rgba(0, 0, 0, 0.7), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.65)'
         }}
       >
         {/* Modal Header */}
@@ -255,4 +264,8 @@ export default function AvatarPickerModal({ student, onClose, onAvatarSelected }
       </div>
     </div>
   );
+
+  return typeof document !== 'undefined'
+    ? createPortal(modalNode, document.body)
+    : modalNode;
 }

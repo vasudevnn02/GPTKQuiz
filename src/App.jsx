@@ -94,11 +94,11 @@ export default function App() {
                     fontSize: '13px',
                     fontWeight: teacherTab === 'quizzes' ? 800 : 600,
                     background: teacherTab === 'quizzes'
-                      ? 'linear-gradient(135deg, rgba(56,189,248,0.35) 0%, rgba(2,132,199,0.35) 100%)'
+                      ? 'rgba(56, 189, 248, 0.22)'
                       : 'transparent',
                     color: teacherTab === 'quizzes' ? '#ffffff' : 'rgba(255, 255, 255, 0.7)',
-                    border: teacherTab === 'quizzes' ? '1px solid rgba(56,189,248,0.55)' : '1px solid transparent',
-                    boxShadow: teacherTab === 'quizzes' ? '0 2px 12px rgba(56,189,248,0.25), inset 0 1px 0 rgba(255,255,255,0.3)' : 'none',
+                    border: teacherTab === 'quizzes' ? '1px solid rgba(56, 189, 248, 0.55)' : '1px solid transparent',
+                    boxShadow: teacherTab === 'quizzes' ? '0 2px 12px rgba(56, 189, 248, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.35)' : 'none',
                     transition: 'all 0.18s ease'
                   }}
                 >
@@ -113,11 +113,11 @@ export default function App() {
                     fontSize: '13px',
                     fontWeight: teacherTab === 'results' ? 800 : 600,
                     background: teacherTab === 'results'
-                      ? 'linear-gradient(135deg, rgba(56,189,248,0.35) 0%, rgba(2,132,199,0.35) 100%)'
+                      ? 'rgba(56, 189, 248, 0.22)'
                       : 'transparent',
                     color: teacherTab === 'results' ? '#ffffff' : 'rgba(255, 255, 255, 0.7)',
-                    border: teacherTab === 'results' ? '1px solid rgba(56,189,248,0.55)' : '1px solid transparent',
-                    boxShadow: teacherTab === 'results' ? '0 2px 12px rgba(56,189,248,0.25), inset 0 1px 0 rgba(255,255,255,0.3)' : 'none',
+                    border: teacherTab === 'results' ? '1px solid rgba(56, 189, 248, 0.55)' : '1px solid transparent',
+                    boxShadow: teacherTab === 'results' ? '0 2px 12px rgba(56, 189, 248, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.35)' : 'none',
                     transition: 'all 0.18s ease',
                     display: 'flex',
                     alignItems: 'center',

@@ -31,12 +31,12 @@ function GlassDropdown({ label, value, options = [], onChange }) {
         type="button"
         onClick={() => setOpen(prev => !prev)}
         style={{
-          background: open ? 'rgba(255, 255, 255, 0.16)' : 'rgba(255, 255, 255, 0.08)',
-          backdropFilter: 'blur(24px)',
-          WebkitBackdropFilter: 'blur(24px)',
-          border: open ? '1px solid rgba(56, 189, 248, 0.5)' : '1px solid rgba(255, 255, 255, 0.22)',
+          background: open ? 'rgba(255, 255, 255, 0.12)' : 'rgba(255, 255, 255, 0.05)',
+          backdropFilter: 'blur(6px)',
+          WebkitBackdropFilter: 'blur(6px)',
+          border: open ? '1px solid rgba(56, 189, 248, 0.5)' : '1px solid rgba(255, 255, 255, 0.18)',
           borderRadius: '13px',
-          padding: '8px 14px',
+          padding: '7px 14px',
           fontSize: '12px',
           fontWeight: 700,
           color: current.color || '#ffffff',
@@ -203,19 +203,17 @@ export default function StudentScoreboard({ results = {}, quizzes = {} }) {
   }, [resultList, selectedQuiz, sortOrder, statusFilter]);
 
   return (
-    <div style={{
-      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%)',
-      backdropFilter: 'blur(30px) saturate(190%)',
-      WebkitBackdropFilter: 'blur(30px) saturate(190%)',
-      border: '1px solid rgba(255, 255, 255, 0.28)',
-      borderRadius: '26px',
-      boxShadow: '0 24px 60px rgba(0, 0, 0, 0.4), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.7), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.12)',
-      overflow: 'visible'
-    }}>
+    <div
+      className="liqglass"
+      style={{
+        borderRadius: '26px',
+        overflow: 'visible'
+      }}
+    >
       {/* ── CARD HEADER TOOLBAR WITH GLASS DROPDOWNS ON THE RIGHT EDGE ── */}
       <div style={{
         padding: '20px 26px',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -288,17 +286,18 @@ export default function StudentScoreboard({ results = {}, quizzes = {} }) {
           textAlign: 'center'
         }}>
           <div style={{
-            width: '56px',
-            height: '56px',
-            borderRadius: '18px',
-            background: 'rgba(255, 255, 255, 0.08)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
+            width: '52px',
+            height: '52px',
+            borderRadius: '16px',
+            background: 'rgba(56, 189, 248, 0.12)',
+            border: '1px solid rgba(56, 189, 248, 0.35)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            margin: '0 auto 16px'
+            margin: '0 auto 16px',
+            boxShadow: '0 0 16px rgba(56, 189, 248, 0.2)'
           }}>
-            <AwardIcon size={26} color="rgba(255,255,255,0.95)" />
+            <AwardIcon size={24} color="#38bdf8" />
           </div>
           <div style={{ fontSize: '16px', fontWeight: 700, color: '#ffffff' }}>
             {resultList.length === 0 ? 'No candidate submissions yet' : 'No submissions matching selected filters'}

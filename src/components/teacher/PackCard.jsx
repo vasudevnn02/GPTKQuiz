@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { ref, set, update } from 'firebase/database';
 import { rtdb, deleteQuizPack, saveQuizQuestions } from '../../services/firebase.js';
 import {
@@ -16,6 +17,8 @@ import { glassDeep, glassInner, glassBtn } from '../../glass.js';
 
 export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImport, onUpdated }) {
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [editSched, setEditSched] = useState(false);
   const [expandedQId, setExpandedQId] = useState(null);
   const [start, setStart] = useState(quiz.windowStart || '10:00 AM');
@@ -50,10 +53,15 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
     if (onUpdated) onUpdated();
   };
 
-  const deletePack = async (e) => {
-    e.stopPropagation();
-    if (!window.confirm(`Delete quiz set "${quiz.title}" and all its questions?`)) return;
-    await deleteQuizPack(quiz.id);
+  const handleConfirmDelete = async () => {
+    setDeleting(true);
+    try {
+      await deleteQuizPack(quiz.id);
+    } catch (err) {
+      console.warn("Delete error:", err);
+    }
+    setDeleting(false);
+    setShowDeleteConfirm(false);
     if (onUpdated) onUpdated();
   };
 
@@ -107,7 +115,10 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
               </span>
 
               <button
-                onClick={deletePack}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowDeleteConfirm(true);
+                }}
                 title="Delete Quiz Set"
                 style={{
                   ...glassBtn,
@@ -216,20 +227,26 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
       </div>
 
       {/* ── QUESTION & OPTIONS INSPECTOR MODAL ── */}
-      {showModal && (
+      {showModal && typeof document !== 'undefined' && createPortal(
         <div
           onClick={() => setShowModal(false)}
           style={{
             position: 'fixed',
-            inset: 0,
-            zIndex: 1000,
-            background: 'rgba(2, 6, 23, 0.58)',
-            backdropFilter: 'blur(22px)',
-            WebkitBackdropFilter: 'blur(22px)',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            width: '100vw',
+            height: '100vh',
+            zIndex: 99999,
+            background: 'rgba(2, 6, 23, 0.72)',
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '24px'
+            padding: '24px',
+            boxSizing: 'border-box'
           }}
         >
           <div
@@ -239,10 +256,12 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
               borderRadius: '26px',
               maxWidth: '920px',
               width: '100%',
-              maxHeight: '88vh',
+              maxHeight: '86vh',
               display: 'flex',
               flexDirection: 'column',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              margin: 'auto',
+              boxShadow: '0 28px 72px rgba(0, 0, 0, 0.7)'
             }}
           >
             {/* Modal Header */}
@@ -485,7 +504,107 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
               )}
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
+      )}
+
+      {/* ── IN-APP GLASS DELETE CONFIRMATION MODAL ── */}
+      {showDeleteConfirm && typeof document !== 'undefined' && createPortal(
+        <div
+          onClick={() => setShowDeleteConfirm(false)}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            width: '100vw',
+            height: '100vh',
+            zIndex: 999999,
+            background: 'rgba(2, 6, 23, 0.75)',
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px',
+            boxSizing: 'border-box'
+          }}
+        >
+          <div
+            className="liqglass-deep"
+            onClick={e => e.stopPropagation()}
+            style={{
+              ...glassDeep,
+              maxWidth: '440px',
+              width: '100%',
+              borderRadius: '24px',
+              padding: '28px',
+              textAlign: 'center',
+              margin: 'auto',
+              boxShadow: '0 28px 72px rgba(0, 0, 0, 0.75), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.65)'
+            }}
+          >
+            <div style={{
+              width: '52px',
+              height: '52px',
+              borderRadius: '16px',
+              background: 'rgba(239, 68, 68, 0.15)',
+              border: '1px solid rgba(239, 68, 68, 0.4)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 16px',
+              color: '#f87171'
+            }}>
+              <TrashIcon size={24} color="#f87171" />
+            </div>
+
+            <h3 style={{ fontSize: '19px', fontWeight: 800, color: '#ffffff', marginBottom: '8px' }}>
+              Delete Quiz Set?
+            </h3>
+            <p style={{ fontSize: '13px', color: 'rgba(255, 255, 255, 0.65)', lineHeight: '1.5', marginBottom: '22px' }}>
+              Are you sure you want to permanently delete <strong style={{ color: '#ffffff' }}>"{quiz.title}"</strong> and all its {questions.length} questions from the database?
+            </p>
+
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+              <button
+                type="button"
+                onClick={() => setShowDeleteConfirm(false)}
+                disabled={deleting}
+                style={{
+                  ...glassBtn,
+                  padding: '10px 20px',
+                  borderRadius: '12px',
+                  fontSize: '13px',
+                  fontWeight: 700
+                }}
+              >
+                Cancel
+              </button>
+
+              <button
+                type="button"
+                onClick={handleConfirmDelete}
+                disabled={deleting}
+                style={{
+                  background: 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)',
+                  border: '1px solid rgba(248, 113, 113, 0.6)',
+                  color: '#ffffff',
+                  padding: '10px 24px',
+                  borderRadius: '12px',
+                  fontSize: '13px',
+                  fontWeight: 800,
+                  cursor: 'pointer',
+                  boxShadow: '0 4px 18px rgba(220, 38, 38, 0.4)'
+                }}
+              >
+                {deleting ? 'Deleting...' : 'Delete Permanently'}
+              </button>
+            </div>
+          </div>
+        </div>,
+        document.body
       )}
     </>
   );
