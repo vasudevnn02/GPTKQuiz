@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { ref, set } from 'firebase/database';
 import { rtdb } from '../../services/firebase.js';
 import { glassDeep, glassBtn } from '../../glass.js';
@@ -31,9 +32,15 @@ Answer: B
 
 (Continue numbering consecutively from 1 to ${questionCount}).`;
 
-  const handleCopyAndProceed = async () => {
+  const handleCopyAndProceed = async (e) => {
+    e?.preventDefault();
+    e?.stopPropagation();
     try {
-      await navigator.clipboard.writeText(generatedPrompt);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(generatedPrompt);
+      } else {
+        throw new Error('Fallback clipboard');
+      }
     } catch {
       const ta = document.createElement('textarea');
       ta.value = generatedPrompt;
@@ -46,7 +53,23 @@ Answer: B
     setTimeout(() => {
       setCopied(false);
       setStep('paste');
-    }, 600);
+    }, 450);
+  };
+
+  const handlePasteFromClipboard = async (e) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+    try {
+      if (navigator.clipboard && navigator.clipboard.readText) {
+        const text = await navigator.clipboard.readText();
+        if (text) {
+          setPastedText(text);
+          parsePastedContent(text);
+        }
+      }
+    } catch (err) {
+      console.warn("Direct clipboard read unavailable:", err);
+    }
   };
 
   const parsePastedContent = (raw) => {
@@ -296,14 +319,37 @@ Answer: B
 
       {/* ── STEP 2: PASTE & IMPORT ── */}
       {step === 'paste' && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div
+          onClick={e => e.stopPropagation()}
+          style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
+        >
           <div>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 800, color: '#ffffff', marginBottom: '6px' }}>
-              Paste AI Output (formatted 1. Question... A) ... B) ... Answer: A)
-            </label>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', flexWrap: 'wrap', gap: '8px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 800, color: '#ffffff', margin: 0 }}>
+                Paste AI Output (formatted 1. Question... A) ... B) ... Answer: A)
+              </label>
+              <button
+                type="button"
+                onClick={handlePasteFromClipboard}
+                style={{
+                  ...glassBtn,
+                  padding: '6px 14px',
+                  borderRadius: '10px',
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  cursor: 'pointer'
+                }}
+              >
+                <span>📋</span> Paste from Clipboard
+              </button>
+            </div>
             <textarea
               rows={7}
               value={pastedText}
+              onClick={e => e.stopPropagation()}
               onChange={e => {
                 setPastedText(e.target.value);
                 parsePastedContent(e.target.value);
@@ -413,30 +459,40 @@ Answer: B
     return content;
   }
 
-  return (
-    <div style={{
-      position: 'fixed',
-      inset: 0,
-      zIndex: 200,
-      background: 'rgba(2, 6, 23, 0.58)',
-      backdropFilter: 'blur(22px)',
-      WebkitBackdropFilter: 'blur(22px)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '20px'
-    }}>
-      <div style={{
-        maxWidth: '720px',
-        width: '100%',
-        maxHeight: '92vh',
-        overflowY: 'auto',
-        ...glassDeep,
-        borderRadius: '26px',
-        padding: '32px',
-        border: '1px solid rgba(255, 255, 255, 0.22)',
-        boxShadow: '0 24px 64px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35)'
-      }}>
+  const modalNode = (
+    <div
+      onClick={(e) => {
+        e.stopPropagation();
+        onClose();
+      }}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 9999999,
+        background: 'rgba(2, 6, 23, 0.78)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '20px',
+        boxSizing: 'border-box'
+      }}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          maxWidth: '720px',
+          width: '100%',
+          maxHeight: '92vh',
+          overflowY: 'auto',
+          ...glassDeep,
+          borderRadius: '26px',
+          padding: '32px',
+          border: '1px solid rgba(255, 255, 255, 0.22)',
+          boxShadow: '0 24px 64px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.35)'
+        }}
+      >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '22px' }}>
           <div>
             <h3 style={{ fontSize: '20px', fontWeight: 800, color: '#ffffff', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -448,8 +504,11 @@ Answer: B
           </div>
           <button
             type="button"
-            onClick={onClose}
-            style={{ ...glassBtn, padding: '8px 14px', borderRadius: '12px', fontSize: '12px', fontWeight: 700 }}
+            onClick={(e) => {
+              e.stopPropagation();
+              onClose();
+            }}
+            style={{ ...glassBtn, padding: '8px 14px', borderRadius: '12px', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}
           >
             ✕ Close
           </button>
@@ -458,4 +517,8 @@ Answer: B
       </div>
     </div>
   );
+
+  return typeof document !== 'undefined'
+    ? createPortal(modalNode, document.body)
+    : modalNode;
 }

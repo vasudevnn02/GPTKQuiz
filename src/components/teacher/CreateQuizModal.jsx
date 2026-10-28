@@ -46,6 +46,7 @@ export default function CreateQuizModal({ onClose, onSaved }) {
   const [duration, setDuration] = useState(15);
   const [saving, setSaving] = useState(false);
   const [showAiModal, setShowAiModal] = useState(false);
+  const [validationError, setValidationError] = useState('');
 
   const [questionsList, setQuestionsList] = useState([
     {
@@ -60,6 +61,7 @@ export default function CreateQuizModal({ onClose, onSaved }) {
   const computedEnd = computeEndTime(start, duration);
 
   const handleAddQuestion = () => {
+    setValidationError('');
     setQuestionsList(prev => [
       ...prev,
       {
@@ -73,11 +75,21 @@ export default function CreateQuizModal({ onClose, onSaved }) {
   };
 
   const handleRemoveQuestion = (idxToRemove) => {
-    if (questionsList.length <= 1) return;
+    if (questionsList.length <= 1) {
+      setQuestionsList([{
+        id: `q_${Date.now()}_0`,
+        text: '',
+        options: ['', '', '', ''],
+        correctIdx: 0,
+        explanation: ''
+      }]);
+      return;
+    }
     setQuestionsList(prev => prev.filter((_, idx) => idx !== idxToRemove));
   };
 
   const handleUpdateQuestionText = (idx, text) => {
+    setValidationError('');
     setQuestionsList(prev => {
       const copy = [...prev];
       copy[idx] = { ...copy[idx], text };
@@ -86,6 +98,7 @@ export default function CreateQuizModal({ onClose, onSaved }) {
   };
 
   const handleUpdateOption = (qIdx, optIdx, val) => {
+    setValidationError('');
     setQuestionsList(prev => {
       const copy = [...prev];
       const opts = [...copy[qIdx].options];
@@ -113,6 +126,7 @@ export default function CreateQuizModal({ onClose, onSaved }) {
 
   const handleImportedFromAi = (importedQuestions) => {
     if (!importedQuestions || importedQuestions.length === 0) return;
+    setValidationError('');
     const formatted = importedQuestions.map((q, idx) => ({
       id: q.id || `q_ai_${Date.now()}_${idx}`,
       text: q.text || q.question || '',
@@ -135,8 +149,25 @@ export default function CreateQuizModal({ onClose, onSaved }) {
 
   const handleSaveQuiz = async (e) => {
     e?.preventDefault();
+    setValidationError('');
+
     if (!title.trim()) {
-      alert('Please enter a Quiz Title.');
+      setValidationError('Please enter a Quiz Title.');
+      return;
+    }
+
+    // Filter valid questions: must have question text and at least 2 non-empty options
+    const validQuestions = questionsList.filter(q => {
+      const hasText = Boolean(q.text && q.text.trim().length > 0);
+      const filledOptions = (q.options || []).filter(opt => {
+        const str = typeof opt === 'string' ? opt : (opt?.text || '');
+        return str.trim().length > 0;
+      });
+      return hasText && filledOptions.length >= 2;
+    });
+
+    if (validQuestions.length === 0) {
+      setValidationError('Cannot save quiz without questions: Please enter at least 1 complete question (with question prompt and at least 2 options), or use "Import from AI".');
       return;
     }
 
@@ -151,12 +182,15 @@ export default function CreateQuizModal({ onClose, onSaved }) {
       windowEnd: computedEnd,
       durationMinutes: Number(duration) || 15,
       status: 'active',
-      questions: questionsList.map((q, idx) => ({
+      questions: validQuestions.map((q, idx) => ({
         id: q.id || `q_${quizId}_${idx}`,
-        text: q.text.trim() || `Question #${idx + 1}`,
-        question: q.text.trim() || `Question #${idx + 1}`,
-        options: q.options.map((opt, oIdx) => opt.trim() || `Option ${String.fromCharCode(65 + oIdx)}`),
-        correctIndex: q.correctIdx,
+        text: q.text.trim(),
+        question: q.text.trim(),
+        options: q.options.map((opt, oIdx) => {
+          const str = typeof opt === 'string' ? opt.trim() : (opt?.text?.trim() || '');
+          return str || `Option ${String.fromCharCode(65 + oIdx)}`;
+        }),
+        correctIndex: typeof q.correctIdx === 'number' ? q.correctIdx : 0,
         explanation: q.explanation?.trim() || ''
       }))
     };
@@ -210,8 +244,9 @@ export default function CreateQuizModal({ onClose, onSaved }) {
   };
 
   const modalNode = (
-    <div
-      onClick={onClose}
+    <>
+      <div
+        onClick={onClose}
       style={{
         position: 'fixed',
         inset: 0,
@@ -578,6 +613,26 @@ export default function CreateQuizModal({ onClose, onSaved }) {
           </div>
         </div>
 
+        {/* Validation Error Banner */}
+        {validationError && (
+          <div style={{
+            margin: '0 28px 12px',
+            padding: '12px 18px',
+            borderRadius: '12px',
+            background: 'rgba(239, 68, 68, 0.16)',
+            border: '1px solid rgba(239, 68, 68, 0.45)',
+            color: '#fca5a5',
+            fontSize: '13px',
+            fontWeight: 700,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px'
+          }}>
+            <span style={{ fontSize: '16px' }}>⚠️</span>
+            <span>{validationError}</span>
+          </div>
+        )}
+
         {/* ── Modal Footer (Matching Screenshot 2) ── */}
         <div style={{
           padding: '16px 28px',
@@ -628,16 +683,17 @@ export default function CreateQuizModal({ onClose, onSaved }) {
           </button>
         </div>
       </div>
-
-      {/* ── AI Import Submodal (Image 1) ── */}
-      {showAiModal && (
-        <AiQuestionImporter
-          currentQuiz={{ title: title || 'Examination Set' }}
-          onClose={() => setShowAiModal(false)}
-          onImportQuestions={handleImportedFromAi}
-        />
-      )}
     </div>
+
+    {/* ── AI Import Submodal (Sibling Portal: No click bubbling to quiz backdrop) ── */}
+    {showAiModal && (
+      <AiQuestionImporter
+        currentQuiz={{ title: title || 'Examination Set' }}
+        onClose={() => setShowAiModal(false)}
+        onImportQuestions={handleImportedFromAi}
+      />
+    )}
+  </>
   );
 
   return typeof document !== 'undefined'

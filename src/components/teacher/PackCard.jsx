@@ -45,6 +45,7 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
   const [deleting, setDeleting] = useState(false);
   const [saving, setSaving] = useState(false);
   const [showAiModal, setShowAiModal] = useState(false);
+  const [modalError, setModalError] = useState('');
 
   // Editable fields in modal
   const [title, setTitle] = useState(quiz.title || '');
@@ -125,29 +126,52 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
   // Save Modal Edits
   const handleSaveModal = async (e) => {
     e?.preventDefault();
+    setModalError('');
+    if (!title.trim()) {
+      setModalError('Please enter a Quiz Title.');
+      return;
+    }
+
+    const validQuestions = questionsList.filter(q => {
+      const hasText = Boolean(q.text && q.text.trim().length > 0);
+      const filledOptions = (q.options || []).filter(opt => {
+        const str = typeof opt === 'string' ? opt : (opt?.text || '');
+        return str.trim().length > 0;
+      });
+      return hasText && filledOptions.length >= 2;
+    });
+
+    if (validQuestions.length === 0) {
+      setModalError('Cannot save quiz without questions: Please enter at least 1 complete question (with question prompt and at least 2 options), or use "Import from AI".');
+      return;
+    }
+
     setSaving(true);
     const updatedPayload = {
       ...quiz,
       title: title.trim(),
-      course: course.trim(),
+      course: course.trim() || 'Computer Science',
       date,
       windowStart: start,
       windowEnd: computedEnd,
-      durationMinutes: Number(duration),
-      questions: questionsList.map(q => ({
-        id: q.id,
-        text: q.text,
-        question: q.text,
-        options: q.options,
-        correctIndex: q.correctIdx,
-        explanation: q.explanation
+      durationMinutes: Number(duration) || 15,
+      questions: validQuestions.map((q, idx) => ({
+        id: q.id || `q_${quiz.id}_${idx}`,
+        text: q.text.trim(),
+        question: q.text.trim(),
+        options: q.options.map((opt, oIdx) => {
+          const str = typeof opt === 'string' ? opt.trim() : (opt?.text?.trim() || '');
+          return str || `Option ${String.fromCharCode(65 + oIdx)}`;
+        }),
+        correctIndex: typeof q.correctIdx === 'number' ? q.correctIdx : 0,
+        explanation: q.explanation || ''
       }))
     };
 
     try {
       await update(ref(rtdb, `quizzes/${quiz.id}`), updatedPayload);
       const answerKeys = {};
-      questionsList.forEach(q => { answerKeys[q.id] = q.correctIdx; });
+      validQuestions.forEach(q => { answerKeys[q.id] = q.correctIndex; });
       await set(ref(rtdb, `quiz_keys/${quiz.id}`), answerKeys);
     } catch (err) {
       console.warn("RTDB update error:", err);
@@ -164,6 +188,7 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
 
   // Add question inside modal
   const handleAddQuestionLocal = () => {
+    setModalError('');
     setQuestionsList(prev => [
       ...prev,
       {
@@ -727,6 +752,26 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
               </div>
             </div>
 
+            {/* Error Banner */}
+            {modalError && (
+              <div style={{
+                margin: '0 28px 12px',
+                padding: '12px 18px',
+                borderRadius: '12px',
+                background: 'rgba(239, 68, 68, 0.16)',
+                border: '1px solid rgba(239, 68, 68, 0.45)',
+                color: '#fca5a5',
+                fontSize: '13px',
+                fontWeight: 700,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px'
+              }}>
+                <span style={{ fontSize: '16px' }}>⚠️</span>
+                <span>{modalError}</span>
+              </div>
+            )}
+
             {/* Modal Bottom Footer Actions */}
             <div style={{
               padding: '16px 28px',
@@ -773,16 +818,17 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
               </button>
             </div>
           </div>
-
-          {showAiModal && (
-            <AiQuestionImporter
-              currentQuiz={quiz}
-              onClose={() => setShowAiModal(false)}
-              onImportQuestions={handleImportedFromAi}
-            />
-          )}
         </div>,
         document.body
+      )}
+
+      {/* ── AI Import Submodal (Sibling Portal: No click bubbling to quiz backdrop) ── */}
+      {showAiModal && (
+        <AiQuestionImporter
+          currentQuiz={quiz}
+          onClose={() => setShowAiModal(false)}
+          onImportQuestions={handleImportedFromAi}
+        />
       )}
 
       {/* ── IN-APP DELETE CONFIRMATION MODAL ── */}
