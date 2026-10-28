@@ -309,7 +309,7 @@ export default function StudentScoreboard({ results = {}, quizzes = {} }) {
           </div>
         </div>
       ) : (
-        <div style={{ overflowX: 'auto', borderBottomLeftRadius: '26px', borderBottomRightRadius: '26px' }}>
+        <div className="thin-scrollbar" style={{ overflowX: 'auto', borderBottomLeftRadius: '26px', borderBottomRightRadius: '26px', paddingBottom: '4px' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
             <thead>
               <tr style={{
