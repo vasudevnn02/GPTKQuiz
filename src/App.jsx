@@ -23,6 +23,7 @@ import StudentScoreboard from './components/teacher/StudentScoreboard.jsx';
 import QuestionPackManager from './components/teacher/QuestionPackManager.jsx';
 import QuestionEditModal from './components/teacher/QuestionEditModal.jsx';
 import CreateQuizModal from './components/teacher/CreateQuizModal.jsx';
+import ShareResultsMenu from './components/teacher/ShareResultsMenu.jsx';
 
 const PAGE = { position: 'relative', zIndex: 1, minHeight: '100vh', display: 'flex', flexDirection: 'column' };
 
@@ -126,27 +127,31 @@ export default function App() {
                 </button>
               </div>
 
-              {/* Right: + Create New Quiz button (Matching Screenshot 1) */}
-              <button
-                onClick={() => setShowCreateModal(true)}
-                style={{
-                  background: '#0ea5e9',
-                  border: 'none',
-                  color: '#ffffff',
-                  padding: '11px 24px',
-                  borderRadius: '12px',
-                  fontSize: '13px',
-                  fontWeight: 800,
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease'
-                }}
-              >
-                <span style={{ fontSize: '16px', fontWeight: 800 }}>+</span>
-                <span>Create New Quiz</span>
-              </button>
+              {/* Right: + Create New Quiz button on Quizzes tab OR Share Results on Results tab */}
+              {teacherTab === 'quizzes' ? (
+                <button
+                  onClick={() => setShowCreateModal(true)}
+                  style={{
+                    background: '#0ea5e9',
+                    border: 'none',
+                    color: '#ffffff',
+                    padding: '11px 24px',
+                    borderRadius: '12px',
+                    fontSize: '13px',
+                    fontWeight: 800,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  <span style={{ fontSize: '16px', fontWeight: 800 }}>+</span>
+                  <span>Create New Quiz</span>
+                </button>
+              ) : (
+                <ShareResultsMenu results={results} quizzes={quizzes} />
+              )}
             </div>
 
             {/* Main Content Area based on Tab */}
