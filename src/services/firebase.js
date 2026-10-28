@@ -4,12 +4,14 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, si
 import { DEFAULT_STUDENTS, DEFAULT_QUIZ_KEYS } from './seedData.js';
 
 const firebaseConfig = {
-  projectId: "gptk-quiz",
-  databaseURL: "https://gptk-quiz-default-rtdb.asia-southeast1.firebasedatabase.app",
-  storageBucket: "gptk-quiz.firebasestorage.app",
-  apiKey: "AIzaSyA9ZCIUwY9y-yjZewp8z-6gfhJSftyslco",
-  authDomain: "gptk-quiz.firebaseapp.com",
-  appId: "1:709424873311:web:ddb7532cf293ac6057c0ea"
+  projectId: "gptkquiz197",
+  appId: "1:832322608968:web:8a26067ff48092f4d79d7d",
+  databaseURL: "https://gptkquiz197-default-rtdb.firebaseio.com",
+  storageBucket: "gptkquiz197.firebasestorage.app",
+  apiKey: "AIzaSyAGtt88Qjbkf48E3ljkbuVQ2HEY5ye7rnw",
+  authDomain: "gptkquiz197.firebaseapp.com",
+  messagingSenderId: "832322608968",
+  measurementId: "G-H3BE7ME5VZ"
 };
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApps()[0];
