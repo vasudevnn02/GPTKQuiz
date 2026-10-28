@@ -9,11 +9,10 @@ export default function ResultsTable({ results = {}, student, onViewBreakdown })
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
       {studentResults.length === 0 ? (
         <div style={{
-          flex: 1,
+          width: '100%',
           display: 'flex',
-          alignItems: 'center',
           justifyContent: 'center',
-          minHeight: 'calc(100vh - 160px)'
+          paddingTop: '36px'
         }}>
           <div className="liqglass" style={{
             borderRadius: '24px',
