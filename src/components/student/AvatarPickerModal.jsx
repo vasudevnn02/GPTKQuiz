@@ -7,27 +7,19 @@ import {
   saveStudentAvatar
 } from '../../utils/avatarGallery.js';
 import AvatarBubble from './AvatarBubble.jsx';
-import { XIcon, SearchIcon, SparklesIcon, CheckIcon } from '../icons/SvgIcons.jsx';
+import { XIcon, SparklesIcon, CheckIcon } from '../icons/SvgIcons.jsx';
 import { glassDeep, glassBtn } from '../../glass.js';
 
 export default function AvatarPickerModal({ student, onClose, onAvatarSelected }) {
   const [activeCategory, setActiveCategory] = useState('all');
-  const [search, setSearch] = useState('');
   const savedId = localStorage.getItem(`gptk_avatar_${student?.rollNo || 'student'}`);
   const [selectedId, setSelectedId] = useState(savedId || 'german_shepherd');
 
   const filteredAvatars = useMemo(() => {
-    const q = search.trim().toLowerCase();
     return AVATAR_DEFINITIONS.filter(a => {
-      const matchCat = activeCategory === 'all' || a.category === activeCategory;
-      const matchSearch =
-        !q ||
-        a.name.toLowerCase().includes(q) ||
-        a.shortName.toLowerCase().includes(q) ||
-        a.id.toLowerCase().includes(q);
-      return matchCat && matchSearch;
+      return activeCategory === 'all' || a.category === activeCategory;
     });
-  }, [activeCategory, search]);
+  }, [activeCategory]);
 
   const selectedAvatar = useMemo(() => {
     return getAvatarById(selectedId);
@@ -62,15 +54,6 @@ export default function AvatarPickerModal({ student, onClose, onAvatarSelected }
       }}
     >
       <style>{`
-        .avatar-scroll-hide {
-          scrollbar-width: none !important;
-          -ms-overflow-style: none !important;
-        }
-        .avatar-scroll-hide::-webkit-scrollbar {
-          display: none !important;
-          width: 0 !important;
-          height: 0 !important;
-        }
         .avatar-grid-scroll {
           scrollbar-width: thin;
           scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
@@ -107,7 +90,7 @@ export default function AvatarPickerModal({ student, onClose, onAvatarSelected }
           boxShadow: '0 32px 80px rgba(0, 0, 0, 0.8), inset 0 1px 1px 0 rgba(255, 255, 255, 0.5)'
         }}
       >
-        {/* ── Modal Header ── */}
+        {/* ── Modal Header (Clean, Search option removed) ── */}
         <div style={{
           padding: '20px 24px 16px 24px',
           borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
@@ -128,55 +111,6 @@ export default function AvatarPickerModal({ student, onClose, onAvatarSelected }
             </p>
           </div>
 
-          {/* Quick Search */}
-          <div style={{
-            position: 'relative',
-            display: 'flex',
-            alignItems: 'center',
-            maxWidth: '220px',
-            width: '100%'
-          }}>
-            <div style={{ position: 'absolute', left: '10px', pointerEvents: 'none', display: 'flex' }}>
-              <SearchIcon size={14} color="rgba(255, 255, 255, 0.45)" />
-            </div>
-            <input
-              type="text"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              placeholder="Search avatars..."
-              style={{
-                width: '100%',
-                background: 'rgba(255, 255, 255, 0.06)',
-                border: '1px solid rgba(255, 255, 255, 0.14)',
-                borderRadius: '12px',
-                padding: '7px 12px 7px 30px',
-                fontSize: '12px',
-                color: '#ffffff',
-                outline: 'none',
-                transition: 'border-color 0.15s ease'
-              }}
-              onFocus={e => (e.target.style.borderColor = '#38bdf8')}
-              onBlur={e => (e.target.style.borderColor = 'rgba(255, 255, 255, 0.14)')}
-            />
-            {search && (
-              <button
-                onClick={() => setSearch('')}
-                style={{
-                  position: 'absolute',
-                  right: '8px',
-                  background: 'transparent',
-                  border: 'none',
-                  color: 'rgba(255, 255, 255, 0.5)',
-                  cursor: 'pointer',
-                  padding: 0,
-                  fontSize: '12px'
-                }}
-              >
-                ✕
-              </button>
-            )}
-          </div>
-
           <button
             onClick={onClose}
             style={{
@@ -195,19 +129,16 @@ export default function AvatarPickerModal({ student, onClose, onAvatarSelected }
           </button>
         </div>
 
-        {/* ── Categories Bar (Scrollbar completely hidden) ── */}
+        {/* ── Categories Section (Proper wrapping, all categories accessible including Arts & Tech after Sports) ── */}
         <div
-          className="avatar-scroll-hide"
           style={{
-            padding: '10px 20px',
+            padding: '12px 20px',
             display: 'flex',
+            flexWrap: 'wrap',
             gap: '8px',
-            overflowX: 'auto',
-            overflowY: 'hidden',
+            alignItems: 'center',
             borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-            background: 'rgba(255, 255, 255, 0.02)',
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none'
+            background: 'rgba(255, 255, 255, 0.02)'
           }}
         >
           {AVATAR_CATEGORIES.map(cat => {
@@ -250,52 +181,29 @@ export default function AvatarPickerModal({ student, onClose, onAvatarSelected }
             minHeight: '340px'
           }}
         >
-          {filteredAvatars.length === 0 ? (
-            <div style={{
-              gridColumn: '1 / -1',
-              textAlign: 'center',
-              padding: '48px 16px',
-              color: 'rgba(255, 255, 255, 0.5)'
-            }}>
-              <p style={{ fontSize: '14px', margin: '0 0 6px 0' }}>No avatars matched "{search}"</p>
-              <button
-                onClick={() => { setSearch(''); setActiveCategory('all'); }}
+          {filteredAvatars.map(avatar => {
+            const isSelected = selectedId === avatar.id;
+            return (
+              <div
+                key={avatar.id}
+                className="avatar-card-hover"
                 style={{
-                  ...glassBtn,
-                  padding: '6px 14px',
-                  borderRadius: '10px',
-                  fontSize: '12px',
-                  color: '#38bdf8'
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'flex-start'
                 }}
               >
-                View all 63 avatars
-              </button>
-            </div>
-          ) : (
-            filteredAvatars.map(avatar => {
-              const isSelected = selectedId === avatar.id;
-              return (
-                <div
-                  key={avatar.id}
-                  className="avatar-card-hover"
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'flex-start'
-                  }}
-                >
-                  <AvatarBubble
-                    avatar={avatar}
-                    size={62}
-                    isSelected={isSelected}
-                    onClick={() => handleSelect(avatar)}
-                    showLabel={true}
-                  />
-                </div>
-              );
-            })
-          )}
+                <AvatarBubble
+                  avatar={avatar}
+                  size={62}
+                  isSelected={isSelected}
+                  onClick={() => handleSelect(avatar)}
+                  showLabel={true}
+                />
+              </div>
+            );
+          })}
         </div>
 
         {/* ── Modal Footer ── */}

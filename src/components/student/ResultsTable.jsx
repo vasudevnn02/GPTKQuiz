@@ -6,10 +6,48 @@ export default function ResultsTable({ results = {}, student, onViewBreakdown })
   const studentResults = Object.values(results).filter((r) => r.rollNo === student?.rollNo);
 
   return (
-    <div>
+    <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
       {studentResults.length === 0 ? (
-        <div style={{ background: 'rgba(255, 255, 255, 0.04)', backdropFilter: 'blur(30px)', border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: '20px', padding: '40px 24px', textAlign: 'center', color: 'rgba(255, 255, 255, 0.6)' }}>
-          No completed examinations on record for {student?.name} ({student?.rollNo}).
+        <div style={{
+          flex: 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: 'calc(100vh - 160px)'
+        }}>
+          <div className="liqglass" style={{
+            borderRadius: '24px',
+            padding: '48px 36px',
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '14px',
+            maxWidth: '520px',
+            width: '100%'
+          }}>
+            <div style={{
+              width: '48px',
+              height: '48px',
+              borderRadius: '14px',
+              background: 'rgba(56, 189, 248, 0.15)',
+              border: '1px solid rgba(56, 189, 248, 0.35)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#38bdf8'
+            }}>
+              <AwardIcon size={24} color="#38bdf8" />
+            </div>
+            <div>
+              <div style={{ fontSize: '18px', fontWeight: 800, color: '#ffffff', marginBottom: '6px' }}>
+                No Completed Examinations
+              </div>
+              <div style={{ fontSize: '13px', color: 'rgba(255, 255, 255, 0.65)', lineHeight: '1.6' }}>
+                Completed test results and detailed score breakdowns for {student?.name || 'student'} ({student?.rollNo}) will appear here.
+              </div>
+            </div>
+          </div>
         </div>
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>

@@ -5,10 +5,10 @@
 
 export const AVATAR_CATEGORIES = [
   { id: 'all', label: 'All (63)' },
-  { id: 'nature_animals', label: '🐾 Animals & Wildlife (13)' },
-  { id: 'places_world', label: '🏛️ World Landmarks (15)' },
-  { id: 'food_drinks', label: '🍰 Treats & Food (9)' },
-  { id: 'sports_people', label: '🏃 Sports & People (14)' },
+  { id: 'nature_animals', label: '🐾 Animals (13)' },
+  { id: 'places_world', label: '🏛️ Landmarks (15)' },
+  { id: 'food_drinks', label: '🍰 Food & Treats (9)' },
+  { id: 'sports_people', label: '🏃 Sports (14)' },
   { id: 'arts_tech', label: '💡 Arts & Tech (12)' },
 ];
 

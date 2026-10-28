@@ -39,17 +39,35 @@ export default function UpcomingExamGrid({ quizzes = {}, results = {}, student }
         }}>
           <div className="liqglass" style={{
             borderRadius: '24px',
-            padding: '56px 48px',
+            padding: '48px 36px',
             textAlign: 'center',
-            maxWidth: '480px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '14px',
+            maxWidth: '520px',
             width: '100%'
           }}>
-            <div style={{ fontSize: '42px', marginBottom: '16px' }}>📋</div>
-            <div style={{ fontSize: '18px', fontWeight: 800, color: '#ffffff', marginBottom: '8px' }}>
-              No Scheduled Assessments
+            <div style={{
+              width: '48px',
+              height: '48px',
+              borderRadius: '14px',
+              background: 'rgba(56, 189, 248, 0.15)',
+              border: '1px solid rgba(56, 189, 248, 0.35)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#38bdf8'
+            }}>
+              <ClockIcon size={24} color="#38bdf8" />
             </div>
-            <div style={{ fontSize: '13px', color: 'rgba(255, 255, 255, 0.6)', lineHeight: '1.6' }}>
-              All active quizzes are currently available in the Exam Center.
+            <div>
+              <div style={{ fontSize: '18px', fontWeight: 800, color: '#ffffff', marginBottom: '6px' }}>
+                No Scheduled Assessments
+              </div>
+              <div style={{ fontSize: '13px', color: 'rgba(255, 255, 255, 0.65)', lineHeight: '1.6' }}>
+                All active quizzes are currently available in the Exam Center.
+              </div>
             </div>
           </div>
         </div>
