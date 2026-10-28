@@ -83,18 +83,16 @@ export default function QuestionView({
                 alignItems: 'center',
                 gap: '16px',
                 padding: '16px 22px',
-                background: isSelected
-                  ? 'rgba(56, 189, 248, 0.16)'
-                  : 'rgba(255, 255, 255, 0.08)',
-                border: '1.5px solid transparent',
-                backdropFilter: 'blur(28px) saturate(180%)',
-                WebkitBackdropFilter: 'blur(28px) saturate(180%)',
+                border: isSelected ? '3px solid #38bdf8' : '3px solid hsl(0, 0%, 100%, 0.3)',
+                background: isSelected ? 'hsla(199, 89%, 48%, 0.25)' : 'hsl(0, 0%, 100%, 0.2)',
+                backdropFilter: 'blur(2px)',
+                WebkitBackdropFilter: 'blur(2px)',
                 borderRadius: '22px',
                 textAlign: 'left',
                 color: '#ffffff',
                 boxShadow: isSelected
-                  ? '0 0 0 2px #38bdf8, 0 16px 32px rgba(2, 132, 199, 0.35), inset 0 1.5px 1px rgba(255, 255, 255, 0.65)'
-                  : '0 0 0 1.5px rgba(255, 255, 255, 0.45), 0 16px 32px rgba(0, 0, 0, 0.18), inset 0 1.5px 1px rgba(255, 255, 255, 0.55)',
+                  ? '0 0 16px rgba(56, 189, 248, 0.4), 0 8px 24px rgba(0, 0, 0, 0.2)'
+                  : '0 8px 24px rgba(0, 0, 0, 0.2)',
                 transition: 'all 0.18s cubic-bezier(0.16, 1, 0.3, 1)',
                 cursor: 'pointer'
               }}

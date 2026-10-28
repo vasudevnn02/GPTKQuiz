@@ -23,11 +23,11 @@ export default function AuthCard({ onStudentLogin, onStudentRegister, onTeacherL
       <div style={{
         maxWidth: '440px',
         width: '100%',
-        background: 'rgba(255, 255, 255, 0.08)',
-        backdropFilter: 'blur(30px) saturate(190%)',
-        WebkitBackdropFilter: 'blur(30px) saturate(190%)',
-        border: '2px solid transparent',
-        boxShadow: '0 0 0 2px rgba(255, 255, 255, 0.6), 0 20px 50px rgba(0, 0, 0, 0.35), inset 0 1.5px 1px rgba(255, 255, 255, 0.75)',
+        border: '3px solid hsl(0, 0%, 100%, 0.3)',
+        background: 'hsl(0, 0%, 100%, 0.2)',
+        backdropFilter: 'blur(2px)',
+        WebkitBackdropFilter: 'blur(2px)',
+        boxShadow: '0 16px 40px rgba(0, 0, 0, 0.3)',
         borderRadius: '28px',
         padding: '38px 32px',
       }}>

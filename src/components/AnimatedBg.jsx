@@ -1,17 +1,19 @@
 import React, { useMemo } from 'react';
 
-// Exact match to User's Screenshot 1:
-// Deep black/navy cosmic background with an intense, vibrant electric cyan-blue glow
-// blooming from the center-top and illuminating the frosted glass cards.
 export default function AnimatedBg() {
   const stars = useMemo(() => {
     const list = [];
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 65; i++) {
+      const duration = 6 + (i % 7) * 2.5; // 6s to 21s
+      const delay = -(i % 12) * 1.5;
+      const size = i % 4 === 0 ? 2.5 : i % 2 === 0 ? 1.8 : 1.2;
       list.push({
-        top: `${(i * 23 + 7) % 100}%`,
-        left: `${(i * 31 + 17) % 100}%`,
-        size: (i % 3 === 0 ? 2 : 1.2),
-        opacity: 0.3 + ((i % 4) * 0.15),
+        top: `${(i * 17 + 5) % 100}%`,
+        left: `${(i * 29 + 11) % 100}%`,
+        size,
+        duration: `${duration}s`,
+        delay: `${delay}s`,
+        isSlow: i % 2 === 0,
       });
     }
     return list;
@@ -19,49 +21,50 @@ export default function AnimatedBg() {
 
   return (
     <div style={{
-      position: 'fixed', inset: 0, zIndex: 0,
-      overflow: 'hidden', pointerEvents: 'none',
-      backgroundColor: '#020611',
+      position: 'fixed',
+      inset: 0,
+      zIndex: 0,
+      overflow: 'hidden',
+      pointerEvents: 'none',
+      backgroundColor: '#030816',
     }}>
-      {/* 1. Base Deep Midnight Canvas */}
+      {/* 1. Deep Navy & Normal Blue Combination Canvas */}
       <div style={{
-        position: 'absolute', inset: 0,
-        background: 'linear-gradient(180deg, #020716 0%, #01040a 100%)',
+        position: 'absolute',
+        inset: 0,
+        background: 'radial-gradient(ellipse at 50% 0%, #0c2b66 0%, #07183e 40%, #030a1c 80%, #01040e 100%)',
       }} />
 
-      {/* 2. Vibrant Electric Cyan-Blue Glowing Aura (Exact bloom from image 1) */}
-      <div
-        style={{
-          position: 'absolute',
-          width: '920px',
-          height: '520px',
-          top: '12%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          borderRadius: '50%',
-          background: 'radial-gradient(ellipse at 50% 50%, #00b4d8 0%, #0077b6 35%, #023e8a 65%, transparent 80%)',
-          filter: 'blur(55px)',
-          opacity: 0.95,
-        }}
-      />
+      {/* 2. Subtler Darker Ambient Blue Glow (not bright cyan) */}
+      <div style={{
+        position: 'absolute',
+        width: '900px',
+        height: '500px',
+        top: '10%',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        borderRadius: '50%',
+        background: 'radial-gradient(ellipse at 50% 50%, rgba(29, 78, 216, 0.4) 0%, rgba(30, 58, 138, 0.22) 45%, transparent 75%)',
+        filter: 'blur(60px)',
+        opacity: 0.8,
+        animation: 'cosmicCoreBreathing 12s ease-in-out infinite',
+      }} />
 
-      {/* 3. Subtle Cyan Core Flare */}
-      <div
-        style={{
-          position: 'absolute',
-          width: '450px',
-          height: '280px',
-          top: '18%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          borderRadius: '50%',
-          background: 'radial-gradient(ellipse at 50% 50%, #48cae4 0%, #0096c7 50%, transparent 80%)',
-          filter: 'blur(40px)',
-          opacity: 0.85,
-        }}
-      />
+      {/* 3. Subtle secondary soft blue floor glow */}
+      <div style={{
+        position: 'absolute',
+        width: '1100px',
+        height: '400px',
+        bottom: '-10%',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        borderRadius: '50%',
+        background: 'radial-gradient(ellipse at 50% 50%, rgba(29, 78, 216, 0.25) 0%, rgba(15, 23, 42, 0.15) 50%, transparent 80%)',
+        filter: 'blur(70px)',
+        opacity: 0.7,
+      }} />
 
-      {/* 4. Subtle Distant Tiny Stars from screenshot 1 & 2 */}
+      {/* 4. Animated Moving Stars */}
       {stars.map((s, idx) => (
         <div
           key={`star-${idx}`}
@@ -72,9 +75,10 @@ export default function AnimatedBg() {
             width: `${s.size}px`,
             height: `${s.size}px`,
             borderRadius: '50%',
-            backgroundColor: idx % 2 === 0 ? '#bbf2ff' : '#ffffff',
-            opacity: s.opacity,
-            boxShadow: `0 0 4px ${idx % 2 === 0 ? '#00e5ff' : '#ffffff'}`,
+            backgroundColor: idx % 3 === 0 ? '#93c5fd' : '#ffffff',
+            boxShadow: `0 0 6px ${idx % 3 === 0 ? '#60a5fa' : '#ffffff'}`,
+            animation: `${s.isSlow ? 'starDriftSlow' : 'starDrift'} ${s.duration} ease-in-out infinite alternate`,
+            animationDelay: s.delay,
           }}
         />
       ))}
