@@ -1,121 +1,196 @@
-import React from 'react';
-import { LogOutIcon } from '../icons/SvgIcons.jsx';
+import React, { useState, useEffect } from 'react';
+import { LogOutIcon, TargetIcon, CalendarIcon, TrophyIcon, ClockIcon } from '../icons/SvgIcons.jsx';
 import { glass, glassBtn } from '../../glass.js';
 
 const TABS = [
-  { id: 'live',     label: '🎯  Exam Center' },
-  { id: 'upcoming', label: '📅  Upcoming Tests' },
-  { id: 'results',  label: '🏆  My Results' },
+  { id: 'live',     label: 'Exam Center',    icon: TargetIcon },
+  { id: 'upcoming', label: 'Upcoming Tests', icon: CalendarIcon },
+  { id: 'results',  label: 'My Results',     icon: TrophyIcon },
 ];
 
 export default function StudentTopNav({ user, onLogout, activeTab, onSelectTab }) {
   const initial = user?.name ? user.name.charAt(0).toUpperCase() : 'S';
 
+  // Live ticking date and clock
+  const [time, setTime] = useState(() => new Date());
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const dayName = time.toLocaleDateString('en-US', { weekday: 'short' });
+  const dateStr = time.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  const timeStr = time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+
   return (
     <header className="liqglass" style={{
+      ...glass,
       borderRadius: 0,
+      borderTop: 'none',
+      borderLeft: 'none',
+      borderRight: 'none',
       position: 'sticky',
       top: 0,
       zIndex: 50,
-      animation: 'none',
+      padding: '0 24px',
+      height: '66px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: '16px',
     }}>
-      {/* ── ROW 1: Brand + User + Exit ── */}
-      <div style={{
-        height: '60px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '0 28px',
-        borderBottom: '1px solid rgba(255,255,255,0.07)',
-      }}>
-        {/* Brand */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ fontSize: '20px', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.3px' }}>GPTK Quiz</span>
-          <span style={{
-            fontSize: '10px', color: '#ffffff',
-            background: 'rgba(255,255,255,0.12)',
-            border: '1px solid rgba(255,255,255,0.22)',
-            padding: '3px 9px', borderRadius: '10px',
-            textTransform: 'uppercase', letterSpacing: '0.6px', fontWeight: 700
-          }}>STUDENT</span>
+      {/* ── LEFT: Brand Logo & Student Tag ── */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
+        <div style={{
+          width: '34px',
+          height: '34px',
+          borderRadius: '11px',
+          background: 'rgba(255, 255, 255, 0.08)',
+          border: '1px solid rgba(255, 255, 255, 0.22)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: '#ffffff',
+          fontWeight: 800,
+          fontSize: '14px',
+          boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.35)',
+        }}>
+          G
         </div>
-
-        {/* User + Exit */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: '13px', fontWeight: 700, color: '#ffffff' }}>{user?.name || 'Student'}</div>
-              <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.55)' }}>{user?.rollNo}</div>
-            </div>
-            <div style={{
-              width: '36px', height: '36px', borderRadius: '50%',
-              background: 'rgba(56,189,248,0.25)', color: '#fff',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontWeight: 800, fontSize: '14px',
-              border: '1px solid rgba(56,189,248,0.5)',
-              boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.4)'
-            }}>
-              {initial}
-            </div>
-          </div>
-          <button onClick={onLogout} style={{
-            ...glassBtn, padding: '7px 14px', borderRadius: '10px',
-            display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px'
-          }}>
-            <LogOutIcon size={13} color="rgba(255,255,255,0.95)" />
-            <span>Exit</span>
-          </button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '3px' }}>
+          <span style={{ fontSize: '18px', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.3px' }}>GPTK</span>
+          <span style={{ fontSize: '18px', fontWeight: 800, color: '#38bdf8', letterSpacing: '-0.3px' }}>Quiz</span>
         </div>
+        <span style={{
+          fontSize: '10px',
+          color: '#38bdf8',
+          background: 'rgba(56, 189, 248, 0.14)',
+          border: '1px solid rgba(56, 189, 248, 0.35)',
+          padding: '2px 8px',
+          borderRadius: '8px',
+          textTransform: 'uppercase',
+          letterSpacing: '0.6px',
+          fontWeight: 800,
+        }}>
+          STUDENT
+        </span>
       </div>
 
-      {/* ── ROW 2: Tab Snackbar ── */}
-      <div style={{
-        height: '50px',
-        display: 'flex',
+      {/* ── CENTER: Decent Unified Tab Pill Group ── */}
+      <nav style={{
+        display: 'inline-flex',
         alignItems: 'center',
-        justifyContent: 'center',
-        padding: '0 28px',
-        gap: '6px',
+        background: 'rgba(255, 255, 255, 0.04)',
+        border: '1px solid rgba(255, 255, 255, 0.16)',
+        borderRadius: '16px',
+        padding: '3px',
+        gap: '4px',
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
       }}>
+        {TABS.map(tab => {
+          const isActive = activeTab === tab.id;
+          const Icon = tab.icon;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => onSelectTab(tab.id)}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '8px 18px',
+                borderRadius: '12px',
+                fontSize: '13px',
+                fontWeight: isActive ? 800 : 600,
+                color: isActive ? '#ffffff' : 'rgba(255, 255, 255, 0.7)',
+                background: isActive
+                  ? 'rgba(56, 189, 248, 0.22)'
+                  : 'transparent',
+                border: isActive
+                  ? '1px solid rgba(56, 189, 248, 0.55)'
+                  : '1px solid transparent',
+                boxShadow: isActive
+                  ? '0 2px 12px rgba(56, 189, 248, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.35)'
+                  : 'none',
+                transition: 'all 0.18s ease',
+                whiteSpace: 'nowrap',
+                cursor: 'pointer',
+              }}
+            >
+              <Icon size={15} color={isActive ? '#38bdf8' : 'rgba(255, 255, 255, 0.65)'} />
+              <span>{tab.label}</span>
+            </button>
+          );
+        })}
+      </nav>
+
+      {/* ── RIGHT: Live Date & Time + Student Profile + Exit ── */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0 }}>
+        {/* Live Date, Day & Time Stamp Pill */}
         <div style={{
-          display: 'inline-flex',
-          background: 'rgba(255,255,255,0.05)',
-          border: '1px solid rgba(255,255,255,0.12)',
-          borderRadius: '16px',
-          padding: '4px',
-          gap: '4px',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          background: 'rgba(255, 255, 255, 0.05)',
+          border: '1px solid rgba(255, 255, 255, 0.18)',
+          borderRadius: '12px',
+          padding: '6px 14px',
+          fontSize: '12px',
+          fontWeight: 600,
+          color: 'rgba(255, 255, 255, 0.9)',
+          boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+          whiteSpace: 'nowrap',
         }}>
-          {TABS.map(tab => {
-            const isActive = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => onSelectTab(tab.id)}
-                style={{
-                  padding: '7px 22px',
-                  borderRadius: '12px',
-                  fontSize: '13px',
-                  fontWeight: isActive ? 800 : 600,
-                  color: isActive ? '#ffffff' : 'rgba(255,255,255,0.6)',
-                  background: isActive
-                    ? 'linear-gradient(135deg, rgba(56,189,248,0.35) 0%, rgba(2,132,199,0.35) 100%)'
-                    : 'transparent',
-                  border: isActive
-                    ? '1px solid rgba(56,189,248,0.5)'
-                    : '1px solid transparent',
-                  boxShadow: isActive ? '0 2px 12px rgba(56,189,248,0.25), inset 0 1px 0 rgba(255,255,255,0.25)' : 'none',
-                  transition: 'all 0.18s ease',
-                  whiteSpace: 'nowrap',
-                  letterSpacing: '0.2px',
-                }}
-              >
-                {tab.label}
-              </button>
-            );
-          })}
+          <ClockIcon size={14} color="#38bdf8" />
+          <span>{dayName}, {dateStr} • {timeStr}</span>
         </div>
+
+        {/* Student Avatar & Roll */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '9px' }}>
+          <div style={{ textAlign: 'right', lineHeight: '1.2' }}>
+            <div style={{ fontSize: '13px', fontWeight: 700, color: '#ffffff' }}>
+              {user?.name || 'Student'}
+            </div>
+            <div style={{ fontSize: '11px', color: 'rgba(255, 255, 255, 0.55)' }}>
+              {user?.rollNo}
+            </div>
+          </div>
+          <div style={{
+            width: '34px',
+            height: '34px',
+            borderRadius: '50%',
+            background: 'rgba(56, 189, 248, 0.22)',
+            color: '#ffffff',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontWeight: 800,
+            fontSize: '13px',
+            border: '1px solid rgba(56, 189, 248, 0.5)',
+            boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.4)',
+          }}>
+            {initial}
+          </div>
+        </div>
+
+        {/* Exit Button */}
+        <button
+          onClick={onLogout}
+          style={{
+            ...glassBtn,
+            padding: '7px 14px',
+            borderRadius: '11px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            fontSize: '12px',
+            fontWeight: 700,
+          }}
+        >
+          <LogOutIcon size={13} color="rgba(255, 255, 255, 0.95)" />
+          <span>Exit</span>
+        </button>
       </div>
     </header>
   );

@@ -1,17 +1,27 @@
-import React from 'react';
-import { LogOutIcon } from '../icons/SvgIcons.jsx';
+import React, { useState, useEffect } from 'react';
+import { LogOutIcon, CalendarIcon, UserIcon } from '../icons/SvgIcons.jsx';
 import { glass, glassBtn } from '../../glass.js';
 
 export default function TeacherTopNav({ admin, activeTab, onSelectTab, onLogout }) {
-  const now = new Date();
-  const dateStr = now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
-  const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+  const [time, setTime] = useState(() => new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const dayStr = time.toLocaleDateString('en-US', { weekday: 'short' });
+  const dateStr = time.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  const timeStr = time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
 
   return (
     <header className="liqglass" style={{
       ...glass,
       borderRadius: 0,
-      height: '64px',
+      borderTop: 'none',
+      borderLeft: 'none',
+      borderRight: 'none',
+      height: '66px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -24,11 +34,11 @@ export default function TeacherTopNav({ admin, activeTab, onSelectTab, onLogout 
       {/* 1. Left: Brand Logo & Title */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
         <div style={{
-          width: '32px', height: '32px', borderRadius: '10px',
-          background: 'rgba(255, 255, 255, 0.1)',
-          border: '1px solid rgba(255, 255, 255, 0.2)',
+          width: '34px', height: '34px', borderRadius: '11px',
+          background: 'rgba(255, 255, 255, 0.08)',
+          border: '1px solid rgba(255, 255, 255, 0.22)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color: '#ffffff', fontWeight: 800, fontSize: '13px',
+          color: '#ffffff', fontWeight: 800, fontSize: '14px',
           boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.3)'
         }}>
           G
@@ -39,10 +49,10 @@ export default function TeacherTopNav({ admin, activeTab, onSelectTab, onLogout 
         </div>
       </div>
 
-      {/* 2. Center: Live Date & Time Stamp Badge */}
+      {/* 2. Center: Live Date, Day & Time Stamp Badge */}
       <div style={{
-        background: 'rgba(255, 255, 255, 0.06)',
-        border: '1px solid rgba(255, 255, 255, 0.16)',
+        background: 'rgba(255, 255, 255, 0.05)',
+        border: '1px solid rgba(255, 255, 255, 0.18)',
         borderRadius: '12px',
         padding: '7px 16px',
         fontSize: '12px',
@@ -53,8 +63,8 @@ export default function TeacherTopNav({ admin, activeTab, onSelectTab, onLogout 
         gap: '8px',
         boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2)'
       }}>
-        <span>📅</span>
-        <span>{dateStr} • {timeStr}</span>
+        <CalendarIcon size={14} color="#38bdf8" />
+        <span>{dayStr}, {dateStr} • {timeStr}</span>
       </div>
 
       {/* 3. Right: Lecturer / Faculty Tag & Logout */}
@@ -69,10 +79,10 @@ export default function TeacherTopNav({ admin, activeTab, onSelectTab, onLogout 
           color: '#ffffff',
           display: 'flex',
           alignItems: 'center',
-          gap: '6px',
+          gap: '7px',
           boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2)'
         }}>
-          <span>👤</span>
+          <UserIcon size={14} color="#38bdf8" />
           <span>Lecturer: {admin?.name || 'Faculty Administrator'}</span>
         </div>
 

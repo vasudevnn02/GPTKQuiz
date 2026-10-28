@@ -273,13 +273,13 @@ export default function PackCard({ quiz, onEditQuestion, onAddQuestion, onAiImpo
                   </span>
                 </div>
                 <div style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.65)', marginTop: '4px', display: 'flex', gap: '10px', alignItems: 'center' }}>
-                  <span>📅 {quiz.date || 'Today'}</span>
+                  <span>{quiz.date || 'Today'}</span>
                   <span>•</span>
-                  <span>⏰ {quiz.windowStart || '10:00 AM'} – {quiz.windowEnd || '05:00 PM'}</span>
+                  <span>{quiz.windowStart || '10:00 AM'} – {quiz.windowEnd || '05:00 PM'}</span>
                   <span>•</span>
-                  <span>⏳ {quiz.durationMinutes || 15} min</span>
+                  <span>{quiz.durationMinutes || 15} min</span>
                   <span>•</span>
-                  <span>📝 {questions.length} questions</span>
+                  <span>{questions.length} questions</span>
                 </div>
               </div>
 

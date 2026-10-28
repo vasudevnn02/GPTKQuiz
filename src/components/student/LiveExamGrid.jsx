@@ -1,6 +1,6 @@
 import React from 'react';
 import QuizCardItem from './QuizCardItem.jsx';
-import { PlayIcon } from '../icons/SvgIcons.jsx';
+import { RadioIcon } from '../icons/SvgIcons.jsx';
 
 export default function LiveExamGrid({ quizzes = {}, results = {}, student, onStartExam, onViewResult }) {
   const quizList = Object.values(quizzes);
@@ -9,7 +9,7 @@ export default function LiveExamGrid({ quizzes = {}, results = {}, student, onSt
     <div>
       <div style={{ marginBottom: '22px' }}>
         <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#ffffff', display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <span style={{ color: '#0a84ff' }}><PlayIcon size={20} /></span>
+          <span style={{ color: '#38bdf8', display: 'flex', alignItems: 'center' }}><RadioIcon size={20} color="#38bdf8" /></span>
           <span>Today's Examination Window (10:00 AM – 05:00 PM)</span>
         </h2>
         <p style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.55)', marginTop: '4px' }}>

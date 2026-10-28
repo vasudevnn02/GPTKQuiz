@@ -16,6 +16,7 @@ import RunnerHeader from './components/runner/RunnerHeader.jsx';
 import QuestionView from './components/runner/QuestionView.jsx';
 import QuestionRail from './components/runner/QuestionRail.jsx';
 import AntiCheatGuard from './components/runner/AntiCheatGuard.jsx';
+import { MessageIcon } from './components/icons/SvgIcons.jsx';
 
 import TeacherTopNav from './components/teacher/TeacherTopNav.jsx';
 import StudentScoreboard from './components/teacher/StudentScoreboard.jsx';
@@ -123,7 +124,7 @@ export default function App() {
                     gap: '6px'
                   }}
                 >
-                  <span>💬</span>
+                  <MessageIcon size={14} color={teacherTab === 'results' ? '#38bdf8' : 'rgba(255,255,255,0.7)'} />
                   <span>Student Results & WhatsApp Hub ({Object.keys(results).length})</span>
                 </button>
               </div>

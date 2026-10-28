@@ -1,5 +1,5 @@
 import React from 'react';
-import { ClockIcon } from '../icons/SvgIcons.jsx';
+import { CalendarIcon, ClockIcon } from '../icons/SvgIcons.jsx';
 
 export default function UpcomingExamGrid() {
   const upcomingList = [
@@ -22,7 +22,7 @@ export default function UpcomingExamGrid() {
   return (
     <div>
       <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#ffffff', display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
-        <span style={{ color: '#0a84ff' }}><ClockIcon size={22} /></span>
+        <span style={{ color: '#38bdf8', display: 'flex', alignItems: 'center' }}><CalendarIcon size={20} color="#38bdf8" /></span>
         <span>Scheduled Examination Roster</span>
       </h2>
       <p style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.55)', marginBottom: '22px' }}>
