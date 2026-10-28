@@ -37,7 +37,7 @@ export default function StudentRegisterForm({ onRegister, loading, error, onSwit
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
       {/* Student Name */}
       <div>
-        <label style={{ display: 'block', fontSize: '13px', fontWeight: 800, color: '#ffffff', marginBottom: '7px' }}>
+        <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: 'rgba(255,255,255,0.7)', marginBottom: '7px' }}>
           Candidate Full Name
         </label>
         <div style={{ position: 'relative' }}>
@@ -57,7 +57,7 @@ export default function StudentRegisterForm({ onRegister, loading, error, onSwit
 
       {/* Register Number */}
       <div>
-        <label style={{ display: 'block', fontSize: '13px', fontWeight: 800, color: '#ffffff', marginBottom: '7px' }}>
+        <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: 'rgba(255,255,255,0.7)', marginBottom: '7px' }}>
           Register Number / Roll No
         </label>
         <div style={{ position: 'relative' }}>
@@ -77,7 +77,7 @@ export default function StudentRegisterForm({ onRegister, loading, error, onSwit
 
       {/* Create Password */}
       <div>
-        <label style={{ display: 'block', fontSize: '13px', fontWeight: 800, color: '#ffffff', marginBottom: '7px' }}>
+        <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: 'rgba(255,255,255,0.7)', marginBottom: '7px' }}>
           Create Password
         </label>
         <div style={{ position: 'relative' }}>
@@ -107,7 +107,7 @@ export default function StudentRegisterForm({ onRegister, loading, error, onSwit
         pointerEvents: showConfirm ? 'auto' : 'none',
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '7px' }}>
-          <label style={{ fontSize: '13px', fontWeight: 800, color: '#ffffff' }}>
+          <label style={{ fontSize: '13px', fontWeight: 700, color: 'rgba(255,255,255,0.7)' }}>
             Re-enter Password
           </label>
           {confirmPassword.length > 0 && (

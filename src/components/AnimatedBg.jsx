@@ -27,13 +27,13 @@ export default function AnimatedBg() {
       zIndex: 0,
       overflow: 'hidden',
       pointerEvents: 'none',
-      backgroundColor: '#010511',
+      backgroundColor: '#00030a',
     }}>
       {/* 1. Deep Navy & Normal Blue Combination Canvas */}
       <div style={{
         position: 'absolute',
         inset: 0,
-        background: 'radial-gradient(ellipse at 50% 30%, #0e306f 0%, #071c45 42%, #030d22 75%, #01040f 100%)',
+        background: 'radial-gradient(ellipse at 50% 30%, #071840 0%, #030d22 50%, #010509 80%, #00030a 100%)',
       }} />
 
       {/* 2. Soft Ambient Deep Blue Cloud */}

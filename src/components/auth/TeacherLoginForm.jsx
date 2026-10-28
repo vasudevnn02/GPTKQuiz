@@ -14,7 +14,7 @@ export default function TeacherLoginForm({ onLogin, loading, error }) {
   return (
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <div>
-        <label style={{ display: 'block', fontSize: '13px', fontWeight: 800, color: '#ffffff', marginBottom: '7px' }}>
+        <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: 'rgba(255,255,255,0.7)', marginBottom: '7px' }}>
           Teacher Email / Admin ID
         </label>
         <div style={{ position: 'relative' }}>
@@ -33,7 +33,7 @@ export default function TeacherLoginForm({ onLogin, loading, error }) {
       </div>
 
       <div>
-        <label style={{ display: 'block', fontSize: '13px', fontWeight: 800, color: '#ffffff', marginBottom: '7px' }}>
+        <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: 'rgba(255,255,255,0.7)', marginBottom: '7px' }}>
           Passcode
         </label>
         <div style={{ position: 'relative' }}>

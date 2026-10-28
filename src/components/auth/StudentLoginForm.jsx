@@ -16,7 +16,7 @@ export default function StudentLoginForm({ onLogin, loading, error, onSwitchToRe
   return (
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <div>
-        <label style={{ display: 'block', fontSize: '13px', fontWeight: 800, color: '#ffffff', marginBottom: '7px' }}>
+        <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: 'rgba(255,255,255,0.7)', marginBottom: '7px' }}>
           Register Number
         </label>
         <div style={{ position: 'relative' }}>
@@ -35,7 +35,7 @@ export default function StudentLoginForm({ onLogin, loading, error, onSwitchToRe
       </div>
 
       <div>
-        <label style={{ display: 'block', fontSize: '13px', fontWeight: 800, color: '#ffffff', marginBottom: '7px' }}>
+        <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: 'rgba(255,255,255,0.7)', marginBottom: '7px' }}>
           Student Name
         </label>
         <input
@@ -49,7 +49,7 @@ export default function StudentLoginForm({ onLogin, loading, error, onSwitchToRe
       </div>
 
       <div>
-        <label style={{ display: 'block', fontSize: '13px', fontWeight: 800, color: '#ffffff', marginBottom: '7px' }}>
+        <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: 'rgba(255,255,255,0.7)', marginBottom: '7px' }}>
           Password
         </label>
         <div style={{ position: 'relative' }}>
